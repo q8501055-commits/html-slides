@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Humanoid Robot Tactile Sensors</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap');
+        
+        body, html {
+            margin: 0; padding: 0; height: 100%;
+            background: radial-gradient(circle at center, #0a0a1a, #000);
+            color: #0ff;
+            font-family: 'Rajdhani', sans-serif;
+            overflow: hidden;
+        }
+
+        .slides-container {
+            width: 100vw; height: 100vh;
+            display: flex;
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .slide {
+            min-width: 100vw; min-height: 100vh;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            position: relative;
+            box-sizing: border-box;
+            padding: 50px;
+        }
+
+        .glass-panel {
+            background: rgba(10, 20, 40, 0.4);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 60px;
+            width: 80%;
+            max-width: 1200px;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.1), inset 0 0 20px rgba(0, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            animation: float 6s ease-in-out infinite;
+            text-align: center;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotateX(0deg); }
+            50% { transform: translateY(-15px) rotateX(2deg); }
+            100% { transform: translateY(0px) rotateX(0deg); }
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 40px #00aaff;
+            letter-spacing: 2px;
+        }
+
+        .content {
+            font-size: 2.2em;
+            line-height: 1.6;
+            color: #e0ffff;
+            text-shadow: 0 0 5px rgba(0,255,255,0.5);
+            text-align: left;
+            display: inline-block;
+        }
+
+        ul { list-style-type: none; padding: 0; }
+        li { margin-bottom: 15px; position: relative; padding-left: 30px; }
+        li::before {
+            content: ">>";
+            position: absolute; left: 0; color: #f0f;
+            text-shadow: 0 0 10px #f0f;
+        }
+
+        .controls {
+            position: fixed; bottom: 30px; left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+        }
+
+        button {
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid #0ff;
+            color: #0ff;
+            padding: 15px 30px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2em;
+            cursor: pointer;
+            margin: 0 10px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+        }
+
+        button:hover {
+            background: rgba(0, 255, 255, 0.3);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+            text-shadow: 0 0 5px #fff;
+        }
+
+        .bg-grid {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+            transform: perspective(500px) rotateX(60deg) scale(2.5) translateY(-100px);
+            animation: moveGrid 10s linear infinite;
+        }
+
+        @keyframes moveGrid {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 40px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="slides-container" id="slides-container">
+
+        <div class="slide">
+            <div class="glass-panel">
+                <h1>Humanoid Robot Tactile Sensors</h1>
+                <div class="content">The 2026 Ultimate Industry Pipeline<br/>A Deep Dive into the Future of Robotic Touch</div>
+            </div>
+        </div>
+        <div class="slide">
+            <div class="glass-panel">
+                <h1>Executive Summary</h1>
+                <div class="content"><ul><li>Market reaching $4.5B by 2035</li><li>Shift from industrial grippers to biomimetic hands</li><li>Integration of multi-modal sensory skins</li></ul></div>
+            </div>
+        </div>
+        <div class="slide">
+            <div class="glass-panel">
+                <h1>Tactile Modalities Overview</h1>
+                <div class="content"><ul><li>Optical (GelSight, DIGIT)</li><li>Magnetic (Xela Robotics)</li><li>Piezoresistive (Tekscan)</li><li>Fluid/Impedance (SynTouch)</li></ul></div>
+            </div>
+        </div>
+        <div class="slide">
+            <div class="glass-panel">
+                <h1>Optical Sensing: High Resolution</h1>
+                <div class="content"><ul><li>Tracks deformation using embedded cameras</li><li>Pros: Extreme detail, shear force detection</li><li>Cons: Form factor constraints</li></ul></div>
+            </div>
+        </div>
+        <div class="slide">
+            <div class="glass-panel">
+                <h1>Magnetic Sensing: Xela Robotics</h1>
+                <div class="content"><ul><li>Uses 3-axis Hall effect sensors in elastomer</li><li>Pros: Highly scalable, durable</li><li>Cons: Susceptible to magnetic interference</li></ul></div>
+            </div>
+        </div>
+        <div class="slide">
+            <div class="glass-panel">
+                <h1>Biomimetic Sensing: SynTouch</h1>
+                <div class="content"><ul><li>BioTac: Mimics human finger impedance</li><li>Detects thermal gradients and micro-vibrations</li><li>Ideal for advanced texture recognition</li></ul></div>
+            </div>
+        </div>
+        <div class="slide">
+            <div class="glass-panel">
+                <h1>Resistive Arrays: Tekscan</h1>
+                <div class="content"><ul><li>Ultra-thin printed pressure mappings</li><li>Pros: Cheap, flexible, large area coverage</li><li>Cons: Hysteresis, lower shear fidelity</li></ul></div>
+            </div>
+        </div>
+        <div class="slide">
+            <div class="glass-panel">
+                <h1>Big Tech: Meta (DIGIT)</h1>
+                <div class="content"><ul><li>Open-source optical tactile sensor</li><li>Designed for AI-first manipulation</li><li>Miniaturized for dexterous robotic hands</li></ul></div>
+            </div>
+        </div>
+        <div class="slide">
+            <div class="glass-panel">
+                <h1>Big Tech: Tesla</h1>
+                <div class="content"><ul><li>Proprietary multi-modal sensors on Optimus</li><li>Focuses on durability and manufacturability</li><li>Deep integration with end-to-end neural networks</li></ul></div>
+            </div>
+        </div>
+        <div class="slide">
+            <div class="glass-panel">
+                <h1>Market Sizing (2026-2035)</h1>
+                <div class="content"><ul><li>2026: $850 Million</li><li>2030: $2.1 Billion</li><li>2035: $4.5 Billion</li><li>CAGR: 28.5% driven by humanoid commercialization</li></ul></div>
+            </div>
+        </div>
+        <div class="slide">
+            <div class="glass-panel">
+                <h1>Key Challenge: Wiring & Data Latency</h1>
+                <div class="content"><ul><li>Thousands of texels require massive bandwidth</li><li>Shift towards localized SPI/I2C buses</li><li>Neuromorphic event-based sensing as a solution</li></ul></div>
+            </div>
+        </div>
+        <div class="slide">
+            <div class="glass-panel">
+                <h1>Key Challenge: Material Wear</h1>
+                <div class="content"><ul><li>Silicone elastomers degrade over millions of cycles</li><li>Research into self-healing polymers</li><li>Replaceable 'skin' cartridges becoming standard</li></ul></div>
+            </div>
+        </div>
+        <div class="slide">
+            <div class="glass-panel">
+                <h1>AI & Visuo-Tactile Learning</h1>
+                <div class="content"><ul><li>Fusing vision and touch for robust grasping</li><li>Sim-to-real transfer with tactile simulation (e.g., TACTO)</li><li>Zero-shot slip recovery algorithms</li></ul></div>
+            </div>
+        </div>
+        <div class="slide">
+            <div class="glass-panel">
+                <h1>The Road Ahead: 2026-2030</h1>
+                <div class="content"><ul><li>Standardization of tactile API interfaces</li><li>Cost reduction from $1000/finger to $50/finger</li><li>Whole-body tactile skin on commercial robots</li></ul></div>
+            </div>
+        </div>
+        <div class="slide">
+            <div class="glass-panel">
+                <h1>Conclusion</h1>
+                <div class="content"><ul><li>Tactile sensing is the bottleneck for AGI embodiment</li><li>Clear divergence between high-res (hands) and low-res (body)</li><li>The winner will conquer scalability and durability</li></ul></div>
+            </div>
+        </div>
+    </div>
+    <div class="controls">
+        <button onclick="prevSlide()">❮ PREV</button>
+        <button onclick="nextSlide()">NEXT ❯</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const totalSlides = 15;
+        const container = document.getElementById('slides-container');
+
+        function updateSlide() {
+            container.style.transform = `translateX(-${currentSlide * 100}vw)`;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+    </script>
+</body>
+</html>
