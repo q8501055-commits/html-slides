@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中國大陸四城機器人生態深度研究 (2026優先重整版) - Neon Cyber</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet">
+    <style>
+        /* ===========================================
+           VIEWPORT FITTING: MANDATORY BASE STYLES
+           =========================================== */
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+            font-family: 'Satoshi', sans-serif;
+            background-color: #0a0f1c;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        
+        html {
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background: radial-gradient(circle at center, #121b2f 0%, #0a0f1c 100%);
+        }
+
+        /* Neon Grid Background */
+        .slide::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: linear-gradient(rgba(0, 255, 204, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 255, 204, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-height: 100%;
+            overflow: hidden;
+            padding: var(--slide-padding);
+            position: relative;
+            z-index: 10;
+        }
+
+        :root {
+            --title-size: clamp(2rem, 5vw, 4rem);
+            --h2-size: clamp(1.5rem, 3.5vw, 2.75rem);
+            --h3-size: clamp(1.2rem, 2.5vw, 1.75rem);
+            --body-size: clamp(0.9rem, 1.5vw, 1.125rem);
+            --small-size: clamp(0.75rem, 1vw, 0.875rem);
+            --slide-padding: clamp(2rem, 4vw, 4rem);
+            --content-gap: clamp(1rem, 2vw, 2rem);
+            --element-gap: clamp(0.5rem, 1vw, 1rem);
+            
+            --bento-bg: rgba(15, 23, 42, 0.6);
+            --bento-border: rgba(0, 255, 204, 0.2);
+            --primary: #00ffcc;
+            --accent: #ff00aa;
+        }
+
+        .cyber-grid {
+            display: grid;
+            gap: var(--element-gap);
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: repeat(12, 1fr);
+            height: 100%;
+            padding: var(--slide-padding);
+            z-index: 10;
+            position: relative;
+        }
+        
+        .cyber-box {
+            background: var(--bento-bg);
+            border: 1px solid var(--bento-border);
+            border-radius: 16px;
+            padding: var(--content-gap);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        /* Glitch effect top border on boxes */
+        .cyber-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary) 0%, transparent 100%);
+            opacity: 0.7;
+        }
+
+        .cyber-box.highlight {
+            border: 1px solid var(--accent);
+            background: rgba(255, 0, 170, 0.05);
+            box-shadow: 0 0 20px rgba(255, 0, 170, 0.1);
+        }
+        
+        .cyber-box.highlight::before {
+            background: linear-gradient(90deg, var(--accent) 0%, transparent 100%);
+        }
+
+        .cyber-title {
+            font-family: 'Clash Display', sans-serif;
+            font-size: var(--h3-size);
+            font-weight: 600;
+            margin-bottom: var(--element-gap);
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .highlight .cyber-title {
+            color: var(--accent);
+        }
+
+        .cyber-text {
+            font-size: var(--body-size);
+            line-height: 1.6;
+            color: #94a3b8;
+        }
+        
+        .cyber-tag {
+            display: inline-block;
+            background: rgba(0, 255, 204, 0.1);
+            color: var(--primary);
+            padding: 4px 12px;
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            border-radius: 4px;
+            font-size: var(--small-size);
+            font-weight: 700;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        h1 { font-family: 'Clash Display', sans-serif; font-size: var(--title-size); font-weight: 700; line-height: 1.2; letter-spacing: 0.02em; color: #ffffff; text-shadow: 0 0 20px rgba(0,255,204,0.3); }
+        h2 { font-family: 'Clash Display', sans-serif; font-size: var(--h2-size); font-weight: 600; line-height: 1.3; margin-bottom: var(--element-gap); color: #ffffff; }
+        
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: var(--element-gap);
+        }
+        
+        .feature-list li {
+            font-size: var(--body-size);
+            line-height: 1.5;
+            padding-left: 24px;
+            position: relative;
+            color: #cbd5e1;
+        }
+        
+        .feature-list li::before {
+            content: ">";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-family: 'Clash Display', sans-serif;
+            font-weight: bold;
+        }
+        
+        .highlight .feature-list li::before {
+            color: var(--accent);
+        }
+
+        .predictive-glow {
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-glow { 
+            0%, 100% { box-shadow: 0 0 20px rgba(0,255,204,0.2), inset 0 0 10px rgba(0,255,204,0.1); } 
+            50% { box-shadow: 0 0 40px rgba(0,255,204,0.5), inset 0 0 20px rgba(0,255,204,0.2); } 
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .slide.active .reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+
+        .progress-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: width 0.3s ease;
+            z-index: 50;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+            filter: grayscale(20%) contrast(120%);
+        }
+
+        .slide { display: none; }
+        .slide.active { display: flex; }
+        
+        /* Table Styling */
+        table {
+            width: 100%;
+            text-align: left;
+            font-size: var(--body-size);
+            border-collapse: collapse;
+        }
+        
+        th {
+            padding: 12px;
+            font-family: 'Clash Display', sans-serif;
+            color: var(--primary);
+            border-bottom: 1px solid rgba(0,255,204,0.3);
+            text-transform: uppercase;
+        }
+        
+        td {
+            padding: 12px;
+            color: #cbd5e1;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="progress-bar" id="progress"></div>
+
+    <section class="slide active" id="slide-1">
+        <div class="cyber-grid">
+            <div class="cyber-box col-span-12 row-span-12" style="justify-content: center; align-items: center; text-align: center; background: rgba(10, 15, 28, 0.7);">
+                <span class="cyber-tag reveal">2025 / 2026 優先重整版</span>
+                <h1 class="reveal delay-1 mt-4 mb-6">中國大陸四城機器人生態深度研究</h1>
+                <p class="cyber-text reveal delay-2 text-xl max-w-3xl" style="color: #e2e8f0;">與武漢出發生態系雷達網佈建策略參考<br>內部策略討論、主管決策與後續拜訪規劃</p>
+                <div class="mt-12 flex gap-4 reveal delay-3">
+                    <div class="bg-slate-800 border border-slate-700 px-6 py-3 rounded text-sm font-bold text-slate-400 uppercase tracking-widest">上海</div>
+                    <div class="bg-slate-800 border border-slate-700 px-6 py-3 rounded text-sm font-bold text-slate-400 uppercase tracking-widest">北京</div>
+                    <div class="bg-transparent border border-[#00ffcc] px-6 py-3 rounded text-sm font-bold text-[#00ffcc] uppercase tracking-widest predictive-glow">武漢</div>
+                    <div class="bg-slate-800 border border-slate-700 px-6 py-3 rounded text-sm font-bold text-slate-400 uppercase tracking-widest">深圳</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide" id="slide-2">
+        <div class="cyber-grid">
+            <div class="cyber-box col-span-12 row-span-3">
+                <h2>報告修訂結論</h2>
+                <p class="cyber-text">所有城市章節均先呈現 2025/2026 最新政策、平台、基金、學研與展示事件，再補充 2019-2024 歷史基礎。優先採用最新公開資料與官方口徑。</p>
+            </div>
+            <div class="cyber-box col-span-6 row-span-9">
+                <div class="cyber-title">資料權重規則</div>
+                <ul class="feature-list mt-4">
+                    <li><strong class="text-white">A級 (2026公開資料)：</strong>最高優先。用於確認最新政策方向、平台進展、產業規模目標與當前可執行路徑。</li>
+                    <li><strong class="text-white">B級 (2025公開資料)：</strong>新政策、新平台、新基金、新學院。用於判斷四城在具身智能與人形機器人領域的「躍遷點」。</li>
+                    <li><strong class="text-white">C級 (2019-2024資料)：</strong>僅作背景，不單獨支撐最終策略排序。用於說明城市底盤與早期積累。</li>
+                    <li><strong class="text-white">D級 (缺日期/宣傳稿)：</strong>只作線索，列為後續訪談或實地查核問題。</li>
+                </ul>
+            </div>
+            <div class="cyber-box col-span-6 row-span-9 highlight">
+                <div class="image-container h-full w-full bg-slate-900 rounded-lg flex items-center justify-center border border-[#ff00aa] border-opacity-30">
+                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="w-full h-full p-4" style="max-height: 100%;">
+                        <!-- A Level -->
+                        <polygon points="100,20 80,60 120,60" fill="#ff00aa" />
+                        <text x="100" y="50" fill="white" font-size="14" text-anchor="middle" font-weight="bold" font-family="'Clash Display', sans-serif">A級</text>
+                        <text x="145" y="50" fill="#00ffcc" font-size="10" font-weight="bold">核心戰略</text>
+                        <!-- B Level -->
+                        <polygon points="80,62 120,62 140,102 60,102" fill="#d4008d" />
+                        <text x="100" y="90" fill="white" font-size="14" text-anchor="middle" font-weight="bold" font-family="'Clash Display', sans-serif">B級</text>
+                        <text x="165" y="90" fill="#00ffcc" font-size="10" font-weight="bold">躍遷點</text>
+                        <!-- C Level -->
+                        <polygon points="60,104 140,104 160,144 40,144" fill="#9d0069" />
+                        <text x="100" y="130" fill="white" font-size="14" text-anchor="middle" font-weight="bold" font-family="'Clash Display', sans-serif">C級</text>
+                        <text x="180" y="130" fill="#00ffcc" font-size="10" font-weight="bold">背景脈絡</text>
+                        <!-- D Level -->
+                        <polygon points="40,146 160,146 180,186 20,186" fill="#610041" />
+                        <text x="100" y="170" fill="white" font-size="14" text-anchor="middle" font-weight="bold" font-family="'Clash Display', sans-serif">D級</text>
+                        <text x="198" y="170" fill="#00ffcc" font-size="10" font-weight="bold">訪談線索</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide" id="slide-3">
+        <div class="cyber-grid">
+            <div class="cyber-box col-span-12 row-span-3 border-l-4" style="border-left-color: var(--primary);">
+                <h2>本版新增或明確拉高權重的 2025 / 2026 資訊</h2>
+            </div>
+            <div class="cyber-box col-span-3 row-span-9">
+                <div class="cyber-title text-[#cbd5e1]">上海</div>
+                <p class="cyber-text text-sm">2025：異構人形機器人訓練場、具身智能仿真平台「格物」、人形機器人高質量孵化器、展示交易中心與三位一體服務矩陣。</p>
+                <div class="mt-auto pt-4 border-t border-slate-700 text-sm font-bold text-[#00ffcc]">升級：訓練/仿真/孵化/展示交易一體化</div>
+            </div>
+            <div class="cyber-box col-span-3 row-span-9">
+                <div class="cyber-title text-[#cbd5e1]">北京</div>
+                <p class="cyber-text text-sm">2025-26：北京具身智能行動計畫、海淀具身智能園區、Robot Mall 4S店、中關村具身智能園區企業集聚。</p>
+                <div class="mt-auto pt-4 border-t border-slate-700 text-sm font-bold text-[#00ffcc]">強化：政策/園區/展示/孵化鏈條</div>
+            </div>
+            <div class="cyber-box col-span-3 row-span-9 highlight predictive-glow">
+                <div class="cyber-title">武漢</div>
+                <p class="cyber-text text-sm text-white">2025-26：湖北人形機器人創新中心、100億元母基金、武大機器人學院、AI孵化器方案、光谷7S店、武漢「人工智能+」方案。</p>
+                <div class="mt-auto pt-4 border-t border-[#ff00aa] border-opacity-30 text-sm font-bold text-[#ff00aa]">躍升：母基地/中試平台/人才節點</div>
+            </div>
+            <div class="cyber-box col-span-3 row-span-9">
+                <div class="cyber-title text-[#cbd5e1]">深圳</div>
+                <p class="cyber-text text-sm">2025-26：具身智能行動計畫、南科大研究院、20億元AI產業基金、越疆影院全自主場景、十五五規劃定位。</p>
+                <div class="mt-auto pt-4 border-t border-slate-700 text-sm font-bold text-[#00ffcc]">升級：產品化/學研/商業場景同步</div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="slide" id="slide-4">
+        <div class="cyber-grid">
+            <div class="cyber-box col-span-12 row-span-4 text-center justify-center" style="align-items: center;">
+                <h2>報告雙版本架構</h2>
+                <p class="cyber-text max-w-2xl">為適應不同決策層級需求，本次報告分為兩個獨立視角</p>
+            </div>
+            <div class="cyber-box col-span-6 row-span-8">
+                <span class="cyber-tag" style="background: rgba(255,255,255,0.1); color: #cbd5e1; border-color: rgba(255,255,255,0.2);">版本一</span>
+                <div class="cyber-title text-2xl mt-4">四城生態深度研究</div>
+                <p class="cyber-text mt-4">中立視角。適合在管理層會議中建立共同認知：四城不是互斥選項，而是分工不同的節點組合。</p>
+                <ul class="feature-list mt-6">
+                    <li>上海：前沿平台、標準測試、展示交易</li>
+                    <li>北京：政策資本、具身智能平台、標杆示範</li>
+                    <li>武漢：華中共研、中試訓練、人才轉化</li>
+                    <li>深圳：硬體原型、供應鏈整合、商業落地</li>
+                </ul>
+            </div>
+            <div class="cyber-box col-span-6 row-span-8 highlight">
+                <span class="cyber-tag" style="background: rgba(255,0,170,0.2); color: #ff00aa; border-color: #ff00aa;">版本二 (核心戰略)</span>
+                <div class="cyber-title text-2xl mt-4">武漢出發的雷達網佈建策略</div>
+                <p class="cyber-text mt-4 text-white">實戰視角。前提：公司已在武漢設立據點。將策略從比較轉為武漢母基地作戰模型。</p>
+                <ul class="feature-list mt-6">
+                    <li>武漢：作為母基地與雷達中控台</li>
+                    <li>上海/北京/深圳：作為外部補位模組</li>
+                    <li>提供 90/180/360 天執行路線圖</li>
+                    <li>設計跨城 PMO 治理架構與 KPI</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide" id="slide-5">
+        <div class="cyber-grid">
+            <div class="cyber-box col-span-12 row-span-12" style="justify-content: center; align-items: center; text-align: center; border: 1px solid var(--primary); background: radial-gradient(circle at center, rgba(0,255,204,0.1) 0%, transparent 70%);">
+                <h2 class="text-[#00ffcc] text-5xl mb-4" style="text-shadow: 0 0 30px rgba(0,255,204,0.5);">版本一｜四城生態深度研究</h2>
+                <p class="text-slate-300 text-xl max-w-2xl mt-4">四城不是互斥選項，而是分工不同的節點組合。<br>依照 2025/2026 最新躍遷點重新排序。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide" id="slide-6">
+        <div class="cyber-grid">
+            <div class="cyber-box col-span-12 row-span-3">
+                <h2>四城角色總覽與決策矩陣</h2>
+            </div>
+            <div class="cyber-box col-span-12 row-span-9 overflow-hidden">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>城市</th>
+                            <th>2025/2026 最新角色</th>
+                            <th>最強能力</th>
+                            <th>第一輪建議任務</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold text-white">上海</td>
+                            <td>訓練 + 仿真 + 孵化 + 展示交易平台</td>
+                            <td>國地中心、張江、異構訓練場、格物平台</td>
+                            <td>聯合研發、測試驗證、標準合作、旗艦展示</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold text-white">北京</td>
+                            <td>政策 + 園區 + 展示 + 產業化示範平台</td>
+                            <td>具身智能行動計畫、海淀園區、Robot Mall</td>
+                            <td>政策對接、公共場景、高層品牌曝光</td>
+                        </tr>
+                        <tr style="background: rgba(0,255,204,0.1); border-left: 2px solid #00ffcc;">
+                            <td class="font-bold text-[#00ffcc]">武漢</td>
+                            <td>華中母基地 / 中試訓練 / 人才與地方基金入口</td>
+                            <td>創新中心、AI孵化器、武大機器人學院、百億基金</td>
+                            <td>本地雷達、低成本PoC、中試、人才合作</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold text-white">深圳</td>
+                            <td>產品化 / 供應鏈 / 商業場景 / 跨境加速</td>
+                            <td>南科大研究院、20億基金、越疆影院場景</td>
+                            <td>樣機、零組件、量產供應鏈、商業場景複製</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide" id="slide-7">
+        <div class="cyber-grid">
+            <div class="cyber-box col-span-12 row-span-3" style="border-left: 4px solid var(--primary);">
+                <h2>上海：前沿平台、標準測試、展示交易</h2>
+                <p class="cyber-text">由單一企業聚集，升級為可接入的「技術—測試—製造—展示—交易」鏈條。</p>
+            </div>
+            <div class="cyber-box col-span-7 row-span-9">
+                <div class="cyber-title">2025/2026 躍遷點</div>
+                <ul class="feature-list mt-4">
+                    <li><strong>異構訓練場 (25/02)：</strong>張江模力社區部署超百台異構機器人，具備資料採集與訓練平台化。</li>
+                    <li><strong>格物仿真平台 (25/03)：</strong>國地中心/上海大學/清華發布，一套代碼覆蓋百餘款機器人。</li>
+                    <li><strong>高質量孵化器 (25/03)：</strong>漕河涇孵化器含3D列印、共性測試與AI Hacker House。</li>
+                    <li><strong>展示交易中心 (25/07)：</strong>展示+製造+測試三位一體服務矩陣揭牌。</li>
+                </ul>
+            </div>
+            <div class="cyber-box col-span-5 row-span-9" style="background: rgba(255,255,255,0.02);">
+                <div class="cyber-title">策略與建議</div>
+                <p class="cyber-text mt-4"><strong>定位：</strong>適合做「驗證與展示」而非低成本試錯；提高合作可信度。<br><br><strong>行動：</strong>第一輪拜訪張江/國地中心、漕河涇與展示中心。準備一頁需求，尋找測試或展示合作。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide" id="slide-8">
+        <div class="cyber-grid">
+            <div class="cyber-box col-span-12 row-span-3" style="border-left: 4px solid #ffaa00;">
+                <h2>北京：政策資本、具身智能平台、標杆示範</h2>
+                <p class="cyber-text">從「政策強市」升級為「政策、園區、展示、孵化、產業化」一體城市。</p>
+            </div>
+            <div class="cyber-box col-span-7 row-span-9">
+                <div class="cyber-title" style="color: #ffaa00;">2025/2026 躍遷點</div>
+                <ul class="feature-list mt-4">
+                    <li><strong>具身智能行動計畫 (25/02)：</strong>目標突破100項關鍵技術、100項規模化應用。</li>
+                    <li><strong>海淀產業園 (25/03)：</strong>全國首家具身智能創新產業園揭牌。</li>
+                    <li><strong>Robot Mall 4S店 (25/08)：</strong>亦莊設立，集中展示七大類50多款機器人，最適合B2B展示。</li>
+                    <li><strong>中關村園區進展 (26/03)：</strong>引入39家硬科技企業，建設跨本體訓練場與小試中試平台。</li>
+                </ul>
+            </div>
+            <div class="cyber-box col-span-5 row-span-9" style="background: rgba(255,170,0,0.05);">
+                <div class="cyber-title" style="color: #ffaa00;">策略與建議</div>
+                <p class="cyber-text mt-4"><strong>定位：</strong>政策示範與品牌放大器，讓PoC變成政府/園區示範工程。<br><br><strong>行動：</strong>拜訪海淀園區 + 亦莊Robot Mall。準備可被政府理解的應用場景提案。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide" id="slide-9">
+        <div class="cyber-grid">
+            <div class="cyber-box col-span-12 row-span-3 highlight" style="border-left: 4px solid var(--accent);">
+                <h2>武漢：華中共研、中試訓練、人才轉化</h2>
+                <p class="cyber-text text-white">2025躍升最快城市：公共中試平台、人才平台與資本對接節點同步成形。</p>
+            </div>
+            <div class="cyber-box col-span-7 row-span-9">
+                <div class="cyber-title">2025/2026 躍遷點</div>
+                <ul class="feature-list mt-4">
+                    <li><strong class="text-white">湖北人形機器人創新中心 (25/06)：</strong>7000平米、23個場景，涵蓋數據採集與中試。</li>
+                    <li><strong class="text-white">100億元母基金 (25/07)：</strong>首期50億，連接地方產業資本。</li>
+                    <li><strong class="text-white">武大機器人學院 (25/07)：</strong>長期人才雷達與產業教授共育機制。</li>
+                    <li><strong class="text-white">AI孵化器與「人工智能+」方案：</strong>2026底建成多個標杆孵化器，2028年AI產業目標2000億。</li>
+                    <li><strong class="text-white">光谷7S店 (25/11)：</strong>研發-展示-場景閉環雛形。</li>
+                </ul>
+            </div>
+            <div class="cyber-box col-span-5 row-span-9 highlight">
+                <div class="cyber-title">策略與建議</div>
+                <p class="cyber-text mt-4 text-white"><strong>定位：</strong>需求定義、低成本驗證、中試設計、人才合作。<br><br><strong>行動：</strong>把創新中心、武大/華科列為第一批窗口。建立本地「雷達週報」。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide" id="slide-10">
+        <div class="cyber-grid">
+            <div class="cyber-box col-span-12 row-span-3" style="border-left: 4px solid #00aaff;">
+                <h2>深圳：硬體原型、供應鏈整合、商業化落地</h2>
+                <p class="cyber-text">從「供應鏈城市」升級為學研、商業場景與量產落地同步推進的產品化城市。</p>
+            </div>
+            <div class="cyber-box col-span-7 row-span-9">
+                <div class="cyber-title" style="color: #00aaff;">2025/2026 躍遷點</div>
+                <ul class="feature-list mt-4">
+                    <li><strong>具身智能行動計畫 (25/03)：</strong>目標2027年關聯產業規模1000億元以上。</li>
+                    <li><strong>20億元產業基金 (26/01)：</strong>推動算法、零部件與本體。</li>
+                    <li><strong>南科大機器人研究院 (25/02)：</strong>補足偏產業/工程的學研深度。</li>
+                    <li><strong>越疆影院場景 (26/01)：</strong>人形機器人在K11影院全自主上崗，真實驗證商業營運。</li>
+                    <li><strong>十五五規劃綱要 (26/05)：</strong>納入中期新興支柱產業敘事。</li>
+                </ul>
+            </div>
+            <div class="cyber-box col-span-5 row-span-9" style="background: rgba(0,170,255,0.05);">
+                <div class="cyber-title" style="color: #00aaff;">策略與建議</div>
+                <p class="cyber-text mt-4"><strong>定位：</strong>承接PoC之後的工程化、打樣、降本與商業場景複製。<br><br><strong>行動：</strong>拜訪AIRS、南科大、前海、供應鏈與場景方。由武漢整理規格後再到深圳找資源。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide" id="slide-11">
+        <div class="cyber-grid">
+            <div class="cyber-box col-span-12 row-span-12" style="justify-content: center; align-items: center; text-align: center; border: 1px solid var(--accent); background: radial-gradient(circle at center, rgba(255,0,170,0.15) 0%, transparent 70%);">
+                <h2 class="text-[#ff00aa] text-5xl mb-4" style="text-shadow: 0 0 30px rgba(255,0,170,0.5);">版本二｜武漢出發生態系雷達網</h2>
+                <p class="text-white text-xl max-w-2xl mt-4">核心戰略轉變：我們已在武漢，不選邊站。<br>武漢是作戰母基地，滬/京/深是補位模組。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide" id="slide-12">
+        <div class="cyber-grid">
+            <div class="cyber-box col-span-12 row-span-4">
+                <h2>從「四城比較」到「武漢母基地作戰」</h2>
+                <p class="cyber-text">將沉沒成本與在地關係轉為行動優勢。把武漢定位為日常運營、情報蒐集、低成本PoC與資源調度中樞。</p>
+            </div>
+            <div class="cyber-box col-span-6 row-span-8">
+                <div class="cyber-title" style="color: #94a3b8;">❌ 傳統中立策略</div>
+                <ul class="feature-list mt-4" style="opacity: 0.6;">
+                    <li>上海 + 深圳雙核心</li>
+                    <li>北京作為政策示範補位</li>
+                    <li>武漢作為第三節點</li>
+                    <li>四城各自獨立拜訪</li>
+                </ul>
+            </div>
+            <div class="cyber-box col-span-6 row-span-8 highlight">
+                <div class="cyber-title">✅ 改寫後的戰略</div>
+                <ul class="feature-list mt-4">
+                    <li><strong class="text-white">武漢母基地</strong> + 深圳產品補位 + 上海平台補位</li>
+                    <li>北京作為政策與<strong class="text-white">公共示範放大器</strong></li>
+                    <li>武漢<strong class="text-white">升級為雷達中控台</strong></li>
+                    <li>所有外部拜訪由武漢 <strong class="text-[#00ffcc]">PMO 統一管理需求</strong></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide" id="slide-13">
+        <div class="cyber-grid">
+            <div class="cyber-box col-span-12 row-span-3">
+                <h2>武漢生態系雷達中控台設計</h2>
+            </div>
+            <div class="cyber-box col-span-4 row-span-4" style="background: rgba(255,255,255,0.05);">
+                <div class="cyber-title text-sm" style="color: #00ffcc;">平台雷達</div>
+                <p class="cyber-text text-xs">主責：湖北人形創新中心、武創院<br>輸出：中試條件、入駐門檻<br>頻率：每兩週</p>
+            </div>
+            <div class="cyber-box col-span-4 row-span-4" style="background: rgba(255,255,255,0.05);">
+                <div class="cyber-title text-sm" style="color: #ffaa00;">學研雷達</div>
+                <p class="cyber-text text-xs">主責：武大/華科/AI平台<br>輸出：教授清單、可合作課題<br>頻率：每月</p>
+            </div>
+            <div class="cyber-box col-span-4 row-span-4" style="background: rgba(255,255,255,0.05);">
+                <div class="cyber-title text-sm" style="color: #ff00aa;">資本雷達</div>
+                <p class="cyber-text text-xs">主責：百億母基金、科投<br>輸出：投資偏好、共投機會<br>頻率：每月</p>
+            </div>
+            <div class="cyber-box col-span-6 row-span-5 highlight">
+                <div class="cyber-title">母基地三大核心任務</div>
+                <ol class="list-decimal pl-5 cyber-text mt-2 space-y-2 text-white">
+                    <li><strong>需求生成：</strong>將內部技術轉為PoC規格書。</li>
+                    <li><strong>資源過濾：</strong>武漢低成本初篩，挑出潛力項目。</li>
+                    <li><strong>跨城調度：</strong>PMO統籌拜訪紀錄與資源分派。</li>
+                </ol>
+            </div>
+            <div class="cyber-box col-span-6 row-span-5">
+                <div class="image-container h-full w-full bg-slate-900 rounded-lg flex items-center justify-center border border-[#00ffcc] border-opacity-30">
+                    <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" class="w-full h-full p-4" style="max-height: 100%;">
+                        <!-- Radar waves -->
+                        <circle cx="150" cy="100" r="40" fill="none" stroke="#00ffcc" stroke-width="1.5" opacity="0.6"/>
+                        <circle cx="150" cy="100" r="70" fill="none" stroke="#00ffcc" stroke-width="1.5" opacity="0.3"/>
+                        <circle cx="150" cy="100" r="100" fill="none" stroke="#00ffcc" stroke-width="1.5" opacity="0.1"/>
+
+                        <!-- Lines -->
+                        <line x1="150" y1="100" x2="150" y2="30" stroke="#ffaa00" stroke-width="2" stroke-dasharray="4"/>
+                        <line x1="150" y1="100" x2="60" y2="150" stroke="#ffaa00" stroke-width="2" stroke-dasharray="4"/>
+                        <line x1="150" y1="100" x2="240" y2="150" stroke="#ffaa00" stroke-width="2" stroke-dasharray="4"/>
+                        
+                        <!-- Central Node -->
+                        <circle cx="150" cy="100" r="20" fill="#ff00aa" />
+                        <circle cx="150" cy="100" r="25" fill="none" stroke="#ff00aa" stroke-width="2" />
+                        <text x="150" y="105" fill="white" font-size="14" text-anchor="middle" font-weight="bold" font-family="'Clash Display', sans-serif">武漢</text>
+                        
+                        <!-- Radar Nodes -->
+                        <circle cx="150" cy="30" r="22" fill="#00ffcc" />
+                        <text x="150" y="34" fill="#0a0f1c" font-size="12" text-anchor="middle" font-weight="bold" font-family="'Clash Display', sans-serif">平台</text>
+                        <text x="150" y="14" fill="#94a3b8" font-size="10" text-anchor="middle">創新中心/武創院</text>
+                        
+                        <circle cx="60" cy="150" r="22" fill="#00ffcc" />
+                        <text x="60" y="154" fill="#0a0f1c" font-size="12" text-anchor="middle" font-weight="bold" font-family="'Clash Display', sans-serif">學研</text>
+                        <text x="60" y="185" fill="#94a3b8" font-size="10" text-anchor="middle">武大/華科</text>
+                        
+                        <circle cx="240" cy="150" r="22" fill="#00ffcc" />
+                        <text x="240" y="154" fill="#0a0f1c" font-size="12" text-anchor="middle" font-weight="bold" font-family="'Clash Display', sans-serif">資本</text>
+                        <text x="240" y="185" fill="#94a3b8" font-size="10" text-anchor="middle">百億母基金</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide" id="slide-14">
+        <div class="cyber-grid">
+            <div class="cyber-box col-span-12 row-span-3">
+                <h2>上海 / 北京 / 深圳補位模型</h2>
+                <p class="cyber-text">武漢出發不代表只做武漢，而是先在武漢盤點需求，再精準發包給三城補位。</p>
+            </div>
+            <div class="cyber-box col-span-4 row-span-9" style="border-top: 3px solid var(--primary);">
+                <span class="cyber-tag">上海補位</span>
+                <div class="cyber-title mt-4">高能級平台與測試</div>
+                <p class="cyber-text text-sm mt-2"><strong class="text-white">觸發條件：</strong><br>武漢PoC需要外部權威平台驗證、展示或前沿技術背書。<br><br><strong class="text-white">武漢提供：</strong><br>PoC規格書、測試需求、目標展示對象。</p>
+            </div>
+            <div class="cyber-box col-span-4 row-span-9" style="border-top: 3px solid #ffaa00;">
+                <span class="cyber-tag" style="background: rgba(255,170,0,0.1); color: #ffaa00; border-color: rgba(255,170,0,0.3);">北京補位</span>
+                <div class="cyber-title mt-4" style="color: #ffaa00;">政策示範與品牌曝光</div>
+                <p class="cyber-text text-sm mt-2"><strong class="text-white">觸發條件：</strong><br>需要把武漢PoC升級為政府或園區的公共示範案例。<br><br><strong class="text-white">武漢提供：</strong><br>公共價值敘事、政策對接清單、示範場景需求。</p>
+            </div>
+            <div class="cyber-box col-span-4 row-span-9" style="border-top: 3px solid #00aaff;">
+                <span class="cyber-tag" style="background: rgba(0,170,255,0.1); color: #00aaff; border-color: rgba(0,170,255,0.3);">深圳補位</span>
+                <div class="cyber-title mt-4" style="color: #00aaff;">工程打樣與供應鏈</div>
+                <p class="cyber-text text-sm mt-2"><strong class="text-white">觸發條件：</strong><br>武漢完成初步驗證，需要工程化、硬體降本或商業複製。<br><br><strong class="text-white">武漢提供：</strong><br>BOM草案、功能規格、可靠性與成本目標。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide" id="slide-15">
+        <div class="cyber-grid">
+            <div class="cyber-box col-span-12 row-span-2">
+                <h2>90 / 180 / 360 天執行路線圖</h2>
+            </div>
+            <div class="cyber-box col-span-3 row-span-10">
+                <div class="text-xl font-bold text-[#00ffcc] mb-2 font-['Clash_Display']">0-30天</div>
+                <div class="cyber-title text-sm">盤點與建表</div>
+                <p class="cyber-text text-xs mt-2">把武漢據點變成雷達中控台。完成武漢本地10個窗口初訪。</p>
+                <div class="mt-4 p-3 bg-slate-900 border border-slate-700 rounded text-xs font-bold text-white">KPI: 30個節點建檔, 3個PoC題目</div>
+            </div>
+            <div class="cyber-box col-span-3 row-span-10 highlight">
+                <div class="text-xl font-bold text-[#ff00aa] mb-2 font-['Clash_Display']">31-90天</div>
+                <div class="cyber-title text-sm">武漢低成本驗證</div>
+                <p class="cyber-text text-xs mt-2">拜訪湖北人形中心、武創院、武大；設計第一個PoC並在本地初篩。</p>
+                <div class="mt-4 p-3 bg-[rgba(255,0,170,0.1)] border border-[#ff00aa] rounded text-xs font-bold text-white">KPI: 1個PoC進入設計, 5個固定窗口</div>
+            </div>
+            <div class="cyber-box col-span-3 row-span-10">
+                <div class="text-xl font-bold text-[#00ffcc] mb-2 font-['Clash_Display']">91-180天</div>
+                <div class="cyber-title text-sm">三城補位啟動</div>
+                <p class="cyber-text text-xs mt-2">將武漢需求分派：上海(測試)、北京(示範)、深圳(供應鏈)。</p>
+                <div class="mt-4 p-3 bg-slate-900 border border-slate-700 rounded text-xs font-bold text-white">KPI: 跨城3場有效會議, 1份供應鏈清單</div>
+            </div>
+            <div class="cyber-box col-span-3 row-span-10">
+                <div class="text-xl font-bold text-[#00ffcc] mb-2 font-['Clash_Display']">181-360天</div>
+                <div class="cyber-title text-sm">常態運營</div>
+                <p class="cyber-text text-xs mt-2">建立跨城PMO與季度管理節奏。PoC擴展與資源導入。</p>
+                <div class="mt-4 p-3 bg-slate-900 border border-slate-700 rounded text-xs font-bold text-white">KPI: 四城雷達儀表板, 1個可展示案例</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide" id="slide-16">
+        <div class="cyber-grid">
+            <div class="cyber-box col-span-12 row-span-3">
+                <h2>風險控管與決策建議</h2>
+            </div>
+            <div class="cyber-box col-span-6 row-span-9">
+                <div class="cyber-title">主要風險防範</div>
+                <ul class="feature-list mt-4 text-sm">
+                    <li><strong class="text-white">跨城PMO失控：</strong>避免資料散落，所有紀要/任務由武漢集中管理。</li>
+                    <li><strong class="text-white">資源錯配：</strong>避免過早跑深圳/北京消耗差旅。必須在武漢先生成需求書。</li>
+                    <li><strong class="text-white">IP與資料風險：</strong>簽署NDA、資料分級、明確成果歸屬。</li>
+                    <li><strong class="text-white">展示落差：</strong>參訪必問真實客戶、部署時長與故障率，不迷信展廳。</li>
+                </ul>
+            </div>
+            <div class="cyber-box col-span-6 row-span-9 highlight" style="background: rgba(255,0,170,0.1); border: 1px solid var(--accent);">
+                <div class="cyber-title text-white" style="text-shadow: 0 0 10px #ff00aa;">最終決策建議</div>
+                <p class="mt-4 text-base leading-relaxed text-white">
+                    正式採用「<span class="text-[#00ffcc] font-bold">武漢母基地</span> + 三城補位」策略。<br><br>
+                    第一階段不追求四城全面落地，而是用90天把武漢雷達網建起來。<br><br>
+                    2025/2026資料顯示四城都在加速，公司應買的是「組合能力」，不是單城排名。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Simple JS for slide navigation
+        let currentSlide = 1;
+        const totalSlides = 16;
+        
+        function updateSlide(newSlide) {
+            if (newSlide >= 1 && newSlide <= totalSlides) {
+                document.getElementById(`slide-${currentSlide}`).classList.remove('active');
+                currentSlide = newSlide;
+                document.getElementById(`slide-${currentSlide}`).classList.add('active');
+                
+                const progress = (currentSlide / totalSlides) * 100;
+                document.getElementById('progress').style.width = `${progress}%`;
+            }
+        }
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                updateSlide(currentSlide + 1);
+            } else if (e.key === 'ArrowLeft') {
+                updateSlide(currentSlide - 1);
+            }
+        });
+        
+        updateSlide(1);
+    </script>
+</body>
+</html>
