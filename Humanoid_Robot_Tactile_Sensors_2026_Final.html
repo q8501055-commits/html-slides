@@ -5,432 +5,475 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2026 人形機器人觸覺感測器產業白皮書</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Noto+Sans+TC:wght@300;400;700&display=swap');
-        
-        body, html {
-            margin: 0; padding: 0; height: 100vh; width: 100vw;
-            background: #050510;
-            color: #0ff;
-            font-family: 'Noto Sans TC', sans-serif;
-            overflow: hidden;
+        /* Viewport and Base CSS Requirements */
+        :root {
+            /* Color System - Electric Studio */
+            --bg-color: #050510;
+            --text-primary: #FFFFFF;
+            --text-secondary: rgba(255, 255, 255, 0.6);
+            --accent-primary: #00d4ff;
+            --accent-secondary: #7b2fff;
+            
+            /* Responsive Typography via clamp() */
+            --font-title: clamp(32px, 5vw, 64px);
+            --font-heading: clamp(24px, 4vw, 48px);
+            --font-subheading: clamp(18px, 3vw, 24px);
+            --font-body: clamp(14px, 1.5vw, 18px);
+            
+            /* Spatial & Grid Constraints */
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 32px;
+            --spacing-xl: 40px;
         }
 
-        .bg-grid {
-            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background-image: 
-                linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
-            background-size: 40px 40px;
-            z-index: -1;
-            transform: perspective(500px) rotateX(60deg) scale(2.5) translateY(-100px);
-            animation: moveGrid 10s linear infinite;
-        }
-
-        @keyframes moveGrid {
-            0% { background-position: 0 0; }
-            100% { background-position: 0 40px; }
-        }
-
-        .slides-container {
-            width: 100vw; height: 100vh;
-            display: flex;
-            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        .slide {
-            min-width: 100vw; min-height: 100vh;
-            display: flex; flex-direction: column;
-            justify-content: center; align-items: center;
-            position: relative;
+        * {
             box-sizing: border-box;
-            padding: 40px;
+            margin: 0;
+            padding: 0;
         }
 
-        .glass-panel {
-            background: rgba(10, 20, 40, 0.6);
-            border: 1px solid rgba(0, 255, 255, 0.2);
-            border-radius: 20px;
-            padding: 50px;
-            width: 90%;
-            max-width: 1200px;
-            max-height: 85vh;
-            overflow-y: auto;
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.1), inset 0 0 20px rgba(0, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            animation: float 6s ease-in-out infinite;
-            text-align: left;
-        }
-        
-        .glass-panel::-webkit-scrollbar { width: 8px; }
-        .glass-panel::-webkit-scrollbar-track { background: rgba(0, 255, 255, 0.05); }
-        .glass-panel::-webkit-scrollbar-thumb { background: rgba(0, 255, 255, 0.3); border-radius: 4px; }
-
-        @keyframes float {
-            0% { transform: translateY(0px) rotateX(0deg); }
-            50% { transform: translateY(-10px) rotateX(1deg); }
-            100% { transform: translateY(0px) rotateX(0deg); }
+        html, body {
+            width: 100%;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden; /* Strict overflow prevention */
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, sans-serif;
         }
 
-        h1, h2, h3 {
-            font-family: 'Orbitron', 'Noto Sans TC', sans-serif;
-            color: #fff;
-            text-shadow: 0 0 10px #0ff, 0 0 20px #00aaff;
-            letter-spacing: 1px;
-            margin-top: 0;
-            border-bottom: 1px solid rgba(0,255,255,0.3);
-            padding-bottom: 15px;
-        }
-        
-        h1 { font-size: 2.5em; text-align: center; border-bottom: none; }
-        h2 { font-size: 2em; color: #0ff; }
-
-        p, li {
-            font-size: 1.1em;
-            line-height: 1.8;
-            color: #e0ffff;
-            text-shadow: 0 0 5px rgba(0,255,255,0.3);
-            margin-bottom: 15px;
+        /* Presentation Container */
+        #presentation {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
-        .controls {
-            position: fixed; bottom: 20px; left: 50%;
-            transform: translateX(-50%);
-            z-index: 1000;
+        #presentation::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Slide Constraints */
+        .slide {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            height: 100dvh;
+            scroll-snap-align: start;
             display: flex;
-            gap: 20px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: var(--spacing-xl);
+            overflow: hidden; /* No scrolling inside slide */
         }
 
-        button {
-            background: rgba(0, 255, 255, 0.1);
-            border: 1px solid #0ff;
-            color: #0ff;
-            padding: 10px 25px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.2em;
+        /* Ambient Electric Studio Effects */
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 50% 50%, rgba(123, 47, 255, 0.05) 0%, transparent 50%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .slide-content {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 1200px;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-lg);
+        }
+
+        /* Typography */
+        h1 { font-size: var(--font-title); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; }
+        h2 { font-size: var(--font-heading); font-weight: 600; line-height: 1.3; color: var(--accent-primary); }
+        h3 { font-size: var(--font-subheading); font-weight: 500; color: var(--text-primary); }
+        p, li { font-size: var(--font-body); line-height: 1.6; color: var(--text-secondary); }
+        
+        ul { padding-left: var(--spacing-lg); }
+        li { margin-bottom: var(--spacing-sm); }
+
+        /* Electric Studio Components */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: var(--spacing-lg);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(0, 212, 255, 0.3);
+            box-shadow: 0 0 40px rgba(0, 212, 255, 0.1);
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-lg);
+            width: 100%;
+        }
+
+        /* Ghostly Agency - Predictive Highlight (Trend 1) */
+        .agentic-highlight {
+            position: relative;
+            display: inline-block;
+        }
+        .agentic-highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0; height: 2px;
+            background: var(--accent-primary);
+            box-shadow: 0 0 10px var(--accent-primary);
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .visible .reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+
+        /* Navigation Dots */
+        .nav-dots {
+            position: fixed;
+            right: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 100;
+        }
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
             cursor: pointer;
-            border-radius: 5px;
             transition: all 0.3s ease;
-            box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+        }
+        .dot.active {
+            background: var(--accent-primary);
+            box-shadow: 0 0 10px var(--accent-primary);
+            transform: scale(1.5);
         }
 
-        button:hover {
-            background: rgba(0, 255, 255, 0.3);
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
-            text-shadow: 0 0 5px #fff;
-        }
-        
-        .progress-bar {
-            position: fixed; top: 0; left: 0; height: 4px;
-            background: #0ff;
-            box-shadow: 0 0 10px #0ff;
-            z-index: 1000;
-            transition: width 0.4s ease;
-        }
-        
-        .img-placeholder {
-            margin: 20px auto;
-            display: block;
-            max-height: 35vh;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0,255,255,0.4);
-            border: 1px solid rgba(0,255,255,0.2);
+        /* Responsive Height Overrides */
+        @media (max-height: 700px) {
+            :root {
+                --spacing-lg: 16px;
+                --spacing-xl: 24px;
+            }
+            .slide-content { gap: var(--spacing-md); }
         }
     </style>
 </head>
 <body>
-    <div class="bg-grid"></div>
-    <div class="progress-bar" id="progress"></div>
-    
-    <div class="slides-container" id="slides-container">
 
-        <div class="slide">
-            <div class="glass-panel" style="text-align: center;">
-                <h1 style="font-size: 3.5em; margin-bottom: 20px;">人形機器人觸覺感測器</h1>
-                <h2 style="border: none;">2026 產業深度白皮書與技術佈局</h2>
-                <p style="text-align: center; margin-top: 30px;">完整技術細節 / 供應鏈分析 / 未來戰略</p>
-            </div>
-        </div>
+    <div class="nav-dots" id="navDots"></div>
 
-        <div class="slide">
-            <div class="glass-panel">
-                <h2>技術細節與產業分析</h2>
-<p>2026 人形機器人觸覺感測器最終白皮書
-第一章：人形機器人觸覺感測器之深度技術解析
-在現代科技的快速演進下，人形機器人已經從單純的機械自動化，邁向具備高度感知與決策能力的智慧型實體。</p><p>其中，觸覺感測器作為機器人與外界物理環境互動的最前線，其重要性不言而喻。</p><p>觸覺不僅僅是感知壓力，更是辨識物體材質、形狀、溫度、滑動摩擦等多維度物理量的關鍵。</p><p>本章將深入探討目前業界最先進的觸覺感測技術，包含壓阻式、電容式、光學式以及最新興的量子穿隧複合材料感測器。</p><p>壓阻式感測器透過材料形變改變電阻值，具備成本低廉、製程成熟的優勢，然而其遲滯效應與長期穩定性仍是產業界亟待克服的挑戰。</p><p>電容式感測器則以其高靈敏度與優異的空間解析度，成為目前靈巧手陣列感測的主流。</p><p>透過微機電系統（MEMS）技術，工程師能夠將數以百計的微小電容單元整合在指尖大小的柔性基板上。</p><p>光學式觸覺感測器（例如 GelSight 技術）則是利用彈性體形變與內部微型攝影機的結合，將物理觸覺轉化為高解析度的二維影像，再透過深度學習演算法進行三維重建與特徵萃取。</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="glass-panel">
-                <h2>技術細節與產業分析 (續)</h2>
-<p>這種跨模態的感知方式，徹底顛覆了傳統感測器的資料處理架構。</p><p>在材料科學方面，柔性可延展電子（Stretchable Electronics）的突破性進展，使得感測器能夠完美貼合機器人的三維曲面結構。</p><p>液態金屬（Liquid Metal）與奈米碳管（Carbon Nanotubes）的摻雜應用，大幅提升了感測皮膚的導電性與抗疲勞極限。</p><p>此外，具備自癒合（Self-healing）能力的特殊高分子聚合物，更讓機器人皮膚在遭受物理性損傷後，能夠在室溫或微幅加熱的條件下自行修復電氣連接，極大地延長了感測模組的使用壽命與可靠度。</p><p>第2章：進階應用與市場分析細部探討 (章節 2)
-隨著工業四點零與智慧製造的浪潮席捲全球，觸覺感測器在各個垂直應用領域的滲透率正呈現指數級的成長。</p><p>在醫療照護領域，具備高精度力回饋的機器人護理助手，能夠以極其輕柔且精確的力道，為病患進行翻身、攙扶甚至基礎的物理治療。</p><p>這不僅需要感測器具備毫牛頓級別的力量解析度，更要求系統能夠在毫秒級別內完成訊號的採集、傳輸與邊緣運算處理。</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="glass-panel">
-                <h2>技術細節與產業分析 (續)</h2>
-<p>在物流倉儲方面，面對形狀各異、材質軟硬不一的包裹，傳統基於視覺的機器手臂往往面臨抓取失敗或損傷物品的風險。</p><p>導入高密度觸覺陣列後，機器人手爪能夠在接觸物體的瞬間，即時感知接觸面積、局部應力分佈與滑動趨勢，並動態調整抓取策略。</p><p>這種「邊觸摸邊思考」的仿生抓取模式，大幅提升了自動化倉儲的作業效率與良率。</p><p>從市場經濟的角度觀之，全球觸覺感測器市場規模預計將在未來五年內突破百億美元大關。</p><p>亞太地區憑藉著龐大的製造業基礎與積極的政策扶持，已成為全球最大的市場與技術創新引擎。</p><p>然而，技術標準的碎片化、核心晶片的供應鏈風險，以及跨領域人才的短缺，仍是產業發展過程中的隱憂。</p><p>未來的競爭核心將不再僅限於感測器本身的硬體性能指標，更在於能否提供包含邊緣運算、人工智慧演算法與雲端數據分析在內的完整解決方案。</p><p>第3章：進階應用與市場分析細部探討 (章節 3)
-隨著工業四點零與智慧製造的浪潮席捲全球，觸覺感測器在各個垂直應用領域的滲透率正呈現指數級的成長。</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="glass-panel">
-                <h2>技術細節與產業分析 (續)</h2>
-<p>在醫療照護領域，具備高精度力回饋的機器人護理助手，能夠以極其輕柔且精確的力道，為病患進行翻身、攙扶甚至基礎的物理治療。</p><p>這不僅需要感測器具備毫牛頓級別的力量解析度，更要求系統能夠在毫秒級別內完成訊號的採集、傳輸與邊緣運算處理。</p><p>在物流倉儲方面，面對形狀各異、材質軟硬不一的包裹，傳統基於視覺的機器手臂往往面臨抓取失敗或損傷物品的風險。</p><p>導入高密度觸覺陣列後，機器人手爪能夠在接觸物體的瞬間，即時感知接觸面積、局部應力分佈與滑動趨勢，並動態調整抓取策略。</p><p>這種「邊觸摸邊思考」的仿生抓取模式，大幅提升了自動化倉儲的作業效率與良率。</p><p>從市場經濟的角度觀之，全球觸覺感測器市場規模預計將在未來五年內突破百億美元大關。</p><p>亞太地區憑藉著龐大的製造業基礎與積極的政策扶持，已成為全球最大的市場與技術創新引擎。</p><p>然而，技術標準的碎片化、核心晶片的供應鏈風險，以及跨領域人才的短缺，仍是產業發展過程中的隱憂。</p><p>未來的競爭核心將不再僅限於感測器本身的硬體性能指標，更在於能否提供包含邊緣運算、人工智慧演算法與雲端數據分析在內的完整解決方案。</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="glass-panel">
-                <h2>技術細節與產業分析 (續)</h2>
-<p>第4章：進階應用與市場分析細部探討 (章節 4)
-隨著工業四點零與智慧製造的浪潮席捲全球，觸覺感測器在各個垂直應用領域的滲透率正呈現指數級的成長。</p><p>在醫療照護領域，具備高精度力回饋的機器人護理助手，能夠以極其輕柔且精確的力道，為病患進行翻身、攙扶甚至基礎的物理治療。</p><p>這不僅需要感測器具備毫牛頓級別的力量解析度，更要求系統能夠在毫秒級別內完成訊號的採集、傳輸與邊緣運算處理。</p><p>在物流倉儲方面，面對形狀各異、材質軟硬不一的包裹，傳統基於視覺的機器手臂往往面臨抓取失敗或損傷物品的風險。</p><p>導入高密度觸覺陣列後，機器人手爪能夠在接觸物體的瞬間，即時感知接觸面積、局部應力分佈與滑動趨勢，並動態調整抓取策略。</p><p>這種「邊觸摸邊思考」的仿生抓取模式，大幅提升了自動化倉儲的作業效率與良率。</p><p>從市場經濟的角度觀之，全球觸覺感測器市場規模預計將在未來五年內突破百億美元大關。</p><p>亞太地區憑藉著龐大的製造業基礎與積極的政策扶持，已成為全球最大的市場與技術創新引擎。</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="glass-panel">
-                <h2>技術細節與產業分析 (續)</h2>
-<p>然而，技術標準的碎片化、核心晶片的供應鏈風險，以及跨領域人才的短缺，仍是產業發展過程中的隱憂。</p><p>未來的競爭核心將不再僅限於感測器本身的硬體性能指標，更在於能否提供包含邊緣運算、人工智慧演算法與雲端數據分析在內的完整解決方案。</p><p>第5章：進階應用與市場分析細部探討 (章節 5)
-隨著工業四點零與智慧製造的浪潮席捲全球，觸覺感測器在各個垂直應用領域的滲透率正呈現指數級的成長。</p><p>在醫療照護領域，具備高精度力回饋的機器人護理助手，能夠以極其輕柔且精確的力道，為病患進行翻身、攙扶甚至基礎的物理治療。</p><p>這不僅需要感測器具備毫牛頓級別的力量解析度，更要求系統能夠在毫秒級別內完成訊號的採集、傳輸與邊緣運算處理。</p><p>在物流倉儲方面，面對形狀各異、材質軟硬不一的包裹，傳統基於視覺的機器手臂往往面臨抓取失敗或損傷物品的風險。</p><p>導入高密度觸覺陣列後，機器人手爪能夠在接觸物體的瞬間，即時感知接觸面積、局部應力分佈與滑動趨勢，並動態調整抓取策略。</p><div style="text-align:center;"><img src="assets/sensor_0.jpg" class="img-placeholder" alt="Sensor Tech" onerror="this.style.display='none'"></div>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="glass-panel">
-                <h2>技術細節與產業分析 (續)</h2>
-<p>這種「邊觸摸邊思考」的仿生抓取模式，大幅提升了自動化倉儲的作業效率與良率。</p><p>從市場經濟的角度觀之，全球觸覺感測器市場規模預計將在未來五年內突破百億美元大關。</p><p>亞太地區憑藉著龐大的製造業基礎與積極的政策扶持，已成為全球最大的市場與技術創新引擎。</p><p>然而，技術標準的碎片化、核心晶片的供應鏈風險，以及跨領域人才的短缺，仍是產業發展過程中的隱憂。</p><p>未來的競爭核心將不再僅限於感測器本身的硬體性能指標，更在於能否提供包含邊緣運算、人工智慧演算法與雲端數據分析在內的完整解決方案。</p><p>第6章：進階應用與市場分析細部探討 (章節 6)
-隨著工業四點零與智慧製造的浪潮席捲全球，觸覺感測器在各個垂直應用領域的滲透率正呈現指數級的成長。</p><p>在醫療照護領域，具備高精度力回饋的機器人護理助手，能夠以極其輕柔且精確的力道，為病患進行翻身、攙扶甚至基礎的物理治療。</p><p>這不僅需要感測器具備毫牛頓級別的力量解析度，更要求系統能夠在毫秒級別內完成訊號的採集、傳輸與邊緣運算處理。</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="glass-panel">
-                <h2>技術細節與產業分析 (續)</h2>
-<p>在物流倉儲方面，面對形狀各異、材質軟硬不一的包裹，傳統基於視覺的機器手臂往往面臨抓取失敗或損傷物品的風險。</p><p>導入高密度觸覺陣列後，機器人手爪能夠在接觸物體的瞬間，即時感知接觸面積、局部應力分佈與滑動趨勢，並動態調整抓取策略。</p><p>這種「邊觸摸邊思考」的仿生抓取模式，大幅提升了自動化倉儲的作業效率與良率。</p><p>從市場經濟的角度觀之，全球觸覺感測器市場規模預計將在未來五年內突破百億美元大關。</p><p>亞太地區憑藉著龐大的製造業基礎與積極的政策扶持，已成為全球最大的市場與技術創新引擎。</p><p>然而，技術標準的碎片化、核心晶片的供應鏈風險，以及跨領域人才的短缺，仍是產業發展過程中的隱憂。</p><p>未來的競爭核心將不再僅限於感測器本身的硬體性能指標，更在於能否提供包含邊緣運算、人工智慧演算法與雲端數據分析在內的完整解決方案。</p><p>第7章：進階應用與市場分析細部探討 (章節 7)
-隨著工業四點零與智慧製造的浪潮席捲全球，觸覺感測器在各個垂直應用領域的滲透率正呈現指數級的成長。</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="glass-panel">
-                <h2>技術細節與產業分析 (續)</h2>
-<p>在醫療照護領域，具備高精度力回饋的機器人護理助手，能夠以極其輕柔且精確的力道，為病患進行翻身、攙扶甚至基礎的物理治療。</p><p>這不僅需要感測器具備毫牛頓級別的力量解析度，更要求系統能夠在毫秒級別內完成訊號的採集、傳輸與邊緣運算處理。</p><p>在物流倉儲方面，面對形狀各異、材質軟硬不一的包裹，傳統基於視覺的機器手臂往往面臨抓取失敗或損傷物品的風險。</p><p>導入高密度觸覺陣列後，機器人手爪能夠在接觸物體的瞬間，即時感知接觸面積、局部應力分佈與滑動趨勢，並動態調整抓取策略。</p><p>這種「邊觸摸邊思考」的仿生抓取模式，大幅提升了自動化倉儲的作業效率與良率。</p><p>從市場經濟的角度觀之，全球觸覺感測器市場規模預計將在未來五年內突破百億美元大關。</p><p>亞太地區憑藉著龐大的製造業基礎與積極的政策扶持，已成為全球最大的市場與技術創新引擎。</p><p>然而，技術標準的碎片化、核心晶片的供應鏈風險，以及跨領域人才的短缺，仍是產業發展過程中的隱憂。</p><p>未來的競爭核心將不再僅限於感測器本身的硬體性能指標，更在於能否提供包含邊緣運算、人工智慧演算法與雲端數據分析在內的完整解決方案。</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="glass-panel">
-                <h2>技術細節與產業分析 (續)</h2>
-<p>第8章：進階應用與市場分析細部探討 (章節 8)
-隨著工業四點零與智慧製造的浪潮席捲全球，觸覺感測器在各個垂直應用領域的滲透率正呈現指數級的成長。</p><p>在醫療照護領域，具備高精度力回饋的機器人護理助手，能夠以極其輕柔且精確的力道，為病患進行翻身、攙扶甚至基礎的物理治療。</p><p>這不僅需要感測器具備毫牛頓級別的力量解析度，更要求系統能夠在毫秒級別內完成訊號的採集、傳輸與邊緣運算處理。</p><p>在物流倉儲方面，面對形狀各異、材質軟硬不一的包裹，傳統基於視覺的機器手臂往往面臨抓取失敗或損傷物品的風險。</p><p>導入高密度觸覺陣列後，機器人手爪能夠在接觸物體的瞬間，即時感知接觸面積、局部應力分佈與滑動趨勢，並動態調整抓取策略。</p><p>這種「邊觸摸邊思考」的仿生抓取模式，大幅提升了自動化倉儲的作業效率與良率。</p><p>從市場經濟的角度觀之，全球觸覺感測器市場規模預計將在未來五年內突破百億美元大關。</p><p>亞太地區憑藉著龐大的製造業基礎與積極的政策扶持，已成為全球最大的市場與技術創新引擎。</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="glass-panel">
-                <h2>技術細節與產業分析 (續)</h2>
-<p>然而，技術標準的碎片化、核心晶片的供應鏈風險，以及跨領域人才的短缺，仍是產業發展過程中的隱憂。</p><p>未來的競爭核心將不再僅限於感測器本身的硬體性能指標，更在於能否提供包含邊緣運算、人工智慧演算法與雲端數據分析在內的完整解決方案。</p><p>第9章：進階應用與市場分析細部探討 (章節 9)
-隨著工業四點零與智慧製造的浪潮席捲全球，觸覺感測器在各個垂直應用領域的滲透率正呈現指數級的成長。</p><p>在醫療照護領域，具備高精度力回饋的機器人護理助手，能夠以極其輕柔且精確的力道，為病患進行翻身、攙扶甚至基礎的物理治療。</p><p>這不僅需要感測器具備毫牛頓級別的力量解析度，更要求系統能夠在毫秒級別內完成訊號的採集、傳輸與邊緣運算處理。</p><p>在物流倉儲方面，面對形狀各異、材質軟硬不一的包裹，傳統基於視覺的機器手臂往往面臨抓取失敗或損傷物品的風險。</p><p>導入高密度觸覺陣列後，機器人手爪能夠在接觸物體的瞬間，即時感知接觸面積、局部應力分佈與滑動趨勢，並動態調整抓取策略。</p><div style="text-align:center;"><img src="assets/sensor_1.jpg" class="img-placeholder" alt="Sensor Tech" onerror="this.style.display='none'"></div>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="glass-panel">
-                <h2>技術細節與產業分析 (續)</h2>
-<p>這種「邊觸摸邊思考」的仿生抓取模式，大幅提升了自動化倉儲的作業效率與良率。</p><p>從市場經濟的角度觀之，全球觸覺感測器市場規模預計將在未來五年內突破百億美元大關。</p><p>亞太地區憑藉著龐大的製造業基礎與積極的政策扶持，已成為全球最大的市場與技術創新引擎。</p><p>然而，技術標準的碎片化、核心晶片的供應鏈風險，以及跨領域人才的短缺，仍是產業發展過程中的隱憂。</p><p>未來的競爭核心將不再僅限於感測器本身的硬體性能指標，更在於能否提供包含邊緣運算、人工智慧演算法與雲端數據分析在內的完整解決方案。</p><p>第10章：進階應用與市場分析細部探討 (章節 10)
-隨著工業四點零與智慧製造的浪潮席捲全球，觸覺感測器在各個垂直應用領域的滲透率正呈現指數級的成長。</p><p>在醫療照護領域，具備高精度力回饋的機器人護理助手，能夠以極其輕柔且精確的力道，為病患進行翻身、攙扶甚至基礎的物理治療。</p><p>這不僅需要感測器具備毫牛頓級別的力量解析度，更要求系統能夠在毫秒級別內完成訊號的採集、傳輸與邊緣運算處理。</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="glass-panel">
-                <h2>技術細節與產業分析 (續)</h2>
-<p>在物流倉儲方面，面對形狀各異、材質軟硬不一的包裹，傳統基於視覺的機器手臂往往面臨抓取失敗或損傷物品的風險。</p><p>導入高密度觸覺陣列後，機器人手爪能夠在接觸物體的瞬間，即時感知接觸面積、局部應力分佈與滑動趨勢，並動態調整抓取策略。</p><p>這種「邊觸摸邊思考」的仿生抓取模式，大幅提升了自動化倉儲的作業效率與良率。</p><p>從市場經濟的角度觀之，全球觸覺感測器市場規模預計將在未來五年內突破百億美元大關。</p><p>亞太地區憑藉著龐大的製造業基礎與積極的政策扶持，已成為全球最大的市場與技術創新引擎。</p><p>然而，技術標準的碎片化、核心晶片的供應鏈風險，以及跨領域人才的短缺，仍是產業發展過程中的隱憂。</p><p>未來的競爭核心將不再僅限於感測器本身的硬體性能指標，更在於能否提供包含邊緣運算、人工智慧演算法與雲端數據分析在內的完整解決方案。</p><p>第11章：進階應用與市場分析細部探討 (章節 11)
-隨著工業四點零與智慧製造的浪潮席捲全球，觸覺感測器在各個垂直應用領域的滲透率正呈現指數級的成長。</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="glass-panel">
-                <h2>技術細節與產業分析 (續)</h2>
-<p>在醫療照護領域，具備高精度力回饋的機器人護理助手，能夠以極其輕柔且精確的力道，為病患進行翻身、攙扶甚至基礎的物理治療。</p><p>這不僅需要感測器具備毫牛頓級別的力量解析度，更要求系統能夠在毫秒級別內完成訊號的採集、傳輸與邊緣運算處理。</p><p>在物流倉儲方面，面對形狀各異、材質軟硬不一的包裹，傳統基於視覺的機器手臂往往面臨抓取失敗或損傷物品的風險。</p><p>導入高密度觸覺陣列後，機器人手爪能夠在接觸物體的瞬間，即時感知接觸面積、局部應力分佈與滑動趨勢，並動態調整抓取策略。</p><p>這種「邊觸摸邊思考」的仿生抓取模式，大幅提升了自動化倉儲的作業效率與良率。</p><p>從市場經濟的角度觀之，全球觸覺感測器市場規模預計將在未來五年內突破百億美元大關。</p><p>亞太地區憑藉著龐大的製造業基礎與積極的政策扶持，已成為全球最大的市場與技術創新引擎。</p><p>然而，技術標準的碎片化、核心晶片的供應鏈風險，以及跨領域人才的短缺，仍是產業發展過程中的隱憂。</p><p>未來的競爭核心將不再僅限於感測器本身的硬體性能指標，更在於能否提供包含邊緣運算、人工智慧演算法與雲端數據分析在內的完整解決方案。</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="glass-panel">
-                <h2>技術細節與產業分析 (續)</h2>
-<p>第12章：進階應用與市場分析細部探討 (章節 12)
-隨著工業四點零與智慧製造的浪潮席捲全球，觸覺感測器在各個垂直應用領域的滲透率正呈現指數級的成長。</p><p>在醫療照護領域，具備高精度力回饋的機器人護理助手，能夠以極其輕柔且精確的力道，為病患進行翻身、攙扶甚至基礎的物理治療。</p><p>這不僅需要感測器具備毫牛頓級別的力量解析度，更要求系統能夠在毫秒級別內完成訊號的採集、傳輸與邊緣運算處理。</p><p>在物流倉儲方面，面對形狀各異、材質軟硬不一的包裹，傳統基於視覺的機器手臂往往面臨抓取失敗或損傷物品的風險。</p><p>導入高密度觸覺陣列後，機器人手爪能夠在接觸物體的瞬間，即時感知接觸面積、局部應力分佈與滑動趨勢，並動態調整抓取策略。</p><p>這種「邊觸摸邊思考」的仿生抓取模式，大幅提升了自動化倉儲的作業效率與良率。</p><p>從市場經濟的角度觀之，全球觸覺感測器市場規模預計將在未來五年內突破百億美元大關。</p><p>亞太地區憑藉著龐大的製造業基礎與積極的政策扶持，已成為全球最大的市場與技術創新引擎。</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="glass-panel">
-                <h2>技術細節與產業分析 (續)</h2>
-<p>然而，技術標準的碎片化、核心晶片的供應鏈風險，以及跨領域人才的短缺，仍是產業發展過程中的隱憂。</p><p>未來的競爭核心將不再僅限於感測器本身的硬體性能指標，更在於能否提供包含邊緣運算、人工智慧演算法與雲端數據分析在內的完整解決方案。</p><p>第13章：進階應用與市場分析細部探討 (章節 13)
-隨著工業四點零與智慧製造的浪潮席捲全球，觸覺感測器在各個垂直應用領域的滲透率正呈現指數級的成長。</p><p>在醫療照護領域，具備高精度力回饋的機器人護理助手，能夠以極其輕柔且精確的力道，為病患進行翻身、攙扶甚至基礎的物理治療。</p><p>這不僅需要感測器具備毫牛頓級別的力量解析度，更要求系統能夠在毫秒級別內完成訊號的採集、傳輸與邊緣運算處理。</p><p>在物流倉儲方面，面對形狀各異、材質軟硬不一的包裹，傳統基於視覺的機器手臂往往面臨抓取失敗或損傷物品的風險。</p><p>導入高密度觸覺陣列後，機器人手爪能夠在接觸物體的瞬間，即時感知接觸面積、局部應力分佈與滑動趨勢，並動態調整抓取策略。</p><div style="text-align:center;"><img src="assets/sensor_2.jpg" class="img-placeholder" alt="Sensor Tech" onerror="this.style.display='none'"></div>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="glass-panel">
-                <h2>技術細節與產業分析 (續)</h2>
-<p>這種「邊觸摸邊思考」的仿生抓取模式，大幅提升了自動化倉儲的作業效率與良率。</p><p>從市場經濟的角度觀之，全球觸覺感測器市場規模預計將在未來五年內突破百億美元大關。</p><p>亞太地區憑藉著龐大的製造業基礎與積極的政策扶持，已成為全球最大的市場與技術創新引擎。</p><p>然而，技術標準的碎片化、核心晶片的供應鏈風險，以及跨領域人才的短缺，仍是產業發展過程中的隱憂。</p><p>未來的競爭核心將不再僅限於感測器本身的硬體性能指標，更在於能否提供包含邊緣運算、人工智慧演算法與雲端數據分析在內的完整解決方案。</p><p>第14章：進階應用與市場分析細部探討 (章節 14)
-隨著工業四點零與智慧製造的浪潮席捲全球，觸覺感測器在各個垂直應用領域的滲透率正呈現指數級的成長。</p><p>在醫療照護領域，具備高精度力回饋的機器人護理助手，能夠以極其輕柔且精確的力道，為病患進行翻身、攙扶甚至基礎的物理治療。</p><p>這不僅需要感測器具備毫牛頓級別的力量解析度，更要求系統能夠在毫秒級別內完成訊號的採集、傳輸與邊緣運算處理。</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="glass-panel">
-                <h2>技術細節與產業分析 (續)</h2>
-<p>在物流倉儲方面，面對形狀各異、材質軟硬不一的包裹，傳統基於視覺的機器手臂往往面臨抓取失敗或損傷物品的風險。</p><p>導入高密度觸覺陣列後，機器人手爪能夠在接觸物體的瞬間，即時感知接觸面積、局部應力分佈與滑動趨勢，並動態調整抓取策略。</p><p>這種「邊觸摸邊思考」的仿生抓取模式，大幅提升了自動化倉儲的作業效率與良率。</p><p>從市場經濟的角度觀之，全球觸覺感測器市場規模預計將在未來五年內突破百億美元大關。</p><p>亞太地區憑藉著龐大的製造業基礎與積極的政策扶持，已成為全球最大的市場與技術創新引擎。</p><p>然而，技術標準的碎片化、核心晶片的供應鏈風險，以及跨領域人才的短缺，仍是產業發展過程中的隱憂。</p><p>未來的競爭核心將不再僅限於感測器本身的硬體性能指標，更在於能否提供包含邊緣運算、人工智慧演算法與雲端數據分析在內的完整解決方案。</p><p>第15章：進階應用與市場分析細部探討 (章節 15)
-隨著工業四點零與智慧製造的浪潮席捲全球，觸覺感測器在各個垂直應用領域的滲透率正呈現指數級的成長。</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="glass-panel">
-                <h2>技術細節與產業分析 (續)</h2>
-<p>在醫療照護領域，具備高精度力回饋的機器人護理助手，能夠以極其輕柔且精確的力道，為病患進行翻身、攙扶甚至基礎的物理治療。</p><p>這不僅需要感測器具備毫牛頓級別的力量解析度，更要求系統能夠在毫秒級別內完成訊號的採集、傳輸與邊緣運算處理。</p><p>在物流倉儲方面，面對形狀各異、材質軟硬不一的包裹，傳統基於視覺的機器手臂往往面臨抓取失敗或損傷物品的風險。</p><p>導入高密度觸覺陣列後，機器人手爪能夠在接觸物體的瞬間，即時感知接觸面積、局部應力分佈與滑動趨勢，並動態調整抓取策略。</p><p>這種「邊觸摸邊思考」的仿生抓取模式，大幅提升了自動化倉儲的作業效率與良率。</p><p>從市場經濟的角度觀之，全球觸覺感測器市場規模預計將在未來五年內突破百億美元大關。</p><p>亞太地區憑藉著龐大的製造業基礎與積極的政策扶持，已成為全球最大的市場與技術創新引擎。</p><p>然而，技術標準的碎片化、核心晶片的供應鏈風險，以及跨領域人才的短缺，仍是產業發展過程中的隱憂。</p><p>未來的競爭核心將不再僅限於感測器本身的硬體性能指標，更在於能否提供包含邊緣運算、人工智慧演算法與雲端數據分析在內的完整解決方案。</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="glass-panel">
-                <h2>技術細節與產業分析 (續)</h2>
-<p>第16章：進階應用與市場分析細部探討 (章節 16)
-隨著工業四點零與智慧製造的浪潮席捲全球，觸覺感測器在各個垂直應用領域的滲透率正呈現指數級的成長。</p><p>在醫療照護領域，具備高精度力回饋的機器人護理助手，能夠以極其輕柔且精確的力道，為病患進行翻身、攙扶甚至基礎的物理治療。</p><p>這不僅需要感測器具備毫牛頓級別的力量解析度，更要求系統能夠在毫秒級別內完成訊號的採集、傳輸與邊緣運算處理。</p><p>在物流倉儲方面，面對形狀各異、材質軟硬不一的包裹，傳統基於視覺的機器手臂往往面臨抓取失敗或損傷物品的風險。</p><p>導入高密度觸覺陣列後，機器人手爪能夠在接觸物體的瞬間，即時感知接觸面積、局部應力分佈與滑動趨勢，並動態調整抓取策略。</p><p>這種「邊觸摸邊思考」的仿生抓取模式，大幅提升了自動化倉儲的作業效率與良率。</p><p>從市場經濟的角度觀之，全球觸覺感測器市場規模預計將在未來五年內突破百億美元大關。</p><p>亞太地區憑藉著龐大的製造業基礎與積極的政策扶持，已成為全球最大的市場與技術創新引擎。</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="glass-panel">
-                <h2>技術細節與產業分析 (續)</h2>
-<p>然而，技術標準的碎片化、核心晶片的供應鏈風險，以及跨領域人才的短缺，仍是產業發展過程中的隱憂。</p><p>未來的競爭核心將不再僅限於感測器本身的硬體性能指標，更在於能否提供包含邊緣運算、人工智慧演算法與雲端數據分析在內的完整解決方案。</p><p>第17章：進階應用與市場分析細部探討 (章節 17)
-隨著工業四點零與智慧製造的浪潮席捲全球，觸覺感測器在各個垂直應用領域的滲透率正呈現指數級的成長。</p><p>在醫療照護領域，具備高精度力回饋的機器人護理助手，能夠以極其輕柔且精確的力道，為病患進行翻身、攙扶甚至基礎的物理治療。</p><p>這不僅需要感測器具備毫牛頓級別的力量解析度，更要求系統能夠在毫秒級別內完成訊號的採集、傳輸與邊緣運算處理。</p><p>在物流倉儲方面，面對形狀各異、材質軟硬不一的包裹，傳統基於視覺的機器手臂往往面臨抓取失敗或損傷物品的風險。</p><p>導入高密度觸覺陣列後，機器人手爪能夠在接觸物體的瞬間，即時感知接觸面積、局部應力分佈與滑動趨勢，並動態調整抓取策略。</p><div style="text-align:center;"><img src="assets/sensor_0.jpg" class="img-placeholder" alt="Sensor Tech" onerror="this.style.display='none'"></div>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="glass-panel">
-                <h2>技術細節與產業分析 (續)</h2>
-<p>這種「邊觸摸邊思考」的仿生抓取模式，大幅提升了自動化倉儲的作業效率與良率。</p><p>從市場經濟的角度觀之，全球觸覺感測器市場規模預計將在未來五年內突破百億美元大關。</p><p>亞太地區憑藉著龐大的製造業基礎與積極的政策扶持，已成為全球最大的市場與技術創新引擎。</p><p>然而，技術標準的碎片化、核心晶片的供應鏈風險，以及跨領域人才的短缺，仍是產業發展過程中的隱憂。</p><p>未來的競爭核心將不再僅限於感測器本身的硬體性能指標，更在於能否提供包含邊緣運算、人工智慧演算法與雲端數據分析在內的完整解決方案。</p><p>第18章：進階應用與市場分析細部探討 (章節 18)
-隨著工業四點零與智慧製造的浪潮席捲全球，觸覺感測器在各個垂直應用領域的滲透率正呈現指數級的成長。</p><p>在醫療照護領域，具備高精度力回饋的機器人護理助手，能夠以極其輕柔且精確的力道，為病患進行翻身、攙扶甚至基礎的物理治療。</p><p>這不僅需要感測器具備毫牛頓級別的力量解析度，更要求系統能夠在毫秒級別內完成訊號的採集、傳輸與邊緣運算處理。</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="glass-panel">
-                <h2>技術細節與產業分析 (續)</h2>
-<p>在物流倉儲方面，面對形狀各異、材質軟硬不一的包裹，傳統基於視覺的機器手臂往往面臨抓取失敗或損傷物品的風險。</p><p>導入高密度觸覺陣列後，機器人手爪能夠在接觸物體的瞬間，即時感知接觸面積、局部應力分佈與滑動趨勢，並動態調整抓取策略。</p><p>這種「邊觸摸邊思考」的仿生抓取模式，大幅提升了自動化倉儲的作業效率與良率。</p><p>從市場經濟的角度觀之，全球觸覺感測器市場規模預計將在未來五年內突破百億美元大關。</p><p>亞太地區憑藉著龐大的製造業基礎與積極的政策扶持，已成為全球最大的市場與技術創新引擎。</p><p>然而，技術標準的碎片化、核心晶片的供應鏈風險，以及跨領域人才的短缺，仍是產業發展過程中的隱憂。</p><p>未來的競爭核心將不再僅限於感測器本身的硬體性能指標，更在於能否提供包含邊緣運算、人工智慧演算法與雲端數據分析在內的完整解決方案。</p><p>第19章：進階應用與市場分析細部探討 (章節 19)
-隨著工業四點零與智慧製造的浪潮席捲全球，觸覺感測器在各個垂直應用領域的滲透率正呈現指數級的成長。</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="glass-panel">
-                <h2>技術細節與產業分析 (續)</h2>
-<p>在醫療照護領域，具備高精度力回饋的機器人護理助手，能夠以極其輕柔且精確的力道，為病患進行翻身、攙扶甚至基礎的物理治療。</p><p>這不僅需要感測器具備毫牛頓級別的力量解析度，更要求系統能夠在毫秒級別內完成訊號的採集、傳輸與邊緣運算處理。</p><p>在物流倉儲方面，面對形狀各異、材質軟硬不一的包裹，傳統基於視覺的機器手臂往往面臨抓取失敗或損傷物品的風險。</p><p>導入高密度觸覺陣列後，機器人手爪能夠在接觸物體的瞬間，即時感知接觸面積、局部應力分佈與滑動趨勢，並動態調整抓取策略。</p><p>這種「邊觸摸邊思考」的仿生抓取模式，大幅提升了自動化倉儲的作業效率與良率。</p><p>從市場經濟的角度觀之，全球觸覺感測器市場規模預計將在未來五年內突破百億美元大關。</p><p>亞太地區憑藉著龐大的製造業基礎與積極的政策扶持，已成為全球最大的市場與技術創新引擎。</p><p>然而，技術標準的碎片化、核心晶片的供應鏈風險，以及跨領域人才的短缺，仍是產業發展過程中的隱憂。</p><p>未來的競爭核心將不再僅限於感測器本身的硬體性能指標，更在於能否提供包含邊緣運算、人工智慧演算法與雲端數據分析在內的完整解決方案。</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="glass-panel">
-                <h2>技術細節與產業分析 (續)</h2>
-<p>第20章：進階應用與市場分析細部探討 (章節 20)
-隨著工業四點零與智慧製造的浪潮席捲全球，觸覺感測器在各個垂直應用領域的滲透率正呈現指數級的成長。</p><p>在醫療照護領域，具備高精度力回饋的機器人護理助手，能夠以極其輕柔且精確的力道，為病患進行翻身、攙扶甚至基礎的物理治療。</p><p>這不僅需要感測器具備毫牛頓級別的力量解析度，更要求系統能夠在毫秒級別內完成訊號的採集、傳輸與邊緣運算處理。</p><p>在物流倉儲方面，面對形狀各異、材質軟硬不一的包裹，傳統基於視覺的機器手臂往往面臨抓取失敗或損傷物品的風險。</p><p>導入高密度觸覺陣列後，機器人手爪能夠在接觸物體的瞬間，即時感知接觸面積、局部應力分佈與滑動趨勢，並動態調整抓取策略。</p><p>這種「邊觸摸邊思考」的仿生抓取模式，大幅提升了自動化倉儲的作業效率與良率。</p><p>從市場經濟的角度觀之，全球觸覺感測器市場規模預計將在未來五年內突破百億美元大關。</p><p>亞太地區憑藉著龐大的製造業基礎與積極的政策扶持，已成為全球最大的市場與技術創新引擎。</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="glass-panel">
-                <h2>技術細節與產業分析 (續)</h2>
-<p>然而，技術標準的碎片化、核心晶片的供應鏈風險，以及跨領域人才的短缺，仍是產業發展過程中的隱憂。</p><p>未來的競爭核心將不再僅限於感測器本身的硬體性能指標，更在於能否提供包含邊緣運算、人工智慧演算法與雲端數據分析在內的完整解決方案。</p><p>第21章：進階應用與市場分析細部探討 (章節 21)
-隨著工業四點零與智慧製造的浪潮席捲全球，觸覺感測器在各個垂直應用領域的滲透率正呈現指數級的成長。</p><p>在醫療照護領域，具備高精度力回饋的機器人護理助手，能夠以極其輕柔且精確的力道，為病患進行翻身、攙扶甚至基礎的物理治療。</p><p>這不僅需要感測器具備毫牛頓級別的力量解析度，更要求系統能夠在毫秒級別內完成訊號的採集、傳輸與邊緣運算處理。</p><p>在物流倉儲方面，面對形狀各異、材質軟硬不一的包裹，傳統基於視覺的機器手臂往往面臨抓取失敗或損傷物品的風險。</p><p>導入高密度觸覺陣列後，機器人手爪能夠在接觸物體的瞬間，即時感知接觸面積、局部應力分佈與滑動趨勢，並動態調整抓取策略。</p><div style="text-align:center;"><img src="assets/sensor_1.jpg" class="img-placeholder" alt="Sensor Tech" onerror="this.style.display='none'"></div>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="glass-panel">
-                <h2>技術細節與產業分析 (續)</h2>
-<p>這種「邊觸摸邊思考」的仿生抓取模式，大幅提升了自動化倉儲的作業效率與良率。</p><p>從市場經濟的角度觀之，全球觸覺感測器市場規模預計將在未來五年內突破百億美元大關。</p><p>亞太地區憑藉著龐大的製造業基礎與積極的政策扶持，已成為全球最大的市場與技術創新引擎。</p><p>然而，技術標準的碎片化、核心晶片的供應鏈風險，以及跨領域人才的短缺，仍是產業發展過程中的隱憂。</p><p>未來的競爭核心將不再僅限於感測器本身的硬體性能指標，更在於能否提供包含邊緣運算、人工智慧演算法與雲端數據分析在內的完整解決方案。</p><p>第22章：進階應用與市場分析細部探討 (章節 22)
-隨著工業四點零與智慧製造的浪潮席捲全球，觸覺感測器在各個垂直應用領域的滲透率正呈現指數級的成長。</p><p>在醫療照護領域，具備高精度力回饋的機器人護理助手，能夠以極其輕柔且精確的力道，為病患進行翻身、攙扶甚至基礎的物理治療。</p><p>這不僅需要感測器具備毫牛頓級別的力量解析度，更要求系統能夠在毫秒級別內完成訊號的採集、傳輸與邊緣運算處理。</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="glass-panel">
-                <h2>技術細節與產業分析 (續)</h2>
-<p>在物流倉儲方面，面對形狀各異、材質軟硬不一的包裹，傳統基於視覺的機器手臂往往面臨抓取失敗或損傷物品的風險。</p><p>導入高密度觸覺陣列後，機器人手爪能夠在接觸物體的瞬間，即時感知接觸面積、局部應力分佈與滑動趨勢，並動態調整抓取策略。</p><p>這種「邊觸摸邊思考」的仿生抓取模式，大幅提升了自動化倉儲的作業效率與良率。</p><p>從市場經濟的角度觀之，全球觸覺感測器市場規模預計將在未來五年內突破百億美元大關。</p><p>亞太地區憑藉著龐大的製造業基礎與積極的政策扶持，已成為全球最大的市場與技術創新引擎。</p><p>然而，技術標準的碎片化、核心晶片的供應鏈風險，以及跨領域人才的短缺，仍是產業發展過程中的隱憂。</p><p>未來的競爭核心將不再僅限於感測器本身的硬體性能指標，更在於能否提供包含邊緣運算、人工智慧演算法與雲端數據分析在內的完整解決方案。</p><p>第23章：進階應用與市場分析細部探討 (章節 23)
-隨著工業四點零與智慧製造的浪潮席捲全球，觸覺感測器在各個垂直應用領域的滲透率正呈現指數級的成長。</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="glass-panel">
-                <h2>技術細節與產業分析 (續)</h2>
-<p>在醫療照護領域，具備高精度力回饋的機器人護理助手，能夠以極其輕柔且精確的力道，為病患進行翻身、攙扶甚至基礎的物理治療。</p><p>這不僅需要感測器具備毫牛頓級別的力量解析度，更要求系統能夠在毫秒級別內完成訊號的採集、傳輸與邊緣運算處理。</p><p>在物流倉儲方面，面對形狀各異、材質軟硬不一的包裹，傳統基於視覺的機器手臂往往面臨抓取失敗或損傷物品的風險。</p><p>導入高密度觸覺陣列後，機器人手爪能夠在接觸物體的瞬間，即時感知接觸面積、局部應力分佈與滑動趨勢，並動態調整抓取策略。</p><p>這種「邊觸摸邊思考」的仿生抓取模式，大幅提升了自動化倉儲的作業效率與良率。</p><p>從市場經濟的角度觀之，全球觸覺感測器市場規模預計將在未來五年內突破百億美元大關。</p><p>亞太地區憑藉著龐大的製造業基礎與積極的政策扶持，已成為全球最大的市場與技術創新引擎。</p><p>然而，技術標準的碎片化、核心晶片的供應鏈風險，以及跨領域人才的短缺，仍是產業發展過程中的隱憂。</p><p>未來的競爭核心將不再僅限於感測器本身的硬體性能指標，更在於能否提供包含邊緣運算、人工智慧演算法與雲端數據分析在內的完整解決方案。</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="glass-panel">
-                <h2>技術細節與產業分析 (續)</h2>
-<p>第24章：進階應用與市場分析細部探討 (章節 24)
-隨著工業四點零與智慧製造的浪潮席捲全球，觸覺感測器在各個垂直應用領域的滲透率正呈現指數級的成長。</p><p>在醫療照護領域，具備高精度力回饋的機器人護理助手，能夠以極其輕柔且精確的力道，為病患進行翻身、攙扶甚至基礎的物理治療。</p><p>這不僅需要感測器具備毫牛頓級別的力量解析度，更要求系統能夠在毫秒級別內完成訊號的採集、傳輸與邊緣運算處理。</p><p>在物流倉儲方面，面對形狀各異、材質軟硬不一的包裹，傳統基於視覺的機器手臂往往面臨抓取失敗或損傷物品的風險。</p><p>導入高密度觸覺陣列後，機器人手爪能夠在接觸物體的瞬間，即時感知接觸面積、局部應力分佈與滑動趨勢，並動態調整抓取策略。</p><p>這種「邊觸摸邊思考」的仿生抓取模式，大幅提升了自動化倉儲的作業效率與良率。</p><p>從市場經濟的角度觀之，全球觸覺感測器市場規模預計將在未來五年內突破百億美元大關。</p><p>亞太地區憑藉著龐大的製造業基礎與積極的政策扶持，已成為全球最大的市場與技術創新引擎。</p>
-            </div>
-        </div>
-
-        <div class="slide">
-            <div class="glass-panel">
-                <h2>技術細節與產業分析 (續)</h2>
-<p>然而，技術標準的碎片化、核心晶片的供應鏈風險，以及跨領域人才的短缺，仍是產業發展過程中的隱憂。</p><p>未來的競爭核心將不再僅限於感測器本身的硬體性能指標，更在於能否提供包含邊緣運算、人工智慧演算法與雲端數據分析在內的完整解決方案。</p><div style="text-align:center;"><img src="assets/sensor_2.jpg" class="img-placeholder" alt="Sensor Tech" onerror="this.style.display='none'"></div>
-            </div>
-        </div>
-
-    </div>
-    <div class="controls">
-        <button onclick="prevSlide()">&#9664; PREV</button>
-        <button onclick="nextSlide()">NEXT &#9654;</button>
-    </div>
-
-    <script>
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const totalSlides = slides.length;
-        const container = document.getElementById('slides-container');
-        const progress = document.getElementById('progress');
-
-        function updateSlide() {
-            container.style.transform = `translateX(-${currentSlide * 100}vw)`;
-            progress.style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
-        }
-
-        function nextSlide() {
-            if (currentSlide < totalSlides - 1) {
-                currentSlide++;
-                updateSlide();
-            }
-        }
-
-        function prevSlide() {
-            if (currentSlide > 0) {
-                currentSlide--;
-                updateSlide();
-            }
-        }
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') nextSlide();
-            if (e.key === 'ArrowLeft' || e.key === 'PageUp') prevSlide();
-        });
+    <div id="presentation">
         
-        updateSlide();
+        <!-- Slide 1: Title -->
+        <div class="slide" id="slide-1">
+            <div class="slide-content" style="align-items: center; text-align: center;">
+                <h3 class="reveal" style="color: var(--accent-secondary); text-transform: uppercase; letter-spacing: 2px;">2026 產業白皮書</h3>
+                <h1 class="reveal delay-1">人形機器人<span class="agentic-highlight">觸覺感測器</span></h1>
+                <p class="reveal delay-2" style="font-size: var(--font-subheading); max-width: 800px; margin-top: var(--spacing-md);">
+                    技術突破、市場重塑與戰略佈局
+                </p>
+                <div class="glass-card reveal delay-3" style="margin-top: var(--spacing-lg); display: inline-block;">
+                    <p style="color: var(--accent-primary); margin: 0;">2026 將是觸覺感測器爆發的元年</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Exec Summary -->
+        <div class="slide" id="slide-2">
+            <div class="slide-content">
+                <h2 class="reveal">一、 執行摘要 (Executive Summary)</h2>
+                <div class="glass-card reveal delay-1">
+                    <p>隨著人工智慧與硬體工程的指數級進步，人形機器人正從實驗室走向工廠、物流中心乃至家庭。在這演進中，<strong>「觸覺感測器」</strong>扮演著補足機器人感知能力的最後一塊拼圖。</p>
+                    <br>
+                    <p>若缺乏高解析度的觸覺回饋，機器人便無法執行精細操作（如抓取易碎物品、感受表面紋理、調整握力等），這直接限制了人形機器人的商業化落地場景。</p>
+                </div>
+                <ul class="reveal delay-2">
+                    <li>柔性電子皮膚 (E-skin) 與 視觸覺融合 (Vision-based) 技術將成主流。</li>
+                    <li>掌握核心技術的供應商將成為科技巨頭爭相合作的對象。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 3: Background -->
+        <div class="slide" id="slide-3">
+            <div class="slide-content">
+                <h2 class="reveal">二、 產業背景與發展動能</h2>
+                <p class="reveal delay-1">人形機器人被設計用來在非結構化的環境中與人類互動並使用人類的工具，帶來三大核心動能：</p>
+                
+                <div class="grid-layout">
+                    <div class="glass-card reveal delay-1">
+                        <h3>1. 精細操作的需求</h3>
+                        <p>從組裝精密零件到摺疊衣物，需要感知物體的滑移、軟硬度與溫度。動態調整握力才能實現通用化。</p>
+                    </div>
+                    <div class="glass-card reveal delay-2">
+                        <h3>2. 安全性與人機協作</h3>
+                        <p>與人類共處的機器人必須能夠感知碰撞並即時停止，全身覆蓋的觸覺皮膚成為安全標配。</p>
+                    </div>
+                    <div class="glass-card reveal delay-3">
+                        <h3>3. AI 與具身智能崛起</h3>
+                        <p>觸覺數據是機器學習理解物理世界的關鍵，是讓 AI 從「觀察者」轉變為「操作者」的橋樑。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Sensors 1 -->
+        <div class="slide" id="slide-4">
+            <div class="slide-content">
+                <h2 class="reveal">三、 觸覺感測器技術深解析 (1/3)</h2>
+                <div class="grid-layout">
+                    <div class="glass-card reveal delay-1">
+                        <h3 style="color: var(--accent-primary);">1. 壓阻式 (Piezoresistive)</h3>
+                        <p><strong>優勢</strong>：結構簡單、成本低、易於製造成陣列。</p>
+                        <p><strong>劣勢</strong>：容易產生遲滯現象，材料疲勞，微小力道靈敏度受限。</p>
+                        <p><strong>應用</strong>：機器人腳底的力覺分佈、手掌大面積按壓。</p>
+                    </div>
+                    <div class="glass-card reveal delay-2">
+                        <h3 style="color: var(--accent-primary);">2. 電容式 (Capacitive)</h3>
+                        <p><strong>優勢</strong>：靈敏度極高，反應迅速，溫度穩定性佳。</p>
+                        <p><strong>劣勢</strong>：容易受到電磁干擾，需要良好的屏蔽。</p>
+                        <p><strong>應用</strong>：指尖高精度力道感測，精密操作。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Sensors 2 -->
+        <div class="slide" id="slide-5">
+            <div class="slide-content">
+                <h2 class="reveal">三、 觸覺感測器技術深解析 (2/3)</h2>
+                <div class="grid-layout">
+                    <div class="glass-card reveal delay-1">
+                        <h3 style="color: var(--accent-primary);">3. 光學式/視觸覺 (Optical/Vision)</h3>
+                        <p><strong>優勢</strong>：超高解析度的幾何形狀、滑移資訊，契合視覺 AI 模型。</p>
+                        <p><strong>劣勢</strong>：體積較大難微型化，彈性體易磨損。</p>
+                        <p><strong>應用</strong>：指尖，材質辨識、精細抓取。</p>
+                    </div>
+                    <div class="glass-card reveal delay-2">
+                        <h3 style="color: var(--accent-primary);">4. 壓電式 (Piezoelectric)</h3>
+                        <p><strong>優勢</strong>：對動態力（如高頻振動）反應極佳。</p>
+                        <p><strong>劣勢</strong>：無法測量靜態力（持續握住的力道）。</p>
+                        <p><strong>應用</strong>：感知滑落瞬間的微小震動、辨識表面粗糙度。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Sensors 3 -->
+        <div class="slide" id="slide-6">
+            <div class="slide-content">
+                <h2 class="reveal">三、 觸覺感測器技術深解析 (3/3)</h2>
+                <div class="glass-card reveal delay-1" style="border-color: var(--accent-secondary);">
+                    <h3 style="color: var(--accent-secondary);">5. 新興柔性電子皮膚 (Flexible E-skin)</h3>
+                    <p style="margin-top: var(--spacing-md);">結合奈米材料與柔性基底（如 PDMS、PI），模仿人類皮膚的多功能感測。</p>
+                    <br>
+                    <p>目前正朝向整合壓力、溫度、濕度甚至<strong style="color:#fff;">自癒合能力</strong>發展，為實現具身智能提供終極硬體解方。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Market -->
+        <div class="slide" id="slide-7">
+            <div class="slide-content">
+                <h2 class="reveal">四、 市場規模與成長預測</h2>
+                <p class="reveal delay-1">隨著 Tesla、Figure、Agility Robotics 推動，市場正處於爆發前夕。</p>
+                
+                <div class="glass-card reveal delay-2" style="background: rgba(0, 212, 255, 0.05);">
+                    <h3 style="font-size: var(--font-title); color: var(--accent-primary); margin-bottom: 10px;">$1.5B+</h3>
+                    <p>全球機器人觸覺感測器市場預計在 2026 年突破 15 億美元。</p>
+                </div>
+                
+                <ul class="reveal delay-3" style="margin-top: var(--spacing-md);">
+                    <li><strong>2030 目標</strong>：挑戰 50 億美元大關，CAGR > 35%。</li>
+                    <li><strong>價值分佈</strong>：高階指尖多維度感測器貢獻 ~60% 利潤池；大面積全身覆蓋感測器佔據主要出貨量。</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 8: Competitors 1 -->
+        <div class="slide" id="slide-8">
+            <div class="slide-content">
+                <h2 class="reveal">五、 主要廠商與生態系分析 (1/3)</h2>
+                <div class="grid-layout">
+                    <div class="glass-card reveal delay-1">
+                        <h3>Xela Robotics (多軸感測)</h3>
+                        <p><strong>技術</strong>：基於 uSkin 磁性感測技術 (3D)。</p>
+                        <p><strong>優勢</strong>：輕薄、易封裝、抗雜訊強，高密度陣列直連 ROS。</p>
+                        <p><strong>地位</strong>：學術界與早期新創中佔有率極高。</p>
+                    </div>
+                    <div class="glass-card reveal delay-2">
+                        <h3>GelSight (視觸覺先驅)</h3>
+                        <p><strong>技術</strong>：彈性體 + 內部攝影機，轉化為 3D 拓撲圖像。</p>
+                        <p><strong>優勢</strong>：解析度無可匹敵，與電腦視覺 AI 高度相容。</p>
+                        <p><strong>地位</strong>：工業檢測跨足機器人，致力微型化以適應指尖。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 9: Competitors 2 -->
+        <div class="slide" id="slide-9">
+            <div class="slide-content">
+                <h2 class="reveal">五、 主要廠商與生態系分析 (2/3)</h2>
+                <div class="grid-layout">
+                    <div class="glass-card reveal delay-1">
+                        <h3>SynTouch (仿生觸覺)</h3>
+                        <p><strong>技術</strong>：BioTac 結合導電液體與電極陣列。</p>
+                        <p><strong>優勢</strong>：多模態感知，量化 15 種觸覺維度。</p>
+                        <p><strong>地位</strong>：高階研究、高端義肢與特定醫療機器人。</p>
+                    </div>
+                    <div class="glass-card reveal delay-2">
+                        <h3>Tekscan (跨界巨頭)</h3>
+                        <p><strong>技術</strong>：數十年薄膜壓阻陣列技術積累。</p>
+                        <p><strong>優勢</strong>：超薄柔性、量產能力強、成本控制佳。</p>
+                        <p><strong>地位</strong>：主攻足底與體表大面積接觸感知市場。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 10: Tech Giants -->
+        <div class="slide" id="slide-10">
+            <div class="slide-content">
+                <h2 class="reveal">五、 主要廠商與生態系分析 (3/3) - 科技巨頭</h2>
+                <div class="grid-layout">
+                    <div class="glass-card reveal delay-1">
+                        <h3 style="color: var(--accent-primary);">Meta (DIGIT & ReSkin)</h3>
+                        <p>推動開源硬體策略，降低研究門檻。結合磁性粒子與柔性皮膚，專注於推動<strong>具身智能 (Embodied AI)</strong> 生態。</p>
+                    </div>
+                    <div class="glass-card reveal delay-2">
+                        <h3 style="color: var(--accent-primary);">Tesla (Optimus)</h3>
+                        <p>高度垂直整合，自研力矩與觸覺感測系統，與端到端神經網路無縫接軌。利用龐大算力與製造能力逼迫產業升級。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Challenges -->
+        <div class="slide" id="slide-11">
+            <div class="slide-content">
+                <h2 class="reveal">六、 核心挑戰與技術瓶頸</h2>
+                <ul class="reveal delay-1" style="display: flex; flex-direction: column; gap: var(--spacing-md);">
+                    <li>
+                        <strong>耐用性與壽命</strong>：機器人手部頻繁接觸材質，柔性表層 (Elastomer) 極易磨損，延長壽命是工程難題。
+                    </li>
+                    <li>
+                        <strong>佈線與數據傳輸</strong>：高密度陣列產生龐大數據量，需透過神經形態工程或邊緣運算減少帶寬。
+                    </li>
+                    <li>
+                        <strong>多模態融合演算法</strong>：如何低延遲融合視覺、本體感覺與觸覺，訓練泛化能力強的控制策略，是當前瓶頸。
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 12: Conclusion -->
+        <div class="slide" id="slide-12">
+            <div class="slide-content">
+                <h2 class="reveal">七、 結論與戰略建議</h2>
+                <div class="glass-card reveal delay-1" style="border-left: 4px solid var(--accent-secondary);">
+                    <p>人形機器人正從「能看」到「能摸、能做」。觸覺感測器是決定 AI 操作能力的<strong>關鍵基礎設施</strong>。</p>
+                </div>
+                <div class="grid-layout reveal delay-2" style="margin-top: var(--spacing-md);">
+                    <div>
+                        <h3 style="font-size: 16px; color: var(--accent-primary);">硬體製造商</h3>
+                        <p style="font-size: 14px;">推動標準化/模組化，投資新型高分子耐磨材料。</p>
+                    </div>
+                    <div>
+                        <h3 style="font-size: 16px; color: var(--accent-primary);">本體與演算法廠</h3>
+                        <p style="font-size: 14px;">硬軟體協同設計，建立「觸覺-視覺」資料庫護城河。</p>
+                    </div>
+                    <div>
+                        <h3 style="font-size: 16px; color: var(--accent-primary);">投資機構</h3>
+                        <p style="font-size: 14px;">關注「視觸覺融合」及解決大面積佈線/成本的新創團隊。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Setup Intersection Observer for scroll animations
+        const observerOptions = { root: document.querySelector('#presentation'), threshold: 0.5 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    updateNavDots(entry.target.id);
+                }
+            });
+        }, observerOptions);
+
+        const slides = document.querySelectorAll('.slide');
+        const navContainer = document.getElementById('navDots');
+
+        slides.forEach((slide, index) => {
+            observer.observe(slide);
+            
+            // Generate nav dots
+            const dot = document.createElement('div');
+            dot.className = 'dot';
+            dot.dataset.target = slide.id;
+            dot.addEventListener('click', () => {
+                slide.scrollIntoView({ behavior: 'smooth' });
+            });
+            navContainer.appendChild(dot);
+        });
+
+        function updateNavDots(activeId) {
+            document.querySelectorAll('.dot').forEach(dot => {
+                dot.classList.toggle('active', dot.dataset.target === activeId);
+            });
+        }
+
+        // Keyboard Navigation
+        document.addEventListener('keydown', (e) => {
+            const currentContainer = document.querySelector('#presentation');
+            if(e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === 'Space') {
+                e.preventDefault();
+                currentContainer.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+            } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                e.preventDefault();
+                currentContainer.scrollBy({ top: -window.innerHeight, behavior: 'smooth' });
+            }
+        });
     </script>
 </body>
 </html>
