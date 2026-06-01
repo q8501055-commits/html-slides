@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>人形機器人觸覺感測器 - 戰略白皮書 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+<style>
+${style}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="progress"></div>
+<div class="presentation-container" id="container">
+  ${slidesHTML}
+</div>
+<div class="controls">
+  <button class="btn" onclick="prevSlide()">&#9664; Prev</button>
+  <button class="btn" onclick="nextSlide()">Next &#9654;</button>
+</div>
+
+<script>
+  let currentSlide = 0;
+  const totalSlides = ${slidesData.length};
+  const container = document.getElementById('container');
+  const progress = document.getElementById('progress');
+
+  function updateSlide() {
+    container.style.transform = `translateX(-${currentSlide * 100}vw)`;
+    progress.style.width = `${((currentSlide + 1) / totalSlides) * 100}%`;
+  }
+
+  function nextSlide() {
+    if (currentSlide < totalSlides - 1) {
+      currentSlide++;
+      updateSlide();
+    }
+  }
+
+  function prevSlide() {
+    if (currentSlide > 0) {
+      currentSlide--;
+      updateSlide();
+    }
+  }
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+    if (e.key === 'ArrowLeft') prevSlide();
+  });
+  
+  updateSlide();
+</script>
+</body>
+</html>
