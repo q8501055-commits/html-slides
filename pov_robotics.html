@@ -83,7 +83,7 @@
     
     /* Mermaid Overrides */
     .mermaid { display: flex; justify-content: center; align-items: center; margin: 10px 0; }
-    .mermaid svg { max-height: 400px; width: auto; font-family: 'DM Sans', sans-serif !important; }
+    .mermaid svg { max-height: 380px; width: 100%; max-width: 1100px; font-family: 'DM Sans', sans-serif !important; }
 
     /* Layouts */
     .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-md); }
@@ -171,7 +171,7 @@
         <h2 class="reveal">Market Pull：底層因果迴圈 (Causal Loop)</h2>
         <div class="card reveal" style="text-align: center; overflow: visible;">
           <div class="mermaid">
-            graph TD
+            graph LR
               A[高齡化 / 少子化趨勢] -->|勞動力供給減少 -| B(勞動力缺口擴大)
               C[生活品質與服務需求提升] -->|勞動力需求增加 +| B
               B -->|人力成本急遽攀升 +| D{企業與家庭的自動化剛需}
@@ -179,7 +179,7 @@
               E -->|促成 +| F(((通用型具身智能機器人)))
               F -.->|填補勞力缺口 / 釋放人力 -| B
           </div>
-          <p style="margin-top: 16px; font-size: var(--font-small); text-align: left;"><strong>系統動態解析：</strong>技術突破(Technology Push)只是催化劑，真正的底層驅動力是人口結構改變帶來的「勞動力缺口」。當人力成本越過臨界點，資本將強勢推動機器人填補這個負迴圈，形成不可逆的剛性需求。</p>
+          <p style="margin-top: 16px; font-size: var(--font-small); text-align: left; background: rgba(255,255,255,0.04); padding: 16px 24px; border-radius: 12px; border-left: 4px solid var(--accent-magenta);"><strong>系統動態解析：</strong>技術突破(Technology Push)只是催化劑，真正的底層驅動力是人口結構改變帶來的「勞動力缺口」。當人力成本越過臨界點，資本將強勢推動機器人填補這個負迴圈，形成不可逆的剛性需求。</p>
         </div>
       </div>
     </div>
@@ -211,23 +211,23 @@
       <div class="slide-content">
         <span class="tech-tag reveal">2.1 應用情境 - 住</span>
         <h2 class="reveal">居家陪伴與家庭服務的因果驅動</h2>
-        <div class="card reveal">
-          <div class="grid-2">
-            <div>
-              <div class="mermaid">
-                graph TD
+        <div class="card reveal" style="display: flex; flex-direction: column; gap: 20px; width: 100%;">
+          <div class="mermaid" style="width: 100%; margin: 0; display: flex; justify-content: center;">
+
+                graph LR
                   A[雙薪家庭 / 核心家庭] -->|無暇處理繁雜家務 +| B(居家勞務痛點)
                   C[居住空間立體化 / 物品非結構化] -->|傳統掃地機無法處理 +| B
                   B -->|尋求全方位解決方案 +| D{渴望全能型居家管家}
                   D -->|驅動發展 +| E(((通用型家政機器人)))
                   E -->|需具備 +| F[語意理解與複雜抓取能力]
                   F -.->|解決痛點 -| B
-              </div>
-            </div>
-            <div style="display: flex; flex-direction: column; justify-content: center; gap: 16px;">
+              
+          </div>
+          <div style="background: rgba(255,255,255,0.04); padding: 20px 24px; border-radius: 12px; border-left: 4px solid var(--accent-cyan);">
+
               <h3>未來家庭的終極管家</h3>
               <p><strong>因為</strong>雙薪家庭無暇家務，且傳統掃地機器人無法處理立體空間（如摺衣服、收納），<br><strong>所以</strong>家庭勞務痛點不斷累積。<br><strong>因此，未來的機器人是</strong>具備語意理解與靈巧雙手的全能管家，能聽懂模糊指令並跨越樓層操作家電，直接打破居家勞務的死結。</p>
-            </div>
+            
           </div>
         </div>
       </div>
@@ -239,23 +239,23 @@
       <div class="slide-content">
         <span class="tech-tag reveal">2.2 應用情境 - 醫療照護</span>
         <h2 class="reveal">銀髮照護與醫療輔助的因果驅動</h2>
-        <div class="card reveal">
-          <div class="grid-2">
-            <div>
-              <div class="mermaid">
-                graph TD
+        <div class="card reveal" style="display: flex; flex-direction: column; gap: 20px; width: 100%;">
+          <div class="mermaid" style="width: 100%; margin: 0; display: flex; justify-content: center;">
+
+                graph LR
                   A[高齡人口激增] -->|照護需求大增 +| B(醫療照護系統過載)
                   C[高壓勞損與低薪] -->|護理人員流失 -| B
                   B -->|照護品質下降 / 成本失控 +| D{急需實體勞力替代}
                   D -->|推動研發 +| E(((醫療與陪伴輔助機器人)))
                   E -->|提供 +| F[粗重搬運與情緒陪伴]
                   F -.->|減輕負擔 -| B
-              </div>
-            </div>
-            <div style="display: flex; flex-direction: column; justify-content: center; gap: 16px;">
+              
+          </div>
+          <div style="background: rgba(255,255,255,0.04); padding: 20px 24px; border-radius: 12px; border-left: 4px solid var(--accent-cyan);">
+
               <h3>高齡化社會的護理救星</h3>
               <p><strong>因為</strong>高齡人口激增導致需求暴增，同時高壓環境讓護理人力不斷流失，<br><strong>所以</strong>醫療與長照系統面臨崩潰邊緣。<br><strong>因此，未來的機器人是</strong>能分擔粗重物理勞動（如翻身、搬運），同時結合 LLM 提供溫暖語音情緒陪伴的輔助者，從根本減輕護理人員勞損。</p>
-            </div>
+            
           </div>
         </div>
       </div>
@@ -267,23 +267,23 @@
       <div class="slide-content">
         <span class="tech-tag reveal">2.3 應用情境 - 商業與食/衣</span>
         <h2 class="reveal">商業空間與企業服務的因果驅動</h2>
-        <div class="card reveal">
-          <div class="grid-2">
-            <div>
-              <div class="mermaid">
-                graph TD
+        <div class="card reveal" style="display: flex; flex-direction: column; gap: 20px; width: 100%;">
+          <div class="mermaid" style="width: 100%; margin: 0; display: flex; justify-content: center;">
+
+                graph LR
                   A[服務業勞動密集] -->|年輕世代不願投入 +| B(基層服務缺工/流動率高)
                   C[消費者要求即時/客製化] -->|服務壓力增加 +| B
                   B -->|培訓成本高/服務不穩 +| D{尋求24H標準化勞力}
                   D -->|引入 +| E(((模組化商用機器人)))
                   E -->|串聯 IoT +| F[跨樓層全自動服務流]
                   F -.->|穩定營運 -| B
-              </div>
-            </div>
-            <div style="display: flex; flex-direction: column; justify-content: center; gap: 16px;">
+              
+          </div>
+          <div style="background: rgba(255,255,255,0.04); padding: 20px 24px; border-radius: 12px; border-left: 4px solid var(--accent-cyan);">
+
               <h3>24H 無休的標準化員工</h3>
               <p><strong>因為</strong>餐飲、飯店等服務業面臨極高的基層流動率與招募困難，<br><strong>所以</strong>培訓成本失控且服務品質無法維持。<br><strong>因此，未來的機器人是</strong>具備高度模組化的員工，白天接待導覽，晚上更換模組打掃巡邏，並深度整合建築 IoT，成為隨插即用的完美勞動力。</p>
-            </div>
+            
           </div>
         </div>
       </div>
@@ -295,23 +295,23 @@
       <div class="slide-content">
         <span class="tech-tag reveal">2.4 應用情境 - 行 (物流)</span>
         <h2 class="reveal">微型物流最後一哩路的因果驅動</h2>
-        <div class="card reveal">
-          <div class="grid-2">
-            <div>
-              <div class="mermaid">
-                graph TD
+        <div class="card reveal" style="display: flex; flex-direction: column; gap: 20px; width: 100%;">
+          <div class="mermaid" style="width: 100%; margin: 0; display: flex; justify-content: center;">
+
+                graph LR
                   A[電商與快商務爆發] -->|即時配送需求激增 +| B(最後一哩路配送瓶頸)
                   C[交通法規/勞動法規] -->|人力外送成本上升 +| B
                   B -->|壓縮企業利潤 +| D{尋求低成本全天候配送}
                   D -->|自駕技術降維打擊 +| E(((無人車與無人機配送網)))
                   E -->|實現 +| F[24H 高效區域網絡]
                   F -.->|突破瓶頸 -| B
-              </div>
-            </div>
-            <div style="display: flex; flex-direction: column; justify-content: center; gap: 16px;">
+              
+          </div>
+          <div style="background: rgba(255,255,255,0.04); padding: 20px 24px; border-radius: 12px; border-left: 4px solid var(--accent-cyan);">
+
               <h3>自駕技術的降維打擊</h3>
               <p><strong>因為</strong>電商即時配送需求爆發，但依賴人力的外送成本受限於法規與薪資不斷攀升，<br><strong>所以</strong>最後一哩路成為最昂貴的痛點。<br><strong>因此，未來的機器人是</strong>繼承了 Robotaxi 高階視覺技術的微型無人載具，在城市微血管中進行 24 小時無間斷的低成本接駁與搬運。</p>
-            </div>
+            
           </div>
         </div>
       </div>
