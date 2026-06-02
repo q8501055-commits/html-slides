@@ -81,6 +81,14 @@
     }
 
     
+    
+    /* Mermaid High-Contrast Overrides */
+    .mermaid .edgePath .path { stroke: #ffffff !important; stroke-width: 2.5px !important; }
+    .mermaid marker path { fill: #ffffff !important; stroke: #ffffff !important; }
+    .mermaid .edgeLabel { color: #00f0ff !important; font-weight: 700 !important; background-color: transparent !important; font-size: 15px !important; text-shadow: 0 0 10px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.8) !important; }
+    .mermaid .node rect, .mermaid .node circle, .mermaid .node polygon { fill: rgba(0, 240, 255, 0.1) !important; stroke: #00f0ff !important; stroke-width: 2px !important; box-shadow: 0 0 15px rgba(0,240,255,0.2) !important; }
+    .mermaid .node text { fill: #ffffff !important; font-weight: 700 !important; font-size: 16px !important; letter-spacing: 1px; }
+
     /* Mermaid Overrides */
     .mermaid { display: flex; justify-content: center; align-items: center; margin: 10px 0; }
     .mermaid svg { max-height: 380px; width: 100%; max-width: 1100px; font-family: 'DM Sans', sans-serif !important; }
@@ -126,7 +134,7 @@
     }
   </style>
   <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-  <script>mermaid.initialize({ startOnLoad: true, theme: 'dark', themeVariables: { fontFamily: 'DM Sans', primaryColor: '#18181b', primaryTextColor: '#f4f4f5', primaryBorderColor: '#00f0ff', lineColor: '#a1a1aa', secondaryColor: '#27272a', tertiaryColor: '#09090b'} });</script>
+  <script>mermaid.initialize({ startOnLoad: true, theme: 'dark', themeVariables: { fontFamily: 'DM Sans', primaryColor: '#18181b', primaryTextColor: '#f4f4f5', primaryBorderColor: '#00f0ff', lineColor: '#ffffff', secondaryColor: '#27272a', tertiaryColor: '#09090b'} });</script>
 </head>
 <body>
   <div class="ambient-bg"></div>
