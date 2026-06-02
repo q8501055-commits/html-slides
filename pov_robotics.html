@@ -80,6 +80,11 @@
       color: var(--accent-magenta); text-transform: uppercase; letter-spacing: 1px;
     }
 
+    
+    /* Mermaid Overrides */
+    .mermaid { display: flex; justify-content: center; align-items: center; margin: 10px 0; }
+    .mermaid svg { max-height: 400px; width: auto; font-family: 'DM Sans', sans-serif !important; }
+
     /* Layouts */
     .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-md); }
     .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
@@ -120,6 +125,8 @@
       to { opacity: 1; transform: translateY(0); }
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true, theme: 'dark', themeVariables: { fontFamily: 'DM Sans', primaryColor: '#18181b', primaryTextColor: '#f4f4f5', primaryBorderColor: '#00f0ff', lineColor: '#a1a1aa', secondaryColor: '#27272a', tertiaryColor: '#09090b'} });</script>
 </head>
 <body>
   <div class="ambient-bg"></div>
@@ -160,16 +167,19 @@
     <!-- Slide 3: Executive Summary 2 -->
     <div class="slide">
       <div class="slide-content">
-        <span class="tech-tag reveal">1.2 需求驅動</span>
-        <h2 class="reveal">Market Pull：勞動力缺口與高齡化</h2>
-        <div class="card reveal">
-          <p>現今最大的變革動力並非技術單方面推進（Technology Push），而是強烈的市場需求（Market Pull）。</p>
-          <br>
-          <ul>
-            <li><strong>高齡化社會衝擊：</strong>預計到 2050 年，全球 65 歲以上人口將超過 15%。</li>
-            <li><strong>勞動力短缺：</strong>醫療照護、物流配送、商業服務面臨嚴重缺工，人力成本不斷攀升。</li>
-            <li><strong>AI 的物理延伸：</strong>大型語言模型 (LLM) 具備了強大決策能力，下一步是將其注入物理實體，填補勞動力缺口。</li>
-          </ul>
+        <span class="tech-tag reveal">1.2 需求驅動 (System Dynamics)</span>
+        <h2 class="reveal">Market Pull：底層因果迴圈 (Causal Loop)</h2>
+        <div class="card reveal" style="text-align: center; overflow: visible;">
+          <div class="mermaid">
+            graph TD
+              A[高齡化 / 少子化趨勢] -->|勞動力供給減少 -| B(勞動力缺口擴大)
+              C[生活品質與服務需求提升] -->|勞動力需求增加 +| B
+              B -->|人力成本急遽攀升 +| D{企業與家庭的自動化剛需}
+              D -->|龐大資金與研發投入 +| E[AI與實體機器人技術突破]
+              E -->|促成 +| F(((通用型具身智能機器人)))
+              F -.->|填補勞力缺口 / 釋放人力 -| B
+          </div>
+          <p style="margin-top: 16px; font-size: var(--font-small); text-align: left;"><strong>系統動態解析：</strong>技術突破(Technology Push)只是催化劑，真正的底層驅動力是人口結構改變帶來的「勞動力缺口」。當人力成本越過臨界點，資本將強勢推動機器人填補這個負迴圈，形成不可逆的剛性需求。</p>
         </div>
       </div>
     </div>
@@ -199,97 +209,113 @@
     <!-- Slide 5: Scenario - Home -->
     <div class="slide">
       <div class="slide-content">
-        <span class="tech-tag reveal">2.1 應用情境</span>
-        <h2 class="reveal">居家陪伴與家庭服務</h2>
-        <div class="grid-2 reveal">
-          <div class="card">
-            <h3>痛點與挑戰</h3>
-            <ul>
-              <li><strong>高度非結構化環境：</strong>每個家庭格局不同，物品擺放混亂，傳統掃地機器人無法處理立體空間任務（如摺衣服、整理桌面）。</li>
-              <li><strong>語意理解需求：</strong>使用者指令模糊（例如：「幫我把那個收好」），需要機器人具備上下文理解與推理能力。</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>未來願景</h3>
-            <ul>
-              <li><strong>全能管家：</strong>從單一功能設備轉向通用型機器人，能跨越樓層、操作家電。</li>
-              <li><strong>隱私與信任：</strong>家庭是最高隱私場域，機器人需具備邊緣運算能力，確保資料不外洩，並建立人類信任。</li>
-            </ul>
+        <span class="tech-tag reveal">2.1 應用情境 - 住</span>
+        <h2 class="reveal">居家陪伴與家庭服務的因果驅動</h2>
+        <div class="card reveal">
+          <div class="grid-2">
+            <div>
+              <div class="mermaid">
+                graph TD
+                  A[雙薪家庭 / 核心家庭] -->|無暇處理繁雜家務 +| B(居家勞務痛點)
+                  C[居住空間立體化 / 物品非結構化] -->|傳統掃地機無法處理 +| B
+                  B -->|尋求全方位解決方案 +| D{渴望全能型居家管家}
+                  D -->|驅動發展 +| E(((通用型家政機器人)))
+                  E -->|需具備 +| F[語意理解與複雜抓取能力]
+                  F -.->|解決痛點 -| B
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; justify-content: center; gap: 16px;">
+              <h3>未來家庭的終極管家</h3>
+              <p><strong>因為</strong>雙薪家庭無暇家務，且傳統掃地機器人無法處理立體空間（如摺衣服、收納），<br><strong>所以</strong>家庭勞務痛點不斷累積。<br><strong>因此，未來的機器人是</strong>具備語意理解與靈巧雙手的全能管家，能聽懂模糊指令並跨越樓層操作家電，直接打破居家勞務的死結。</p>
+            </div>
           </div>
         </div>
       </div>
+    </div>
     </div>
 
     <!-- Slide 6: Scenario - Care -->
     <div class="slide">
       <div class="slide-content">
-        <span class="tech-tag reveal">2.2 應用情境</span>
-        <h2 class="reveal">銀髮照護與醫療輔助</h2>
-        <div class="grid-2 reveal">
-          <div class="card">
-            <h3>痛點與挑戰</h3>
-            <ul>
-              <li><strong>人力嚴重短缺：</strong>長照機構與醫院面臨護理人員流失，且照護工作屬於高體力負擔、高壓力的工作。</li>
-              <li><strong>安全性要求極高：</strong>機器人與脆弱病患互動，容錯率幾乎為零，需要極高的物理精準度與異常中斷機制。</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>未來願景</h3>
-            <ul>
-              <li><strong>粗重勞力替代：</strong>協助病患翻身、搬運物資、清理廢棄物，減輕護理人員背部與關節勞損。</li>
-              <li><strong>情緒陪伴：</strong>結合 LLM 的語音互動能力，提供高齡者認知刺激與基礎心理陪伴。</li>
-            </ul>
+        <span class="tech-tag reveal">2.2 應用情境 - 醫療照護</span>
+        <h2 class="reveal">銀髮照護與醫療輔助的因果驅動</h2>
+        <div class="card reveal">
+          <div class="grid-2">
+            <div>
+              <div class="mermaid">
+                graph TD
+                  A[高齡人口激增] -->|照護需求大增 +| B(醫療照護系統過載)
+                  C[高壓勞損與低薪] -->|護理人員流失 -| B
+                  B -->|照護品質下降 / 成本失控 +| D{急需實體勞力替代}
+                  D -->|推動研發 +| E(((醫療與陪伴輔助機器人)))
+                  E -->|提供 +| F[粗重搬運與情緒陪伴]
+                  F -.->|減輕負擔 -| B
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; justify-content: center; gap: 16px;">
+              <h3>高齡化社會的護理救星</h3>
+              <p><strong>因為</strong>高齡人口激增導致需求暴增，同時高壓環境讓護理人力不斷流失，<br><strong>所以</strong>醫療與長照系統面臨崩潰邊緣。<br><strong>因此，未來的機器人是</strong>能分擔粗重物理勞動（如翻身、搬運），同時結合 LLM 提供溫暖語音情緒陪伴的輔助者，從根本減輕護理人員勞損。</p>
+            </div>
           </div>
         </div>
       </div>
+    </div>
     </div>
 
     <!-- Slide 7: Scenario - Commercial -->
     <div class="slide">
       <div class="slide-content">
-        <span class="tech-tag reveal">2.3 應用情境</span>
-        <h2 class="reveal">商業空間與企業服務</h2>
-        <div class="grid-2 reveal">
-          <div class="card">
-            <h3>痛點與挑戰</h3>
-            <ul>
-              <li><strong>勞動密集且高流動率：</strong>餐飲、零售、飯店業面臨招募困難，基層服務人員流動率極高。</li>
-              <li><strong>多工處理需求：</strong>商業環境需要接待、導覽、搬運、清潔等多重功能，單一功能機器人成本效益低。</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>未來願景</h3>
-            <ul>
-              <li><strong>模組化硬體與軟體：</strong>同一套基礎底盤，白天作為接待導覽員，晚上更換模組進行巡邏與清潔。</li>
-              <li><strong>物聯網 (IoT) 深度整合：</strong>與智慧建築、電梯、門禁系統無縫連線，實現跨樓層的自動化服務流。</li>
-            </ul>
+        <span class="tech-tag reveal">2.3 應用情境 - 商業與食/衣</span>
+        <h2 class="reveal">商業空間與企業服務的因果驅動</h2>
+        <div class="card reveal">
+          <div class="grid-2">
+            <div>
+              <div class="mermaid">
+                graph TD
+                  A[服務業勞動密集] -->|年輕世代不願投入 +| B(基層服務缺工/流動率高)
+                  C[消費者要求即時/客製化] -->|服務壓力增加 +| B
+                  B -->|培訓成本高/服務不穩 +| D{尋求24H標準化勞力}
+                  D -->|引入 +| E(((模組化商用機器人)))
+                  E -->|串聯 IoT +| F[跨樓層全自動服務流]
+                  F -.->|穩定營運 -| B
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; justify-content: center; gap: 16px;">
+              <h3>24H 無休的標準化員工</h3>
+              <p><strong>因為</strong>餐飲、飯店等服務業面臨極高的基層流動率與招募困難，<br><strong>所以</strong>培訓成本失控且服務品質無法維持。<br><strong>因此，未來的機器人是</strong>具備高度模組化的員工，白天接待導覽，晚上更換模組打掃巡邏，並深度整合建築 IoT，成為隨插即用的完美勞動力。</p>
+            </div>
           </div>
         </div>
       </div>
+    </div>
     </div>
 
     <!-- Slide 8: Scenario - Delivery -->
     <div class="slide">
       <div class="slide-content">
-        <span class="tech-tag reveal">2.4 應用情境</span>
-        <h2 class="reveal">物流配送與無人載具</h2>
-        <div class="grid-2 reveal">
-          <div class="card">
-            <h3>痛點與挑戰</h3>
-            <ul>
-              <li><strong>最後一哩路成本高昂：</strong>外送與電商物流依賴大量人力，受限於交通法規與勞動法規。</li>
-              <li><strong>戶外環境複雜：</strong>需應對極端天氣、行人、車輛等動態障礙物，技術門檻遠高於室內。</li>
-            </ul>
-          </div>
-          <div class="card">
-            <h3>未來願景</h3>
-            <ul>
-              <li><strong>自動駕駛降維打擊：</strong>利用 Robotaxi 與高階自駕系統 (FSD) 累積的龐大数据，降維應用於低速配送載具。</li>
-              <li><strong>快速商務 (Quick Commerce)：</strong>結合無人機與無人車，實現24小時無間斷的高效區域網絡配送。</li>
-            </ul>
+        <span class="tech-tag reveal">2.4 應用情境 - 行 (物流)</span>
+        <h2 class="reveal">微型物流最後一哩路的因果驅動</h2>
+        <div class="card reveal">
+          <div class="grid-2">
+            <div>
+              <div class="mermaid">
+                graph TD
+                  A[電商與快商務爆發] -->|即時配送需求激增 +| B(最後一哩路配送瓶頸)
+                  C[交通法規/勞動法規] -->|人力外送成本上升 +| B
+                  B -->|壓縮企業利潤 +| D{尋求低成本全天候配送}
+                  D -->|自駕技術降維打擊 +| E(((無人車與無人機配送網)))
+                  E -->|實現 +| F[24H 高效區域網絡]
+                  F -.->|突破瓶頸 -| B
+              </div>
+            </div>
+            <div style="display: flex; flex-direction: column; justify-content: center; gap: 16px;">
+              <h3>自駕技術的降維打擊</h3>
+              <p><strong>因為</strong>電商即時配送需求爆發，但依賴人力的外送成本受限於法規與薪資不斷攀升，<br><strong>所以</strong>最後一哩路成為最昂貴的痛點。<br><strong>因此，未來的機器人是</strong>繼承了 Robotaxi 高階視覺技術的微型無人載具，在城市微血管中進行 24 小時無間斷的低成本接駁與搬運。</p>
+            </div>
           </div>
         </div>
       </div>
+    </div>
     </div>
 
     <!-- Slide 9: Embodied AI -->
