@@ -1,0 +1,2974 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>上海與深圳機器人生態系 - 深度考察</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --accent-primary: #3b82f6;
+      --accent-secondary: #10b981;
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      
+      --font-display: clamp(2rem, 5vw, 4rem);
+      --font-h1: clamp(1.5rem, 3.5vw, 3rem);
+      --font-h2: clamp(1.2rem, 2vw, 1.8rem);
+      --font-body: clamp(0.9rem, 1.1vw, 1.1rem);
+    }
+    html, body {
+      margin: 0; padding: 0; width: 100vw; height: 100vh;
+      background-color: var(--bg-dark); color: #f8fafc;
+      font-family: 'Inter', system-ui, sans-serif;
+      overflow: hidden;
+    }
+    .slide {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      padding: clamp(2rem, 5vw, 4rem); box-sizing: border-box;
+      opacity: 0; pointer-events: none; transition: opacity 0.5s ease;
+    }
+    .slide.active { opacity: 1; pointer-events: auto; z-index: 10; }
+    .content-wrapper { width: 100%; max-width: 1400px; max-height: 90vh; overflow-y: auto; padding-bottom: 2rem;}
+    .content-wrapper::-webkit-scrollbar { display: none; }
+    h1 { font-size: var(--font-display); font-weight: 800; margin-bottom: 1rem; color: #fff; text-align: center; }
+    h2 { font-size: var(--font-h1); font-weight: 700; margin-bottom: 1.5rem; color: var(--accent-primary); text-align: center;}
+    h3 { font-size: var(--font-h2); font-weight: 600; margin-bottom: 1rem; color: var(--accent-secondary); }
+    p, li { font-size: var(--font-body); line-height: 1.6; margin-bottom: 0.5rem; color: #cbd5e1; }
+    
+    .bento-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1rem;
+    }
+    .glass-card {
+      background: var(--glass-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border); border-radius: 12px; padding: 1.5rem;
+      transition: transform 0.3s;
+    }
+    .glass-card:hover { transform: translateY(-4px); border-color: rgba(59, 130, 246, 0.4); }
+
+    .nav-dots { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 100; flex-wrap: wrap; justify-content: center; max-width: 80vw;}
+    .dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.2); cursor: pointer; transition: 0.3s; }
+    .dot.active { background: var(--accent-primary); transform: scale(1.3); }
+    
+    .reveal { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
+    .slide.active .reveal { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <div class="slides-container" id="slider">
+
+    <div class="slide active">
+      <div class="content-wrapper text-center">
+        <h1 class="reveal">上海與深圳機器人生態系</h1>
+        <h2 class="reveal" style="animation-delay: 0.2s">深度盤點與投資／合作考察行程規劃</h2>
+        <p class="reveal" style="animation-delay: 0.4s" style="font-size: 1.5rem; color: #94a3b8;">聚焦賽道：靈巧手／移動操作 × 人形機器人（Embodied AI）</p>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="content-wrapper">
+        <h2 class="reveal">重點報告節錄 (1/24)</h2>
+        <div class="bento-grid">
+
+          <div class="glass-card reveal">
+            <p>上海與深圳機器人生態系</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>深度盤點與投資／合作考察行程規劃</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>聚焦賽道：靈巧手／移動操作 × 人形機器人（Embodied AI）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>報告用途</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>供投資／合作考察者使用，作為赴滬、赴深實地拜訪與接洽的決策與行程依據</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>聚焦賽道</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>靈巧手（Dexterous Hand）、移動操作（Mobile Manipulation）與人形機器人（Humanoid）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>考察時間</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>上海：2026 年 7 月（以 WAIC 2026 為錨點）；深圳：2026 年 9 月（以實地拜訪為主）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>盤點範圍</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>孵化器／加速器、學研研發中心、大型企業展示中心三類標的，附綜合接洽排序與分級</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>製作日期</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>2026 年 6 月</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>機密文件 ｜ 僅供內部考察決策使用</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>目錄</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>一、執行摘要</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>1.1 總體判斷</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>1.2 上海 vs 深圳：生態定位差異對比</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>1.3 核心建議與兩地 TOP 接洽名單速覽</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>1.4 兩段行程的投資／合作機會地圖</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>二、方法與範圍</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>2.1 研究方法</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>2.2 盤點範圍與分級定義</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>三、宏觀背景：滬深兩地政策、產業規模與生態定位</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>3.1 上海：政策與產業規模</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>3.2 深圳：政策與產業規模</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>3.3 生態定位對比小結</p>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="content-wrapper">
+        <h2 class="reveal">重點報告節錄 (2/24)</h2>
+        <div class="bento-grid">
+
+          <div class="glass-card reveal">
+            <p>四、上海篇：三類標的深度盤點</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>4.1 上海｜孵化器、加速器與產業載體</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>4.1.1 國地中心（必訪）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>4.1.2 張江機器人谷（必訪）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>4.1.3 上海市人形機器人創新孵化器與資本生態（強烈推薦）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>4.2 上海｜學研研發中心</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>4.2.1 上海 AI Lab（必訪）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>4.2.2 上海交通大學（必訪）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>4.2.3 復旦、同濟、上科大（強烈推薦／推薦）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>4.3 上海｜大型企業展示中心</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>4.3.1 智元 AgiBot（必訪）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>4.3.2 傅利葉 Fourier（必訪）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>4.3.3 節卡、非夕（強烈推薦）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>4.3.4 開普勒與股東變化提示（推薦）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>附錄：漕河涇人形機器人 4S 中心（免預約）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>五、深圳篇：三類標的深度盤點</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>5.1 深圳｜孵化器、加速器與產業載體</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>5.1.1 深圳灣機器人谷（必訪）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>5.1.2 寶安具身智能港 + 資本生態（必訪／強烈推薦）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>5.1.3 XbotPark 松山湖（強烈推薦）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>5.2 深圳｜學研研發中心</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>5.2.1 南科大機器人研究院（必訪）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>5.2.2 AIRS（港中大深圳）與李澤湘體系（強烈推薦）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>5.3 深圳｜大型企業展示中心</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>5.3.1 優必選 UBTECH（必訪）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>5.3.2 眾擎 EngineAI（必訪，免預約）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>5.3.3 樂聚 Leju（必訪）</p>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="content-wrapper">
+        <h2 class="reveal">重點報告節錄 (3/24)</h2>
+        <div class="bento-grid">
+
+          <div class="glass-card reveal">
+            <p>5.3.4 越疆、普渡、大疆（強烈推薦／推薦）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>5.3.5 華為與騰訊：巨頭平台（外部觀察）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>六、跨城市綜合接洽策略與分級名單</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>6.1 上海綜合分級名單</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>6.2 深圳綜合分級名單</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>6.3 接洽策略要點</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>6.4 依賽道需求的接洽切入點對照</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>七、上海 5 天考察行程（2026 年 7 月，以 WAIC 2026 為錨點）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>八、深圳 5 天考察行程（2026 年 9 月，以實地拜訪為主）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>九、風險與注意事項</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>9.1 達闥機器人（CloudMinds）警示</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>9.2 時效性風險</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>9.3 預約與接待</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>9.4 語言與文化</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>9.5 行程彈性</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>9.6 交通與動線優化</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>十、結語</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>十一、參考來源</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>上海｜孵化器與產業載體</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>上海｜學研與企業</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>深圳｜載體、學研與企業</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>展會與時機情報</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>一、執行摘要</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>本報告以「靈巧手／移動操作 × 人形機器人」為聚焦賽道，為投資／合作考察者系統盤點上海與深圳兩地的機器人生態系，並針對 2026 年 7 月赴滬、9 月赴深兩段行程，提供可直接落地執行的拜訪排序、分級名單與逐日行程。整體判斷是：上海與深圳構成中國具身智能（Embodied AI）產業的「雙核」，但兩者的生態定位、可接洽資源型態與最佳接洽姿態存在顯著差異，需以不同策略對待。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>1.1 總體判斷</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>上海是「國家隊 × 學研 × 獨角獸總部」高地。其最大特徵是擁有工信部唯一國字頭的國家地方共建人形機器人創新中心（國地中心），疊加上海人工智慧實驗室（上海 AI Lab）、上海交通大學等頂尖學研機構，以及智元（AgiBot）、傅利葉（Fourier）兩家全國最受矚目的人形機器人獨角獸總部。對投資／合作考察者而言，上海的價值在於「接觸到定義技術標準與開源生態的源頭」，以及「在張江、徐匯等高度集聚的物理空間內，一天內密集拜訪多家標的」。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>深圳則是「供應鏈 × 量產 × 上市企業」高地。深圳的機器人總產值在 2025 年達約 2,426 億元人民幣、年增逾 20%，企業數約 7.4 萬家，密度與供應鏈完整度全國第一。深圳的價值在於「一個地理半徑內聚集數十家可量產、已上市或臨近上市的整機與零部件企業」，包括人形機器人第一股優必選（UBTECH）、協作機器人第一股越疆（Dobot），以及眾擎（EngineAI）、樂聚（Leju）等高速成長標的；同時華為、騰訊等巨頭正以「具身智能產業創新中心」形式快速搭建平台。</p>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="content-wrapper">
+        <h2 class="reveal">重點報告節錄 (4/24)</h2>
+        <div class="bento-grid">
+
+          <div class="glass-card reveal">
+            <p>來源：深圳市發改委產業數據 https://fgw.sz.gov.cn/ztzl/qtztzl/szscjmyjjfzzhfwpt/xwdt/content/post_12751501.html</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>1.2 上海 vs 深圳：生態定位差異對比</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>下表以投資／合作考察視角，對比兩地在六個關鍵維度上的定位差異：</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>維度</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>上海</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>深圳</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>生態定位</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>國家隊／學研／獨角獸總部高地</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>供應鏈／量產／上市企業高地</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>核心資產</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>國地中心、上海 AI Lab、上海交大；智元、傅利葉總部</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>深圳灣機器人谷（15 家上市企業）、優必選、越疆、眾擎、樂聚</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>可接洽型態</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>開源生態、標準制定、學研合作、早期投資</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>量產合作、供應鏈採購、Pre-IPO／二級市場、整機代工</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>空間集聚</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>張江、徐匯、閔行高度集中，利於密集拜訪</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>南山深圳灣、寶安、龍崗多核，需分群安排</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>最佳接洽姿態</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>以技術交流、生態對接、投資意向切入</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>以訂單、量產合作、供應鏈與資本切入</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>時機錨點</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>WAIC 2026（7/3–6，世博展覽館）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>9 月無大展，以實地拜訪為主</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>1.3 核心建議與兩地 TOP 接洽名單速覽</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>赴滬（7 月）以 WAIC 2026 為錨點，建議「展會 + 張江 + 徐匯」三線並行：展會用於一次性接觸大量標的並判斷熱度，張江與徐匯用於深度拜訪源頭機構與獨角獸總部。赴深（9 月）因無大型機器人展（AGIC 在 8 月底、高交會在 11 月），以實地拜訪為主，建議以南山深圳灣機器人谷為核心，輔以寶安具身智能港、龍崗港中大（深圳）／大學城兩條支線。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>上海必訪 TOP：國地中心（含青龍開源／麒麟訓練場、OpenLoong）、上海 AI Lab、智元 AgiBot、傅利葉、上海交大；以及 WAIC 2026 具身智能展區。</p>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="content-wrapper">
+        <h2 class="reveal">重點報告節錄 (5/24)</h2>
+        <div class="bento-grid">
+
+          <div class="glass-card reveal">
+            <p>深圳必訪 TOP：深圳灣機器人谷、優必選總部、眾擎（深業上城旗艦店，免預約）、樂聚（龍華中試線）、寶安具身智能港 + 華為（深圳）全球具身智能產業創新中心、南科大機器人研究院（戴建生院士）。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>重要警示：達闥機器人（CloudMinds）上海閔行展廳已於 2024 年底人去樓空，不建議列為考察目標，詳見第十章。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>1.4 兩段行程的投資／合作機會地圖</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>對投資／合作考察者而言，本次「7 月上海、9 月深圳」雙城行程不應視為兩次孤立的拜訪，而應視為一條完整的盡職調查（due diligence）動線。上海段的核心任務是「鎖定技術路線與投資標的」：在 WAIC 2026 具身智能展區一次性掃描全行業的技術成熟度與熱度，並在張江、徐匯密集拜訪國地中心、上海 AI Lab、智元與傅利葉，判斷哪一條人形與靈巧手技術路線最具長期競爭力、哪些早期標的具備投資價值。深圳段的核心任務則是「驗證供應鏈與量產可行性」：透過實地走訪深圳灣機器人谷、優必選、眾擎、樂聚與寶安具身智能港，確認上海段鎖定的技術路線是否能在深圳的供應鏈體系內以合理成本量產，並評估 Pre-IPO 與二級市場標的的投資窗口。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>就「靈巧手／移動操作」這條細分賽道而言，兩地各有不可替代的價值。靈巧手是目前人形機器人成本與性能的關鍵瓶頸：多自由度、力控、觸覺傳感的整合難度高，且零部件（無框力矩電機、微型減速器、空心杯電機、觸覺陣列）成本仍居高不下。上海的學研機構（如上海交大、上海 AI Lab）與國地中心在靈巧手的演算法、抓取策略與開源資料集上具源頭優勢；深圳的零部件供應鏈與 ODM 能力則決定了靈巧手能否從「實驗室樣機」走向「可量產模組」。移動操作（mobile manipulation，即移動底盤 + 機械臂 + 靈巧手的整合）同理：上海定義整合架構與軟體棧，深圳提供底盤、輪足、電池與整機代工。考察者若能在兩段行程中分別取得「技術可行性」與「量產可行性」兩塊拼圖，即可對任一標的形成完整的投資或合作判斷。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>在接洽姿態上，建議對上海標的以「技術交流 + 生態對接 + 投資意向」三段式切入：先以技術問題建立專業可信度，再探詢開源生態與標準合作的可能，最後視情況表達投資或聯合實驗室意向。對深圳標的則以「訂單 + 量產合作 + 資本」三段式切入：先以具體採購或代工需求建立商業誠意，再談量產節點與供應鏈綁定，最後切入 Pre-IPO 或二級市場的資本合作。兩種姿態的差異，根源於兩地生態定位的不同——上海重「源頭與標準」，深圳重「成本與規模」。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>二、方法與範圍</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>2.1 研究方法</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>本報告以公開可查證資料為基礎，整合政府公告、產業園區與機構官網、權威財經媒體（第一財經、財聯社、證券時報、21 世紀經濟報導等）、學術機構頁面與展會官方資訊。每一項事實性陳述均附來源 URL（以章末來源行與報告末尾「參考來源」章節呈現），未經查證的傳聞或無法溯源之數字不納入。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>排序與分級採「三因子綜合法」：依（1）現階段發展熱度（融資、量產、政策聚焦度）、（2）在地影響力（生態位置、輻射力、被引用頻次）、（3）對本聚焦賽道的重要性（靈巧手／移動操作／人形相關度）三項加權判斷，產出「必訪 / 強烈推薦 / 推薦 / 選訪」四級。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>2.2 盤點範圍與分級定義</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>分級</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>定義</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>行動建議</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>必訪</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>生態源頭或標竿，缺席等於漏掉核心情報</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>務必提前數週預約，安排深度交流</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>強烈推薦</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>賽道關鍵標的，技術或商業價值突出</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>優先納入行程，至少安排一次正式拜訪</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>推薦</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>具特色或互補價值，視時間插入</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>行程有餘裕即納入，可合併鄰近標的</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>選訪</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>錦上添花或需較長交通</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>視興趣與時間彈性選擇</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>三類標的定義：孵化器／加速器（含產業園區、創新中心、產業基金與生態平台）、學研研發中心（高校實驗室、研究院、國家重點實驗室）、大型企業展示中心（整機與零部件企業的總部展廳、體驗中心、超級工廠）。</p>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="content-wrapper">
+        <h2 class="reveal">重點報告節錄 (6/24)</h2>
+        <div class="bento-grid">
+
+          <div class="glass-card reveal">
+            <p>三、宏觀背景：滬深兩地政策、產業規模與生態定位</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>3.1 上海：政策與產業規模</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>上海已將具身智能／人形機器人列為戰略性新興產業重點。《上海市推動具身智能產業發展實施方案（2025–2028）》提出，至 2027 年要建成不少於 4 個高能級孵化器，培育具身智能相關產業規模約 500 億元，並依託國地中心打造開源生態與公共訓練場。上海的特點是「國家級平台 + 頂尖學研 + 獨角獸總部」三位一體，張江（浦東）、徐匯（西岸）、閔行（大零號灣）形成三個高密度集聚帶。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>來源：上海具身智能產業方案 / 浦東政府 https://www.pudong.gov.cn/zwgk/syhj_zdgzkjw/2024/288/332982.html</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>3.2 深圳：政策與產業規模</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>深圳 2025 年機器人總產值約 2,426 億元人民幣、年增約 20.56%，相關企業約 7.4 萬家，居全國前列。《深圳市加快推動具身智能機器人產業高質量發展行動計劃（2025–2027）》提出至 2027 年產業規模突破 1,000 億元、企業數達 1,200 家以上，並在寶安、南山、龍崗等地布局產業載體。深圳的特點是「供應鏈完整 + 量產能力強 + 上市企業密集」，以南山深圳灣為核心、寶安與龍崗為兩翼，並向東莞松山湖延伸。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>來源：深圳市科創委行動計劃 / 發改委 https://stic.sz.gov.cn/xxgk/tzgg/content/post_12052515.html  https://fgw.sz.gov.cn/ztzl/qtztzl/szscjmyjjfzzhfwpt/xwdt/content/post_12751501.html</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>上海的「三個集聚帶」各有分工：張江（浦東）以國地中心為核心，加上智元、傅利葉等量產與本體企業，是「人形整機 + 開源生態」的重鎭；徐匯（西岸）以上海 AI Lab 為頂點，集中大模型與具身智能軟體、模速空間與人形創新孵化器；閔行（大零號灣）則依託上海交大，集聚節卡、非夕等協作與力控企業。這種「一區一主題」的空間布局，讓考察者可以以「天為單位、以群為線」高效拜訪，是上海相較於其他城市的顯著優勢。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>深圳的產業體質則是「高密度、全鏈條、快迭代」。從減速器、無框力矩電機、變胞靈巧手、觸覺傳感器等關鍵零部件，到整機、本體與應用集成，深圳幾乎可在本地供應鏈內完成驗證與量產，這是其「能造多少、多便宜」優勢的根本。對聚焦靈巧手與移動操作的考察者而言，深圳的零部件與 ODM 能力（如鈦虎、雷賽等）是驗證「成本下降曲線」的關鍵。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>3.3 生態定位對比小結</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>簡言之：要找「源頭技術、開源標準、學研合作與早期投資」，上海是首選；要找「可量產夥伴、供應鏈、整機代工與成熟上市標的」，深圳是首選。對本聚焦賽道（靈巧手／移動操作 × 人形）而言，兩地缺一不可——上海定義「能做什麼」，深圳決定「能造多少、多便宜」。一個理想的考察動線是：7 月在上海鎖定技術路線與投資標的、9 月在深圳驗證供應鏈與量產可行性，兩次行程形成「技術→量產」的完整判斷閉環。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>從資本市場視角補充一點：兩地的「可投性」型態也截然不同。上海聚集的是估值高、輪次早、想像空間大的獨角獸與學研衍生項目，適合具備一級市場（VC／CVC）能力、願意承擔早期風險並換取生態話語權的投資者；智元、傅利葉等標的的融資輪次與估值仍在快速變化，接洽時應以最新一輪公開資訊為準並預留調整空間。深圳則聚集已上市（優必選、越疆）或臨近上市、現金流與訂單能見度較高的標的，適合偏好二級市場、Pre-IPO 或產業協同（供應鏈入股、聯合量產）的投資者。換言之，上海的機會偏「成長性與技術壁壘」，深圳的機會偏「確定性與規模化」，兩者在一個投資組合中可形成風險與報酬的互補。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>最後就「時機」做一提醒：本次兩段行程的時間錨點差異極大。上海 7 月有 WAIC 2026（7/3–6，世博展覽館）這一全行業最高密度的曝光窗口，可在數日內接觸大量標的，應充分利用；深圳 9 月則無大型機器人展（AGIC 在 8/26–28、高交會在 11 月），因此深圳段必須以「事先預約、實地拜訪」為主，行程設計與接洽節奏均需相應調整，這也是本報告為兩地分別設計不同行程邏輯的根本原因。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>四、上海篇：三類標的深度盤點</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>本章依孵化器／加速器、學研研發中心、大型企業展示中心三類，先列綜合接洽排序總表，再對重點標的做深度小節（技術實力、融資／估值／上市狀況、在地影響力、為何值得接洽、接洽方式與角度）。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>4.1 上海｜孵化器、加速器與產業載體</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>排序</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>標的（中／英）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>所在</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>分級</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>接洽重點</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>1</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>國地中心（國家地方共建人形機器人創新中心）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>浦東張江</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>必訪</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>青龍開源、麒麟訓練場、OpenLoong 生態</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>2</p>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="content-wrapper">
+        <h2 class="reveal">重點報告節錄 (7/24)</h2>
+        <div class="bento-grid">
+
+          <div class="glass-card reveal">
+            <p>張江機器人谷</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>浦東張江</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>必訪</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>4.2km² 集聚，傅利葉／智元落點</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>3</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>上海市人形機器人創新孵化器</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>徐匯漕河涇</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>強烈推薦</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>科學家工作室、2 億基金</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>4</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>張江 AI 小鎮／模力社區</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>浦東張江</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>強烈推薦</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>高瓴+浦東創投 20 億鏈接基金</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>5</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>模速空間</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>徐匯西岸</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>推薦</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>大模型專業孵化載體</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>6</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>張江 AI 島</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>浦東張江</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>推薦</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>開普勒總部所在</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>7</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>上海機器人產業園</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>寶山</p>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="content-wrapper">
+        <h2 class="reveal">重點報告節錄 (8/24)</h2>
+        <div class="bento-grid">
+
+          <div class="glass-card reveal">
+            <p>推薦</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>FANUC 超級工廠所在</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>8</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>臨港滴水湖 AI 創新港</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>臨港</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>選訪</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>智元量產工廠腹地</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>4.1.1 國地中心（必訪）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>技術實力：工信部唯一國字頭的人形機器人創新中心，擁有「青龍」開源人形機器人與 OpenLoong 開源社群，並建設約 5,000㎡ 的「麒麟」異構人形機器人訓練場，是全國具身智能數據與標準的源頭之一。總經理許彬、首席科學家江磊。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>在地影響力：位居張江核心，是上海乃至全國具身智能「定標準、建生態、出數據」的國家級樞紐，輻射智元、傅利葉等獨角獸與眾多本體廠。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>為何值得接洽：接觸國地中心等於接觸到開源標準與公共訓練場的源頭，對投資判斷賽道方向、對合作切入生態具有戰略價值。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>接洽方式與角度：經 OpenLoong 社群與官網對接，以開源生態共建、訓練場數據合作、標準參與為切入；務必提前數週預約。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>來源：OpenLoong 官網 / 世界機器人大會 https://www.openloong.net/col.jsp?id=105  https://www.worldrobotconference.com/expo/company/395.html</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>4.1.2 張江機器人谷（必訪）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>概況與在地影響力：位於浦東張江，規劃約 4.2 平方公里，是上海機器人產業最集中的物理載體，傅利葉、智元等頭部企業均在此落點，園區招商電話 021-80162520。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>為何值得接洽與切入角度：一個園區內即可串聯多家獨角獸與供應鏈企業，適合作為赴滬行程的「張江群」主錨點；以園區招商部門統籌拜訪、對接落地與投資資源。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>來源：浦東政府 / 科技日報 https://www.pudong.gov.cn/zwgk/syhj_zdgzkjw/2024/288/332982.html  https://www.stdaily.com/web/gdxw/2025-12/16/content_447848.html</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>4.1.3 上海市人形機器人創新孵化器與資本生態（強烈推薦）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>上海市人形機器人創新孵化器位於徐匯漕河涇桂果路 517 號，由汪兵負責，設「科學家工作室」並配套約 2 億元基金，是徐匯群拜訪的關鍵節點。資本面，張江 AI 小鎮／模力社區有高瓴與浦東創投合設約 20 億元的鏈接基金；CVC/VC 層面高瓴、紅杉、經緯、聯想創投等均深度布局具身智能。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>來源：上海國際人才 / 第一財經 / 解放日報 https://www.sh-italent.com/Article/202507/202507040004.shtml  https://www.yicai.com/news/102827226.html  https://www.jfdaily.com/wx/detail.do?id=986093</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>模速空間位於徐匯西岸龍台路 199 號，為大模型專業孵化載體，曾獲高層視察，適合作為徐匯群順訪節點。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>來源：求是網 https://www.qstheory.cn/20250430/715540ee43c6408d886bcba124aa6031/c.html</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>4.2 上海｜學研研發中心</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>梯隊</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>機構（中／英）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>亮點</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>分級</p>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="content-wrapper">
+        <h2 class="reveal">重點報告節錄 (9/24)</h2>
+        <div class="bento-grid">
+
+          <div class="glass-card reveal">
+            <p>★★★</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>上海 AI Lab（上海人工智慧實驗室）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>龐江淼具身中心、書生 Intern-Robotics、GRUtopia</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>必訪</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>★★★</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>國地中心</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>青龍開源、麒麟訓練場（見 4.1.1）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>必訪</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>★★★</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>上海交通大學</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>MVIG 盧策吾、ScaleLab 穆堯；孵化智元／傅利葉</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>必訪</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>★★</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>復旦大學智能機器人研究院</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>甘中學「光華一號」、TEAI 可信具身</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>強烈推薦</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>★★</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>同濟大學</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>自主智能無人系統全國重點實驗室</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>推薦</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>★★</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>上海科技大學 STAR Center</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>肖晨曦 ICRA2025 最佳論文，訪問友好</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>推薦</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>★</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>上海大學 / 中科院上海微系統所</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>自強 1 號等</p>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="content-wrapper">
+        <h2 class="reveal">重點報告節錄 (10/24)</h2>
+        <div class="bento-grid">
+
+          <div class="glass-card reveal">
+            <p>選訪</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>4.2.1 上海 AI Lab（必訪）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>技術實力：位於徐匯西岸智塔（漕寶路 865 號），龐江淼領銜具身智能中心，推出「書生」Intern-Robotics 與 GRUtopia 等具身智能模型與模擬平台，是國內具身大模型與通用機器人研究的頂尖機構之一。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>為何值得接洽與角度：對投資者而言是判斷具身大模型技術路線的權威參照；以學術交流、模型／資料集合作、聯合研究切入，行程上與徐匯群其他標的合併。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>在地影響力：上海 AI Lab 是全國具身智能「模型層」的標準制定者之一，其開源模型與模擬平台被大量本體企業與高校採用，形成「上海 AI Lab 出模型、國地中心出數據、交大出人才、智元／傅利葉出本體」的分工鎖。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>來源：上海 AI Lab 官網 https://www.shlab.org.cn/news/5444187</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>4.2.2 上海交通大學（必訪）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>上海交大是上海具身智能的學研引擎：MVIG（盧策吾）、ScaleLab（穆堯）、高峰並聯機構、馬道林觸覺（已孵化「千覺機器人」）等團隊覆蓋感知、操作、靈巧手與觸覺全鏈條；交大系直接或間接孵化了智元、傅利葉等頭部企業，並在全球率先設立具身智能本科專業。接洽以產學合作、人才與早期投資項目對接為角度。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>來源：MVIG 實驗室 https://www.mvig.org</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>4.2.3 復旦、同濟、上科大（強烈推薦／推薦）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>復旦大學智能機器人研究院由甘中學領銜，推出「光華一號」人形機器人並設 TEAI 可信具身方向；同濟大學擁有自主智能無人系統全國重點實驗室；上海科技大學 STAR Center（肖晨曦團隊 ICRA 2025 最佳論文、顧家遠 RT-Trajectory 等）對外訪問友好，是學研接洽的高性價比選項。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>來源：復旦 CIRAM https://ciram.fudan.edu.cn/zcdw/list.htm</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>4.3 上海｜大型企業展示中心</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>排序</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>企業（中／英）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>聚焦</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>估值／上市</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>分級</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>1</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>智元 AgiBot</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>人形整機、量產</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>估值約 150 億，臨港量產工廠</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>必訪</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>2</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>傅利葉 Fourier</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>人形 GR 系列、FSA 靈巧手</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>估值約 80 億獨角獸</p>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="content-wrapper">
+        <h2 class="reveal">重點報告節錄 (11/24)</h2>
+        <div class="bento-grid">
+
+          <div class="glass-card reveal">
+            <p>必訪</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>3</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>節卡 JAKA</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>協作機器人、移動操作 S³</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>行業頭部</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>強烈推薦</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>4</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>非夕 Flexiv</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>力控、靈巧手</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>力控標竿，培訓中心可預約</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>強烈推薦</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>5</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>ABB 超級工廠 + 賦能中心</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>工業／協作</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>跨國龍頭</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>推薦</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>6</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>開普勒 Kepler</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>人形整機</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>2026.05 被收購中，留意股東變化</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>推薦</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>7</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>鈦虎 Ti5Robot</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>關節、靈巧手 ODM</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>零部件供應</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>推薦</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>8</p>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="content-wrapper">
+        <h2 class="reveal">重點報告節錄 (12/24)</h2>
+        <div class="bento-grid">
+
+          <div class="glass-card reveal">
+            <p>FANUC 上海 / 新時達 / 安川</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>工業機器人</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>成熟廠商</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>選訪</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>4.3.1 智元 AgiBot（必訪）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>技術實力與量產：智元是上海最受矚目的人形機器人公司之一，主打整機與量產能力，在臨港建有量產工廠，產品線覆蓋遠征、靈犀等系列，並積極推動具身數據與開源。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>融資／估值：估值約 150 億元人民幣，背後集結頂級資本。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>為何值得接洽與角度：量產進度與成本曲線是判斷人形商業化的關鍵指標；以量產合作、供應鏈、投資意向切入，需提前預約（臨港工廠參訪門檻較高）。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>在地影響力：智元與上海交大、國地中心生態緊密連結，是上海「學研→產業化」路徑的標樣案例，並在具身數據集與開源上主動布局，對全產業數據生態具引領作用。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>來源：36 氪 PitchHub https://pitchhub.36kr.com/project/2228936046528520</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>4.3.2 傅利葉 Fourier（必訪）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>技術實力：傅利葉是人形機器人獨角獸，總部位於張江機器人谷（秀浦路 2388 號），產品包括 GR 系列人形與 FSA 系列執行器、靈巧手，康復機器人業務提供穩定現金流。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>估值與接洽：估值約 80 億元人民幣。媒體／合作可循 media@fftai.com；以靈巧手與執行器供應、整機合作、投資切入，地理上與張江群合併拜訪最高效。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>在地影響力：傅利葉是上海靈巧手與執行器供應鏈的代表性企業，其 FSA 系列一體化關節被多家本體廠採用，在「零組件（靈巧手／關節）供應者」的身分上具高度補位代表性，是本聚焦賽道的核心標的。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>來源：財聯社 https://www.cls.cn/detail/2042476</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>4.3.3 節卡、非夕（強烈推薦）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>節卡 JAKA（閔行南谷路 18 號）為協作機器人頭部，推出移動操作機器人 S³，合作可循 marketing@jaka.com；非夕 Flexiv（閔行紫星路 588 號）以自適應力控與靈巧手見長，設有培訓中心可預約參觀。二者同屬閔行群，適合一日內合併拜訪，並順訪上海交大。對本聚焦賽道，非夕的力控與靈巧手、節卡的移動操作平台都是高相關標的。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>4.3.4 開普勒與股東變化提示（推薦）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>開普勒 Kepler 人形機器人總部位於張江 AI 島。需特別留意：2026 年 5 月相關報導指其正被杭州柯林收購，股東結構可能變動，接洽前應先確認最新控制權與業務連續性。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>附錄：漕河涇人形機器人 4S 中心（免預約）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>徐匯漕河涇的人形機器人 4S 中心已於 2025 年 7 月 3 日對外開放，無需預約，適合作為徐匯群的彈性順訪點，可一站式看到多家品牌展示。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>來源：新浪財經 https://finance.sina.com.cn/stock/t/2025-07-03/doc-infefhcf3772415.shtml</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>五、深圳篇：三類標的深度盤點</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>深圳以供應鏈與量產見長，企業密度全國第一。本章同樣依三類標的列排序總表並做重點深度小節。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>5.1 深圳｜孵化器、加速器與產業載體</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>排序</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>載體（中／英）</p>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="content-wrapper">
+        <h2 class="reveal">重點報告節錄 (13/24)</h2>
+        <div class="bento-grid">
+
+          <div class="glass-card reveal">
+            <p>所在</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>分級</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>接洽重點</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>1</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>深圳灣科技生態園「機器人谷」</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>南山留仙大道</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>必訪</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>15 家機器人上市企業、1300+ 企業集聚</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>2</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>XbotPark 松山湖機器人基地</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>東莞松山湖</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>強烈推薦</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>李澤湘體系，孵化大疆／雲鯨／海柔</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>3</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>寶安具身智能港</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>寶安</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>必訪</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>2025.07 啟用，新興具身載體</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>4</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>深創投 AI+具身機器人基金</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>南山</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>強烈推薦</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>約 15.5 億基金，資本對接</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>5</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>深圳市機器人協會 SZRA</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>全市</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>推薦</p>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="content-wrapper">
+        <h2 class="reveal">重點報告節錄 (14/24)</h2>
+        <div class="bento-grid">
+
+          <div class="glass-card reveal">
+            <p>700+ 會員，產業總入口</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>6</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>河套深港科創合作區</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>福田</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>推薦</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>深港跨境科創</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>7</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>深圳科創學院 InnoX / 龍崗模力谷</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>龍崗等</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>選訪</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>早期孵化</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>5.1.1 深圳灣機器人谷（必訪）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>概況：位於南山留仙大道的深圳灣科技生態園「機器人谷」，集聚約 15 家機器人上市企業、1,300 餘家相關企業，優必選、越疆、逐際、眾擎、帕西尼等均在此或鄰近。是深圳行程的絕對核心錨點。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>為何值得接洽與角度：一個園區半徑內即可密集拜訪整機、零部件與上市企業，效率極高；以供應鏈採購、量產合作、二級市場與 Pre-IPO 投資切入。建議將深圳行程 2 天集中在此群。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>在地影響力：深圳灣機器人谷是中國機器人上市企業密度最高的區域，15 家上市企業涵蓋人形、協作、服務、零部件各環節，輕鬆實現「一日內看完整條產業鏈」。其輻射力甚至帶動周邊形成完整的零組件供應生態。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>來源：深圳新聞網 / 深圳發改委 https://www.sznews.com  https://fgw.sz.gov.cn/ztzl/qtztzl/szscjmyjjfzzhfwpt/xwdt/content/post_12751501.html</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>5.1.2 寶安具身智能港 + 資本生態（必訪／強烈推薦）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>寶安「具身智能港」於 2025 年 7 月 10 日啟用，是深圳最新的具身智能專業載體，並與華為（深圳）全球具身智能產業創新中心形成寶安群核心。2026 年 5 月 8 日「前海·寶安 AI 產業發展大會」後，近 20 個項目簽約落地，顯示寶安正快速崛起為新熱點。資本面，深創投設有約 15.5 億元的「AI+具身機器人」基金，是重要的本地資本對接窗口。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>來源：人民網深圳 / 深圳新聞網 / 前海管理局 http://sz.people.com.cn/n2/2025/0716/c202846-41292417.html  https://www.sznews.com/news/content/2026-05/09/content_32042466.htm  https://qh.sz.gov.cn/sygnan/qhzx/dtzx/content/post_11734159.html</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>5.1.3 XbotPark 松山湖（強烈推薦）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>XbotPark 松山湖機器人基地由李澤湘創辦，孵化出大疆、雲鯨、海柔創新等明星企業，累計約 265 家項目。雖位於東莞（距深圳車程約 1 小時），但對理解珠三角硬科技孵化方法論與早期項目源頭極具價值，建議作為深圳行程的選訪延伸（與松山湖一日合併）。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>來源：21 世紀經濟報導 https://www.21jingji.com/article/20260521/herald/71476965f36a105f69fead60fba5b126.html</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>5.2 深圳｜學研研發中心</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>排序</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>機構（中／英）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>亮點</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>分級</p>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="content-wrapper">
+        <h2 class="reveal">重點報告節錄 (15/24)</h2>
+        <div class="bento-grid">
+
+          <div class="glass-card reveal">
+            <p>1</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>南科大機器人研究院 SIR</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>戴建生院士，變胞靈巧手、南科盤古</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>必訪</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>2</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>李澤湘體系（HKUST × XbotPark）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>孵化約 270 家、估值約 3,500 億</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>強烈推薦</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>3</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>AIRS（港中大深圳）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>徐揚生、劉少山，AIRSHIP 開源</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>強烈推薦</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>4</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>鵬城實驗室</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>高文院士，雲腦三期 1.6 萬 P 算力</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>推薦</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>5</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>SIAT 中科院先進院</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>吳新宇外骨骼、醫療機器人</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>推薦</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>6</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>哈工大（深圳）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>瞬翼巧手（靈巧手冠軍）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>推薦</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>7</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>清華 SIGS / 深大 AI 學院 / 北大深研院</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>觸覺、與優必選共建</p>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="content-wrapper">
+        <h2 class="reveal">重點報告節錄 (16/24)</h2>
+        <div class="bento-grid">
+
+          <div class="glass-card reveal">
+            <p>選訪</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>5.2.1 南科大機器人研究院（必訪）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>技術實力：由戴建生院士（英國皇家工程院院士 FREng）領銜，研究院在變胞機構與變胞靈巧手領域具國際領先地位，並推出「南科盤古」「GrowHR」等成果——對本聚焦賽道（靈巧手）相關度極高。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>為何值得接洽與角度：靈巧手是人形機器人最難的子系統之一，戴院士團隊是全球少數源頭級研究者；以靈巧手技術授權、聯合研發、早期投資切入。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>來源：羊城晚報 https://ysln.ycwb.com/content/2025-07/02/content_53506639.html</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>5.2.2 AIRS（港中大深圳）與李澤湘體系（強烈推薦）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>AIRS（深圳人工智慧與機器人研究院）由徐揚生領銜，劉少山等推動 AIRSHIP 開源平台，對接窗口 airs@cuhk.edu.cn、電話 +86-755-23518114。李澤湘體系橫跨 HKUST、XbotPark 與 HKUST(GZ) 具身智能研究所，累計孵化約 270 家企業、生態估值約 3,500 億元，是珠三角硬科技創業的「黃埔軍校」。二者構成龍崗／大學城群的核心。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>此外，鵬城實驗室（高文院士，雲腦三期約 1.6 萬 P 算力）提供深圳具身智能的算力底座；中科院深圳先進院 SIAT（吳新宇外骨骼／醫療機器人）在人機協同與醫療應用場景有深厚積累；哈工大深圳（徐文福、袁晗團隊，瞬翼巧手曾獲靈巧手冠軍）在靈巧手與空間機器人領域實力堅實。這些機構與南科大、AIRS 共同構成深圳「學研供給」的多元底座，是龍崗／大學城群值得一併拜訪的高價值學研標的。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>5.3 深圳｜大型企業展示中心</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>排序</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>企業（中／英）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>聚焦</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>估值／上市</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>分級</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>1</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>優必選 UBTECH</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>人形 Walker S2</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>人形第一股 9880.HK，訂單約 14 億</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>必訪</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>2</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>眾擎 EngineAI</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>人形整機</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>B 輪 2 億美元、估值破百億；立訊入股</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>必訪</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>3</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>樂聚 Leju</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>人形（華為盤古夸父）</p>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="content-wrapper">
+        <h2 class="reveal">重點報告節錄 (17/24)</h2>
+        <div class="bento-grid">
+
+          <div class="glass-card reveal">
+            <p>Pre-IPO 估值約 90 億</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>必訪</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>4</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>越疆 Dobot</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>協作、Dobot Atom</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>協作第一股 2432.HK</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>強烈推薦</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>5</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>普渡 Pudu</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>服務／移動操作</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>估值破百億</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>強烈推薦</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>6</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>大疆 DJI</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>無人機、機器人</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>行業龍頭（歡樂海岸旗艦店免預約）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>推薦</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>7</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>華為具身智能中心</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>平台、生態</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>不對外，已簽約 16 家</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>必訪（外部）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>8</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>騰訊 Robotics X</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>Tairos 平台</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>不對外</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>選訪（外部）</p>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="content-wrapper">
+        <h2 class="reveal">重點報告節錄 (18/24)</h2>
+        <div class="bento-grid">
+
+          <div class="glass-card reveal">
+            <p>9</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>華沿 / 智平方 / 雷賽 / 雲鯨</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>整機與零部件</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>華沿 1021.HK（2026.03 上市）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>推薦</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>5.3.1 優必選 UBTECH（必訪）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>技術與商業：優必選是「人形機器人第一股」（港股 9880.HK），主力 Walker S2 已進入車廠等工業場景，累計訂單規模約 14 億元，是全球少數實現人形機器人商業化交付的企業。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>為何值得接洽與角度：作為已上市標的，便於二級市場研判與供應鏈、量產場景合作；總部位於深圳，聯絡電話 0755-83474428，建議提前預約總部參訪。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>在地影響力：優必選是深圳乃至全國人形機器人產業的「門面招牌」，其上市與量產進展成為資本市場與供應鏈其他企業的重要風向標；拜訪優必選有助於建立對整個深圳人形生態的基準認知。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>來源：優必選官網 https://www.ubtrobot.com/cn/about/company-profile</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>5.3.2 眾擎 EngineAI（必訪，免預約）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>技術與融資：眾擎是深圳成長最快的人形機器人新星之一，完成 B 輪約 2 億美元融資、估值突破百億，立訊精密入股，產業化與供應鏈整合能力受市場高度關注。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>接洽便利性：在深業上城設有旗艦店，無需預約即可實地體驗，是深圳行程「免預約」高價值節點，適合作為南山群順訪。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>來源：深圳市政府 / 眾擎官網 https://www.sz.gov.cn/cn/xxgk/zfxxgj/gqdt/content/post_12487844.html  https://www.engineai.com.cn/about-news-media/55.html</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>5.3.3 樂聚 Leju（必訪）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>樂聚（Leju）與華為深度綁定（搭載盤古大模型的「夸父」人形），在龍華設有中試產線，Pre-IPO 估值約 90 億元。對投資者而言是觀察「華為生態 + 人形量產」的關鍵窗口；以中試線參訪、量產與供應鏈合作切入。由於華為將盤古大模型與具身智能平台列為戰略重點，透過樂聚間接觀察華為的技術路線與生態招募動向，是判斷深圳「巨頭平台化」趨勢的重要路徑。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>來源：21 世紀經濟報導 https://www.21jingji.com/article/20260508/herald/24c26da1601fcf6309583cd203dfd165.html</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>5.3.4 越疆、普渡、大疆（強烈推薦／推薦）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>越疆 Dobot（港股 2432.HK，協作機器人第一股）推出人形產品 Dobot Atom，投資者關係 ir@dobot-robots.com；普渡 Pudu 在南山國際創新谷設體驗中心、估值破百億（400-0826-660）；大疆 DJI 在歡樂海岸設旗艦店、免預約。三者均為南山群高價值節點，其中眾擎與大疆旗艦店免預約，特別適合彈性安排。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>5.3.5 華為與騰訊：巨頭平台（外部觀察）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>華為（深圳）全球具身智能產業創新中心位於前海／寶安，雖不對外開放，但已簽約約 16 家生態夥伴，是判斷深圳具身智能「平台化」趨勢的核心；騰訊 Robotics X 推出 Tairos 平台，同樣不對外。對二者以「外部觀察 + 透過其生態夥伴間接接洽」為策略。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>來源：第一財經 https://www.yicai.com/news/102359803.html</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>六、跨城市綜合接洽策略與分級名單</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>綜合熱度、在地影響力與賽道重要性，下表彙整兩地的綜合分級名單，供整體資源配置與優先序決策。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>6.1 上海綜合分級名單</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>分級</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>上海標的</p>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="content-wrapper">
+        <h2 class="reveal">重點報告節錄 (19/24)</h2>
+        <div class="bento-grid">
+
+          <div class="glass-card reveal">
+            <p>必訪</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>國地中心、張江機器人谷、上海 AI Lab、上海交大、智元 AgiBot、傅利葉；WAIC 2026 具身智能展區</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>強烈推薦</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>上海市人形機器人創新孵化器、張江 AI 小鎮／模力社區、節卡、非夕、復旦智能機器人研究院</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>推薦</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>模速空間、張江 AI 島（開普勒）、上海機器人產業園（FANUC）、同濟、上科大、漕河涇 4S 中心</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>選訪</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>臨港滴水湖 AI 創新港、新時達／安川、上海大學等</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>6.2 深圳綜合分級名單</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>分級</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>深圳標的</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>必訪</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>深圳灣機器人谷、優必選、眾擎、樂聚、寶安具身智能港+華為創新中心、南科大機器人研究院</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>強烈推薦</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>AIRS（港中大深圳）／李澤湘體系、越疆、普渡、深創投基金、XbotPark 松山湖</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>推薦</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>大疆旗艦店、鵬城實驗室、SIAT、哈工大深圳、華沿、智平方、SZRA 協會</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>選訪</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>清華 SIGS、深大 AI、北大深研院、雲鯨／石頭等掃地機器人廠</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>6.3 接洽策略要點</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>上海以「生態源頭 + 投資 + 標準」切入：國地中心談開源生態與訓練場數據，AI Lab 與交大談聯合研究，智元／傅利葉談量產與投資意向。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>深圳以「量產 + 供應鏈 + 資本」切入：機器人谷與優必選談量產場景，眾擎／樂聚談 Pre-IPO 與供應鏈整合，深創投基金談本地資本對接。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>免預約節點優先排在彈性時段：上海漕河涇 4S 中心、深圳眾擎深業上城旗艦店、大疆歡樂海岸旗艦店。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>需高門檻預約的重點（國地中心、上海 AI Lab、智元臨港工廠、優必選總部、樂聚中試線、華為中心生態夥伴）務必提前 3–4 週發函預約。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>6.4 依賽道需求的接洽切入點對照</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>若以「靈巧手、移動操作、人形整機、關鍵零部件、具身大模型」五個子賽道拆解，兩地的最佳接洽切入點可歸納如下表，供講偏重不同子賽道的考察者快速定位拜訪重點：</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>子賽道</p>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="content-wrapper">
+        <h2 class="reveal">重點報告節錄 (20/24)</h2>
+        <div class="bento-grid">
+
+          <div class="glass-card reveal">
+            <p>上海主要接洽點</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>深圳主要接洽點</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>靈巧手</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>傅利葉 FSA、非夕、交大馬道林（千覺）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>南科大戴建生（變胞）、哈工大瞬翼巧手</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>移動操作</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>節卡 S³、非夕力控</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>普渡、越疆</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>人形整機</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>智元 AgiBot、傅利葉、開普勒</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>優必選、眾擎、樂聚</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>關鍵零部件</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>鈦虎 Ti5、傅利葉 FSA</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>雷賽智能、華沿、本地減速器／電機供應鏈</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>具身大模型</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>上海 AI Lab、國地中心、交大</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>華為盤古生態（透過樂聚）、鵬城實驗室</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>由表可見：靈巧手與具身大模型的「源頭」多在上海（交大、AI Lab）與深圳學研（南科大），而人形整機與關鍵零部件的「量產與供應」則雙城並重，但深圳在零部件製造與成本控制上更具優勢。建議考察者依自身最關心的子賽道，在兩次行程中分別鎖定「技術源頭」與「量產夥伴」。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>七、上海 5 天考察行程（2026 年 7 月，以 WAIC 2026 為錨點）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>時機錨點：WAIC 2026（世界人工智慧大會）將於 2026 年 7 月 3–6 日在上海世博展覽館（浦東國展路 1099 號）舉行，設「具身智能」「智能機器人」展區，是赴滬考察的核心錨點。建議將其中一日全程投入展會，其餘各日依地理分群（浦東張江群、徐匯群、閔行群、寶山群）安排實地拜訪。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>來源：WAIC 官方 / 食品展網 https://worldaic.com.cn  https://www.shifair.com/wap/exhibition_details/index/id/4860.html</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>日次</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>分群</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>上午</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>下午</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>晚上</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>接洽建議</p>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="content-wrapper">
+        <h2 class="reveal">重點報告節錄 (21/24)</h2>
+        <div class="bento-grid">
+
+          <div class="glass-card reveal">
+            <p>Day 1</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>WAIC 錨點</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>WAIC 2026 開幕，具身智能展區巡館</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>智能機器人展區深度看樣，現場約訪</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>展商酒會／論壇社交</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>一次性接觸大量標的，鎖定後續拜訪名單</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>Day 2</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>浦東張江群</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>國地中心（青龍開源／麒麟訓練場/OpenLoong）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>智元 AgiBot 交流（或臨港工廠，需預約）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>張江 AI 小鎮交流晚宴</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>生態源頭 + 量產；提前 3–4 週預約</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>Day 3</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>浦東張江群</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>傅利葉（秀浦路 2388）GR 與 FSA 靈巧手</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>張江機器人谷招商 + 開普勒（AI 島，留意股東變化）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>模力社區 / AI 小鎮自由交流</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>靈巧手與執行器供應、整機與投資</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>Day 4</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>徐匯群</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>上海 AI Lab（西岸智塔，學術交流）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>人形創新孵化器（桂果路 517）+ 漕河涇 4S 中心（免預約）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>徐匯西岸晚餐</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>聯合研究、早期項目、生態對接</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>Day 5</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>閔行群</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>上海交大 MVIG / ScaleLab</p>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="content-wrapper">
+        <h2 class="reveal">重點報告節錄 (22/24)</h2>
+        <div class="bento-grid">
+
+          <div class="glass-card reveal">
+            <p>非夕 Flexiv（紫星路 588，培訓中心）+ 節卡（南谷路 18）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>返程 / 機動</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>力控與靈巧手、移動操作、產學合作</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>交通分群說明：Day 1 世博展覽館位於浦東，與 Day 2–3 張江群同屬浦東，地鐵或駕車均便利；Day 4 徐匯群（西岸智塔、漕河涇）集中於徐匯；Day 5 閔行群（交大、非夕、節卡）集中於閔行，建議駕車串聯。若時間充裕，復旦、同濟、上科大可彈性插入相應日次。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>八、深圳 5 天考察行程（2026 年 9 月，以實地拜訪為主）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>時機說明：深圳 9 月無大型機器人展——AGIC 2026 在 2026 年 8 月 26–28 日（深圳國際會展中心寶安館）舉行，高交會 CHTF 及具身智能機器人產業鏈展在 2026 年 11 月（約 11/13–15 與 11/26–28）。因此 9 月行程以實地拜訪為主，依南山群、寶安群、龍崗／大學城群、南科大／光明群分群安排，並可選訪東莞松山湖 XbotPark。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>來源：前瞻會展 / AGIC 官方 https://meeting.qianzhan.com/summit/paiqi/4403  https://www.agicexpo.com/Guide</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>日次</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>分群</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>上午</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>下午</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>晚上</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>接洽建議</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>Day 1</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>南山群（核心）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>深圳灣機器人谷園區 + 優必選總部（預約）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>眾擎旗艦店（深業上城，免預約）+ 普渡體驗中心</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>南山歡樂海岸晚餐</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>量產場景、二級市場與 Pre-IPO</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>Day 2</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>南山群（核心）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>越疆 Dobot 交流 + 大疆旗艦店（歡樂海岸，免預約）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>騰訊 Robotics X（外部觀察）+ 機器人谷其餘上市企業</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>南山科技園社交</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>供應鏈採購、整機與資本對接</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>Day 3</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>龍崗／大學城群</p>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="content-wrapper">
+        <h2 class="reveal">重點報告節錄 (23/24)</h2>
+        <div class="bento-grid">
+
+          <div class="glass-card reveal">
+            <p>港中大（深圳）+ AIRS（airs@cuhk.edu.cn）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>大學城：哈工大深圳 / 清華 SIGS / 北大深研院</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>龍崗晚餐</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>聯合研究、靈巧手與開源平台合作</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>Day 4</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>寶安群</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>寶安具身智能港 + 華為創新中心（外部 + 生態夥伴）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>越疆／大族／華沿等寶安企業</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>寶安晚餐</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>新興載體、平台生態、量產合作</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>Day 5</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>南科大／光明群</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>南科大機器人研究院（戴建生院士）+ SIAT</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>樂聚（龍華中試線，預約）</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>返程 / 機動</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>靈巧手源頭技術、華為生態量產</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>交通分群說明：Day 1–2 集中於南山深圳灣（機器人谷、深業上城、歡樂海岸、科技園），步行與短程駕車即可串聯；Day 3 龍崗／大學城群（港中大深圳、AIRS、哈工大／清華／北大深研院）集中於龍崗；Day 4 寶安群（具身智能港、華為中心、越疆、大族、華沿）集中於寶安；Day 5 南科大與 SIAT 在南山西部、樂聚在龍華。若欲延伸，東莞松山湖 XbotPark 距深圳車程約 1 小時，可作為選訪一日（與松山湖科學城合併）。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>九、風險與注意事項</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>9.1 達闥機器人（CloudMinds）警示</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>⚠ 重要警示：達闥機器人（CloudMinds）位於上海閔行的展廳已於 2024 年底人去樓空，公司經營出現重大不確定性。本報告明確不建議將達闥列為上海考察目標，請勿安排相關行程，以免空跑。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>來源：證券時報網 https://stcn.com/article/detail/1629192.html</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>9.2 時效性風險</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>本賽道變動極快，估值、融資輪次與股東結構可能在數週內改變。報告中標示的若干動態（如開普勒 2026 年 5 月被收購中、眾擎 B 輪、華沿 2026 年 3 月上市）請於出行前再次核實最新狀態。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>9.3 預約與接待</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>國家級平台與頭部企業（國地中心、上海 AI Lab、智元臨港工廠、優必選總部、樂聚中試線、華為中心生態夥伴）通常需提前 3–4 週發正式函件預約，並可能要求簽署保密協議；建議行前 1 個月啟動預約，並備妥來訪目的與機構介紹。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>9.4 語言與文化</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>正式交流以普通話為主，技術文件多為簡體中文；本報告機構名稱已做中英／繁簡對照。建議攜帶中英雙語名片與機構簡介，重要會談可預備簡要技術需求清單以提升效率。</p>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+
+    <div class="slide">
+      <div class="content-wrapper">
+        <h2 class="reveal">重點報告節錄 (24/24)</h2>
+        <div class="bento-grid">
+
+          <div class="glass-card reveal">
+            <p>9.5 行程彈性</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>展會（WAIC）與企業接待時間可能臨時調整，建議每日保留至少半日彈性，並將免預約節點（漕河涇 4S 中心、眾擎旗艦店、大疆旗艦店）作為機動緩衝。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>9.6 交通與動線優化</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>上海內部建議以「同群同日」為原則，避免在浦東張江與徐匯西岸、閔行間多次來回穿梭；高峰時段跨區車程可能超過一小時，建議預留緩衝。深圳部分，南山深圳灣、寶安、龍崗三個核心群之間車程較長，務必依群集中拜訪，並善用地鐵（如 11 號線、深圳灣等）與預約商務車接駁，減少空轉。若納入松山湖 XbotPark，建議安排在深圳行程首尾兩端，依地理動線順道進出。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>十、結語</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>上海與深圳構成中國具身智能產業的雙核：上海以國家隊、頂尖學研與獨角獸總部定義「技術前沿與標準」，深圳以供應鏈、量產與密集上市企業決定「商業化速度與成本」。對聚焦靈巧手／移動操作 × 人形機器人的投資／合作考察者而言，最佳策略是「7 月赴滬抓源頭、9 月赴深抓量產」，並善用 WAIC 2026 的時機紅利與深圳免預約節點的便利性。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>落地執行上，請以本報告的四級分級名單為資源配置依據：必訪標的務必提前預約、深度交流；強烈推薦與推薦標的依地理分群高效串聯；選訪標的作為彈性緩衝。同時嚴守達闥警示與時效性核實原則，確保每一次拜訪都產出可決策的情報與可推進的合作機會。</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>十一、參考來源</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>上海｜孵化器與產業載體</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>國地中心 / OpenLoong：https://www.openloong.net/col.jsp?id=105</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>國地中心 / 世界機器人大會：https://www.worldrobotconference.com/expo/company/395.html</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>張江機器人谷 / 浦東政府：https://www.pudong.gov.cn/zwgk/syhj_zdgzkjw/2024/288/332982.html</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>張江機器人谷 / 科技日報：https://www.stdaily.com/web/gdxw/2025-12/16/content_447848.html</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>人形機器人創新孵化器 / 上海國際人才：https://www.sh-italent.com/Article/202507/202507040004.shtml</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>AI 小鎮鏈接基金 / 第一財經：https://www.yicai.com/news/102827226.html</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>AI 小鎮 / 解放日報：https://www.jfdaily.com/wx/detail.do?id=986093</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>模速空間 / 求是網：https://www.qstheory.cn/20250430/715540ee43c6408d886bcba124aa6031/c.html</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>上海｜學研與企業</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>上海 AI Lab 官網：https://www.shlab.org.cn/news/5444187</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>上海交大 MVIG：https://www.mvig.org</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>復旦 CIRAM：https://ciram.fudan.edu.cn/zcdw/list.htm</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>智元 AgiBot / 36 氪：https://pitchhub.36kr.com/project/2228936046528520</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>傅利葉 / 財聯社：https://www.cls.cn/detail/2042476</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>漕河涇 4S 中心 / 新浪財經：https://finance.sina.com.cn/stock/t/2025-07-03/doc-infefhcf3772415.shtml</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>達闥警示 / 證券時報：https://stcn.com/article/detail/1629192.html</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>深圳｜載體、學研與企業</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>深圳機器人產業數據 / 發改委：https://fgw.sz.gov.cn/ztzl/qtztzl/szscjmyjjfzzhfwpt/xwdt/content/post_12751501.html</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>深圳具身智能行動計劃 / 科創委：https://stic.sz.gov.cn/xxgk/tzgg/content/post_12052515.html</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>寶安具身智能港 / 人民網：http://sz.people.com.cn/n2/2025/0716/c202846-41292417.html</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>前海·寶安 AI 大會 / 深圳新聞網：https://www.sznews.com/news/content/2026-05/09/content_32042466.htm</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>華為創新中心 / 前海管理局：https://qh.sz.gov.cn/sygnan/qhzx/dtzx/content/post_11734159.html</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>XbotPark / 21 世紀經濟報導：https://www.21jingji.com/article/20260521/herald/71476965f36a105f69fead60fba5b126.html</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>南科大機器人研究院 / 羊城晚報：https://ysln.ycwb.com/content/2025-07/02/content_53506639.html</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>優必選官網：https://www.ubtrobot.com/cn/about/company-profile</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>眾擎 / 深圳市政府：https://www.sz.gov.cn/cn/xxgk/zfxxgj/gqdt/content/post_12487844.html</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>眾擎官網：https://www.engineai.com.cn/about-news-media/55.html</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>樂聚 / 21 世紀經濟報導：https://www.21jingji.com/article/20260508/herald/24c26da1601fcf6309583cd203dfd165.html</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>華為具身智能中心 / 第一財經：https://www.yicai.com/news/102359803.html</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>展會與時機情報</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>WAIC 2026 官方：https://worldaic.com.cn</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>WAIC 2026 / 展會資訊：https://www.shifair.com/wap/exhibition_details/index/id/4860.html</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>高交會排期 / 前瞻會展：https://meeting.qianzhan.com/summit/paiqi/4403</p>
+          </div>
+        
+          <div class="glass-card reveal">
+            <p>AGIC 2026 官方：https://www.agicexpo.com/Guide</p>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="nav-dots" id="dots"></div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const dotsContainer = document.getElementById('dots');
+    let current = 0;
+
+    slides.forEach((_, i) => {
+      const dot = document.createElement('div');
+      dot.className = `dot ${i === 0 ? 'active' : ''}`;
+      dot.onclick = () => goTo(i);
+      dotsContainer.appendChild(dot);
+    });
+    const dots = document.querySelectorAll('.dot');
+
+    function goTo(index) {
+      slides[current].classList.remove('active');
+      dots[current].classList.remove('active');
+      current = (index + slides.length) % slides.length;
+      slides[current].classList.add('active');
+      dots[current].classList.add('active');
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'Space') goTo(current + 1);
+      if (e.key === 'ArrowLeft') goTo(current - 1);
+    });
+  </script>
+</body>
+</html>
