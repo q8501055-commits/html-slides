@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>機器人服務應用的 Point of View (PoV)</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Mono&display=swap');
+
+    :root {
+      --bg-dark: #09090b;
+      --text-main: #f4f4f5;
+      --text-muted: #a1a1aa;
+      --accent-cyan: #00f0ff;
+      --accent-magenta: #ff003c;
+      --glass-bg: rgba(255, 255, 255, 0.03);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      
+      --space-sm: clamp(8px, 1.5vh, 16px);
+      --space-md: clamp(16px, 3vh, 32px);
+      --space-lg: clamp(24px, 5vh, 48px);
+      
+      --font-title: clamp(32px, 5vw, 64px);
+      --font-h2: clamp(24px, 3.5vw, 42px);
+      --font-h3: clamp(18px, 2.5vw, 28px);
+      --font-body: clamp(14px, 1.8vw, 18px);
+      --font-small: clamp(12px, 1.2vw, 14px);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%; height: 100%; height: 100dvh;
+      overflow: hidden;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'DM Sans', "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.6;
+    }
+
+    /* Ambient Background Effect */
+    .ambient-bg {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(0, 240, 255, 0.05) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 20%, rgba(255, 0, 60, 0.05) 0%, transparent 40%);
+      pointer-events: none;
+    }
+
+    #presentation {
+      position: relative; width: 100%; height: 100%; z-index: 1;
+    }
+
+    .slide {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      opacity: 0; visibility: hidden; pointer-events: none;
+      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      padding: var(--space-lg);
+    }
+
+    .slide.active {
+      opacity: 1; visibility: visible; pointer-events: auto;
+    }
+
+    .slide-content {
+      width: 100%; max-width: 1280px; max-height: 90vh;
+      display: flex; flex-direction: column; gap: var(--space-md);
+    }
+
+    /* Typography */
+    h1 { font-size: var(--font-title); font-weight: 700; letter-spacing: -1px; background: linear-gradient(90deg, #fff, #a1a1aa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    h2 { font-size: var(--font-h2); color: var(--accent-cyan); display: flex; align-items: center; gap: 12px; }
+    h2::before { content: ""; display: block; width: 8px; height: 100%; background: var(--accent-magenta); border-radius: 4px; }
+    h3 { font-size: var(--font-h3); color: #fff; margin-bottom: var(--space-sm); }
+    p { font-size: var(--font-body); color: var(--text-muted); }
+    strong { color: var(--text-main); font-weight: 500; }
+    
+    .tech-tag {
+      font-family: 'Space Mono', monospace; font-size: var(--font-small);
+      color: var(--accent-magenta); text-transform: uppercase; letter-spacing: 1px;
+    }
+
+    
+    
+    /* Mermaid High-Contrast Overrides */
+    .mermaid .edgePath .path { stroke: #ffffff !important; stroke-width: 2.5px !important; }
+    .mermaid marker path { fill: #ffffff !important; stroke: #ffffff !important; }
+    .mermaid .edgeLabel { color: #00f0ff !important; font-weight: 700 !important; background-color: transparent !important; font-size: 15px !important; text-shadow: 0 0 10px rgba(0,0,0,0.8), 0 0 20px rgba(0,0,0,0.8) !important; }
+    .mermaid .node rect, .mermaid .node circle, .mermaid .node polygon { fill: rgba(0, 240, 255, 0.1) !important; stroke: #00f0ff !important; stroke-width: 2px !important; box-shadow: 0 0 15px rgba(0,240,255,0.2) !important; }
+    .mermaid .node text { fill: #ffffff !important; font-weight: 700 !important; font-size: 16px !important; letter-spacing: 1px; }
+
+    /* Mermaid Overrides */
+    .mermaid { display: flex; justify-content: center; align-items: center; margin: 10px 0; }
+    .mermaid svg { max-height: 380px; width: 100%; max-width: 1100px; font-family: 'DM Sans', sans-serif !important; }
+
+    /* Layouts */
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-md); }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
+    
+    .card {
+      background: var(--glass-bg); border: 1px solid var(--glass-border);
+      border-radius: 16px; padding: var(--space-md);
+      backdrop-filter: blur(12px); box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    
+    ul { list-style: none; display: flex; flex-direction: column; gap: var(--space-sm); }
+    li { position: relative; padding-left: 20px; font-size: var(--font-body); color: var(--text-muted); }
+    li::before { content: "›"; position: absolute; left: 0; color: var(--accent-cyan); font-weight: bold; }
+
+    /* Controls */
+    .controls {
+      position: fixed; bottom: 20px; right: 20px; z-index: 10;
+      display: flex; gap: 12px; align-items: center;
+    }
+    .btn {
+      background: var(--glass-bg); border: 1px solid var(--glass-border);
+      color: #fff; width: 44px; height: 44px; border-radius: 50%;
+      display: flex; justify-content: center; align-items: center; cursor: pointer;
+      backdrop-filter: blur(4px); transition: all 0.2s;
+    }
+    .btn:hover { background: rgba(255,255,255,0.1); border-color: var(--accent-cyan); }
+    
+    .progress-bar { position: fixed; bottom: 0; left: 0; height: 4px; background: var(--accent-cyan); z-index: 10; transition: width 0.3s ease; }
+    
+    /* Reveal Animation Classes */
+    .slide.active .reveal { animation: fadeUp 0.6s ease forwards; opacity: 0; }
+    .slide.active .reveal:nth-child(1) { animation-delay: 0.1s; }
+    .slide.active .reveal:nth-child(2) { animation-delay: 0.2s; }
+    .slide.active .reveal:nth-child(3) { animation-delay: 0.3s; }
+    
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true, theme: 'dark', themeVariables: { fontFamily: 'DM Sans', primaryColor: '#18181b', primaryTextColor: '#f4f4f5', primaryBorderColor: '#00f0ff', lineColor: '#ffffff', secondaryColor: '#27272a', tertiaryColor: '#09090b'} });</script>
+</head>
+<body>
+  <div class="ambient-bg"></div>
+  <div class="progress-bar" id="progress"></div>
+
+  <div id="presentation">
+    
+    <!-- Slide 1: Title -->
+    <div class="slide active">
+      <div class="slide-content" style="align-items: center; text-align: center;">
+        <span class="tech-tag reveal">Point of View (PoV)</span>
+        <h1 class="reveal">機器人服務應用的典範轉移</h1>
+        <p class="reveal">從單一自動化到「具身智能」：服務業的下一波革命</p>
+        <div class="reveal card" style="margin-top: 40px; text-align: left; max-width: 600px;">
+          <p><strong>核心論述：</strong>機器人正在從工業領域的「重複性任務」，走向服務業與家庭的「通用型勞動力」。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2: Executive Summary 1 -->
+    <div class="slide">
+      <div class="slide-content">
+        <span class="tech-tag reveal">1.1 服務情境的變遷</span>
+        <h2 class="reveal">從「程式寫死」到「自主理解」</h2>
+        <div class="grid-2 reveal">
+          <div class="card">
+            <h3>過去的機器人</h3>
+            <p>在結構化環境（如工廠）中，按照既定程式（Hard-coded）執行單一重複任務。無法處理突發狀況，缺乏對非結構化環境的適應力。</p>
+          </div>
+          <div class="card" style="border-color: var(--accent-cyan);">
+            <h3>未來的具身智能</h3>
+            <p>透過多模態大模型（VLA），具備「感知、決策、執行」能力。能在未知環境中理解人類語意，處理泡咖啡、摺衣服、甚至複雜的商業服務。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3: Executive Summary 2 -->
+    <div class="slide">
+      <div class="slide-content">
+        <span class="tech-tag reveal">1.2 需求驅動 (System Dynamics)</span>
+        <h2 class="reveal">Market Pull：底層因果迴圈 (Causal Loop)</h2>
+        <div class="card reveal" style="text-align: center; overflow: visible;">
+          <div class="mermaid">
+            graph LR
+              A[高齡化 / 少子化趨勢] -->|勞動力供給減少 -| B(勞動力缺口擴大)
+              C[生活品質與服務需求提升] -->|勞動力需求增加 +| B
+              B -->|人力成本急遽攀升 +| D{企業與家庭的自動化剛需}
+              D -->|龐大資金與研發投入 +| E[AI與實體機器人技術突破]
+              E -->|促成 +| F(((通用型具身智能機器人)))
+              F -.->|填補勞力缺口 / 釋放人力 -| B
+          </div>
+          <p style="margin-top: 16px; font-size: var(--font-small); text-align: left; background: rgba(255,255,255,0.04); padding: 16px 24px; border-radius: 12px; border-left: 4px solid var(--accent-magenta);"><strong>系統動態解析：</strong>技術突破(Technology Push)只是催化劑，真正的底層驅動力是人口結構改變帶來的「勞動力缺口」。當人力成本越過臨界點，資本將強勢推動機器人填補這個負迴圈，形成不可逆的剛性需求。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 4: Tipping Point -->
+    <div class="slide">
+      <div class="slide-content">
+        <span class="tech-tag reveal">1.3 發展拐點</span>
+        <h2 class="reveal">引爆市場的三個技術拐點</h2>
+        <div class="grid-3 reveal">
+          <div class="card">
+            <h3>1. 認知能力的突破</h3>
+            <p>從傳統的程式碼控制轉向「具身智能 (Embodied AI)」。機器人開始具備常識推理與語意理解能力。</p>
+          </div>
+          <div class="card">
+            <h3>2. 硬體成本的斷崖下降</h3>
+            <p>電動車與消費性電子帶動供應鏈成熟。機器人硬體 BOM 成本預計在未來幾年內降至 2萬至3萬美元，甚至更低。</p>
+          </div>
+          <div class="card">
+            <h3>3. 投資市場的實證</h3>
+            <p>頂尖科技巨頭（微軟、NVIDIA、亞馬遜）與資本市場大量挹注資金，加速底層技術與商業場景的落地實證。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 5: Scenario - Home -->
+    <div class="slide">
+      <div class="slide-content">
+        <span class="tech-tag reveal">2.1 應用情境 - 住</span>
+        <h2 class="reveal">居家陪伴與家庭服務的因果驅動</h2>
+        <div class="card reveal" style="display: flex; flex-direction: column; gap: 20px; width: 100%;">
+          <div class="mermaid" style="width: 100%; margin: 0; display: flex; justify-content: center;">
+
+                graph LR
+                  A[雙薪家庭 / 核心家庭] -->|無暇處理繁雜家務 +| B(居家勞務痛點)
+                  C[居住空間立體化 / 物品非結構化] -->|傳統掃地機無法處理 +| B
+                  B -->|尋求全方位解決方案 +| D{渴望全能型居家管家}
+                  D -->|驅動發展 +| E(((通用型家政機器人)))
+                  E -->|需具備 +| F[語意理解與複雜抓取能力]
+                  F -.->|解決痛點 -| B
+              
+          </div>
+          <div style="background: rgba(255,255,255,0.04); padding: 20px 24px; border-radius: 12px; border-left: 4px solid var(--accent-cyan);">
+
+              <h3>未來家庭的終極管家</h3>
+              <p><strong>因為</strong>雙薪家庭無暇家務，且傳統掃地機器人無法處理立體空間（如摺衣服、收納），<br><strong>所以</strong>家庭勞務痛點不斷累積。<br><strong>因此，未來的機器人是</strong>具備語意理解與靈巧雙手的全能管家，能聽懂模糊指令並跨越樓層操作家電，直接打破居家勞務的死結。</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- Slide 6: Scenario - Care -->
+    <div class="slide">
+      <div class="slide-content">
+        <span class="tech-tag reveal">2.2 應用情境 - 醫療照護</span>
+        <h2 class="reveal">銀髮照護與醫療輔助的因果驅動</h2>
+        <div class="card reveal" style="display: flex; flex-direction: column; gap: 20px; width: 100%;">
+          <div class="mermaid" style="width: 100%; margin: 0; display: flex; justify-content: center;">
+
+                graph LR
+                  A[高齡人口激增] -->|照護需求大增 +| B(醫療照護系統過載)
+                  C[高壓勞損與低薪] -->|護理人員流失 -| B
+                  B -->|照護品質下降 / 成本失控 +| D{急需實體勞力替代}
+                  D -->|推動研發 +| E(((醫療與陪伴輔助機器人)))
+                  E -->|提供 +| F[粗重搬運與情緒陪伴]
+                  F -.->|減輕負擔 -| B
+              
+          </div>
+          <div style="background: rgba(255,255,255,0.04); padding: 20px 24px; border-radius: 12px; border-left: 4px solid var(--accent-cyan);">
+
+              <h3>高齡化社會的護理救星</h3>
+              <p><strong>因為</strong>高齡人口激增導致需求暴增，同時高壓環境讓護理人力不斷流失，<br><strong>所以</strong>醫療與長照系統面臨崩潰邊緣。<br><strong>因此，未來的機器人是</strong>能分擔粗重物理勞動（如翻身、搬運），同時結合 LLM 提供溫暖語音情緒陪伴的輔助者，從根本減輕護理人員勞損。</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- Slide 7: Scenario - Commercial -->
+    <div class="slide">
+      <div class="slide-content">
+        <span class="tech-tag reveal">2.3 應用情境 - 商業與食/衣</span>
+        <h2 class="reveal">商業空間與企業服務的因果驅動</h2>
+        <div class="card reveal" style="display: flex; flex-direction: column; gap: 20px; width: 100%;">
+          <div class="mermaid" style="width: 100%; margin: 0; display: flex; justify-content: center;">
+
+                graph LR
+                  A[服務業勞動密集] -->|年輕世代不願投入 +| B(基層服務缺工/流動率高)
+                  C[消費者要求即時/客製化] -->|服務壓力增加 +| B
+                  B -->|培訓成本高/服務不穩 +| D{尋求24H標準化勞力}
+                  D -->|引入 +| E(((模組化商用機器人)))
+                  E -->|串聯 IoT +| F[跨樓層全自動服務流]
+                  F -.->|穩定營運 -| B
+              
+          </div>
+          <div style="background: rgba(255,255,255,0.04); padding: 20px 24px; border-radius: 12px; border-left: 4px solid var(--accent-cyan);">
+
+              <h3>24H 無休的標準化員工</h3>
+              <p><strong>因為</strong>餐飲、飯店等服務業面臨極高的基層流動率與招募困難，<br><strong>所以</strong>培訓成本失控且服務品質無法維持。<br><strong>因此，未來的機器人是</strong>具備高度模組化的員工，白天接待導覽，晚上更換模組打掃巡邏，並深度整合建築 IoT，成為隨插即用的完美勞動力。</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- Slide 8: Scenario - Delivery -->
+    <div class="slide">
+      <div class="slide-content">
+        <span class="tech-tag reveal">2.4 應用情境 - 行 (物流)</span>
+        <h2 class="reveal">微型物流最後一哩路的因果驅動</h2>
+        <div class="card reveal" style="display: flex; flex-direction: column; gap: 20px; width: 100%;">
+          <div class="mermaid" style="width: 100%; margin: 0; display: flex; justify-content: center;">
+
+                graph LR
+                  A[電商與快商務爆發] -->|即時配送需求激增 +| B(最後一哩路配送瓶頸)
+                  C[交通法規/勞動法規] -->|人力外送成本上升 +| B
+                  B -->|壓縮企業利潤 +| D{尋求低成本全天候配送}
+                  D -->|自駕技術降維打擊 +| E(((無人車與無人機配送網)))
+                  E -->|實現 +| F[24H 高效區域網絡]
+                  F -.->|突破瓶頸 -| B
+              
+          </div>
+          <div style="background: rgba(255,255,255,0.04); padding: 20px 24px; border-radius: 12px; border-left: 4px solid var(--accent-cyan);">
+
+              <h3>自駕技術的降維打擊</h3>
+              <p><strong>因為</strong>電商即時配送需求爆發，但依賴人力的外送成本受限於法規與薪資不斷攀升，<br><strong>所以</strong>最後一哩路成為最昂貴的痛點。<br><strong>因此，未來的機器人是</strong>繼承了 Robotaxi 高階視覺技術的微型無人載具，在城市微血管中進行 24 小時無間斷的低成本接駁與搬運。</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- Slide 9: Embodied AI -->
+    <div class="slide">
+      <div class="slide-content">
+        <span class="tech-tag reveal">3.1 技術典範轉移</span>
+        <h2 class="reveal">具身智能 (Embodied AI)</h2>
+        <div class="card reveal">
+          <p>具身智能不只是「有大腦的機器人」，而是具備物理實體，能感知環境並採取行動的 AI。其核心典範轉移包含：</p>
+          <br>
+          <ul>
+            <li><strong>端到端神經網路 (End-to-End Neural Networks)：</strong>取代傳統的分散式模組（感知、規劃、控制），直接從視覺輸入映射到動作輸出（如 Tesla 的自駕邏輯），大幅降低延遲並提升泛化能力。</li>
+            <li><strong>混合架構 (Hybrid Architecture)：</strong>以 LLM/VLA 作為高層語意理解與任務拆解大腦，結合強化學習 (RL) 與傳統控制演算法負責底層的運動平衡，達到穩定性與智慧的平衡。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 10: Three Elements -->
+    <div class="slide">
+      <div class="slide-content">
+        <span class="tech-tag reveal">3.2 具身智能核心</span>
+        <h2 class="reveal">感知、決策與靈巧手</h2>
+        <div class="grid-3 reveal">
+          <div class="card">
+            <h3>感知 (Perception)</h3>
+            <p>不再依賴簡單的 2D 避障，而是建立即時的 3D 語意地圖。不僅知道「那裡有障礙物」，還知道「那是一個易碎的玻璃杯」。</p>
+          </div>
+          <div class="card" style="border-color: var(--accent-magenta);">
+            <h3>決策 (Decision)</h3>
+            <p>透過視覺-語言-動作大模型 (VLA)，將人類的模糊指令拆解為具體動作。例如：「幫我把蘋果洗乾淨」轉換為尋找、抓取、開水龍頭等連續行為。</p>
+          </div>
+          <div class="card">
+            <h3>靈巧手 (Dexterity)</h3>
+            <p>從傳統的夾爪進化為具備多自由度、觸覺感測的仿生機器手。這是在複雜人類環境中操作工具（如開門、拿筆）的關鍵瓶頸。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 11: Market Players - Tesla -->
+    <div class="slide">
+      <div class="slide-content">
+        <span class="tech-tag reveal">3.3.1 標竿企業佈局</span>
+        <h2 class="reveal">Tesla Optimus：降維打擊的硬體巨獸</h2>
+        <div class="grid-2 reveal">
+          <div class="card">
+            <h3>核心優勢</h3>
+            <ul>
+              <li><strong>自駕技術遷移：</strong>將 FSD 的視覺神經網路直接降維應用於機器人，無縫繼承龐大的數據與訓練架構。</li>
+              <li><strong>算力護城河：</strong>擁有 Dojo 超級電腦與海量 GPU 算力，支撐端到端模型的訓練。</li>
+              <li><strong>量產製造能力：</strong>電動車供應鏈與自動化產線經驗，使其具備將 BOM 成本壓至 2 萬美元以下的潛力。</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>實境佈局</h3>
+            <p>2025年起於自家工廠進行內部測試（搬運電池、零件），並宣示將大規模部署以取代重複性高危險勞力，是目前最具量產威脅的玩家。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 12: Market Players - Figure & Agility -->
+    <div class="slide">
+      <div class="slide-content">
+        <span class="tech-tag reveal">3.3.2 & 3.3.3 標竿企業佈局</span>
+        <h2 class="reveal">AI 賦能與 RaaS 商業化先驅</h2>
+        <div class="grid-2 reveal">
+          <div class="card">
+            <h3>Figure AI</h3>
+            <ul>
+              <li><strong>OpenAI 深度結盟：</strong>藉由 OpenAI 提供專屬 VLA 模型，讓 Figure 機器人具備極為驚人的語音對話與常識推理能力。</li>
+              <li><strong>BMW 工廠實測：</strong>已於 BMW 斯帕坦堡工廠進行實際操作測試，展現強大的動態學習能力。</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Agility Robotics (Digit)</h3>
+            <ul>
+              <li><strong>聚焦物流搬運：</strong>捨棄仿人外觀，專注於實用的搬運與物流場景（向後彎曲的膝關節設計）。</li>
+              <li><strong>RaaS 模式落地：</strong>與 Amazon、GXO 達成合作，提供 Robot-as-a-Service，以租代買，是商業化落地的領跑者。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 13: Strategy -->
+    <div class="slide">
+      <div class="slide-content">
+        <span class="tech-tag reveal">3.4 團隊定位</span>
+        <h2 class="reveal">Strategy Partnership 策略合作方向</h2>
+        <div class="card reveal">
+          <p>面對大廠競爭，企業應採取「生態系結盟」而非「重複造輪子」：</p>
+          <br>
+          <ul>
+            <li><strong>「傍大腦」策略 (AI 基礎模型)：</strong>與 OpenAI、Google 等底層大模型提供者合作，透過 API 獲取最強的常識決策大腦。</li>
+            <li><strong>「結硬體」策略 (實體機器人)：</strong>與 1X、Unitree 等硬體製造商進行 JDA (Joint Development Agreement)，針對特定行業場景進行硬體定製。</li>
+            <li><strong>「建生態」策略 (RaaS 平台)：</strong>開發類似 ROS (Robot Operating System) 的中介軟體或平台服務，為多品牌的機器人提供統一的調度與數據管理，成為服務提供商 (Service Provider)。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 14: Business Model -->
+    <div class="slide">
+      <div class="slide-content">
+        <span class="tech-tag reveal">4.1 商業模式</span>
+        <h2 class="reveal">RaaS (Robot-as-a-Service) 崛起</h2>
+        <div class="grid-2 reveal">
+          <div class="card">
+            <h3>B2B 企業端</h3>
+            <ul>
+              <li><strong>CapEx 轉 OpEx：</strong>企業不需一次性砸重金購買硬體，改為按月訂閱或按次計費（Pay-per-pick），大幅降低導入門檻。</li>
+              <li><strong>勞動力即服務 (Labor-as-a-Service)：</strong>客戶購買的是「生產力」而非「機器」。機器人透過 OTA 持續升級，硬體維護由原廠負責。</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>B2C 消費端</h3>
+            <ul>
+              <li><strong>硬體補貼 + 軟體訂閱：</strong>以接近成本價販售機器人硬體，透過後續的「家事包月服務」、「食譜技能包」等軟體訂閱獲利。</li>
+              <li><strong>技能商城 (Skills App Store)：</strong>開發者可撰寫特定的機器人技能（如：摺特定衣物、泡特定手沖咖啡）並上架銷售。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 15: Cost & Path -->
+    <div class="slide">
+      <div class="slide-content">
+        <span class="tech-tag reveal">4.2 普及路徑</span>
+        <h2 class="reveal">導入成本與 TCO 分析</h2>
+        <div class="card reveal">
+          <p>隨著電動車供應鏈與自駕技術的外溢，硬體成本將迎來陡峭的下降曲線：</p>
+          <br>
+          <ul>
+            <li><strong>供應鏈降維：</strong>LiDAR、伺服馬達、電池組等關鍵零組件成本已大幅滑落。例如中國企業 Unitree (宇樹) 宣稱可將成本壓至 1.3 萬美元以下。</li>
+            <li><strong>2025-2027 (B端導入期)：</strong>預估售價在 3~4 萬美元。若單機等同 2.4 個全職人力，在歐美高薪國家，ROI 預計 1 年內即可轉正。</li>
+            <li><strong>2028-2030 (C端爆發期)：</strong>當 BOM 成本降至 1.5 萬美元以下，搭配分期或 RaaS 模式，機器人將真正走入家庭，達到與買一輛家用車相當的經濟負擔能力。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 16: Conclusion -->
+    <div class="slide">
+      <div class="slide-content">
+        <span class="tech-tag reveal">4.3 挑戰與結論</span>
+        <h2 class="reveal">隱私法規挑戰與行動建言</h2>
+        <div class="grid-2 reveal">
+          <div class="card">
+            <h3>道德與隱私挑戰</h3>
+            <ul>
+              <li><strong>資料邊界：</strong>家庭環境資料高度敏感。需推動「邊緣運算 (Edge Computing)」，確保影像與個資不出外網。</li>
+              <li><strong>法規歸屬：</strong>當機器人因 AI 決策造成人員受傷或財產損失時，責任歸屬於硬體商、軟體提供者，還是使用者？（需導入機器人強制責任險）。</li>
+            </ul>
+          </div>
+          <div class="card" style="border-color: var(--accent-cyan);">
+            <h3>行動建言 (Action Items)</h3>
+            <ul>
+              <li><strong>場景為王 (Scene-as-a-Testbed)：</strong>掌握特定場景（如賣場、物流網）的企業，應開放作為試驗場，獲取第一手真實數據。</li>
+              <li><strong>模組化整合：</strong>建立「軟硬解耦」的架構，打造跨平台的調度系統，避免被單一硬體廠商綁定。</li>
+              <li><strong>人機協作 (Human-Robot Collaboration)：</strong>現階段不應強調「完全替代」，而是透過機器人解決痛點，放大既有人力的價值。</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="controls">
+    <button class="btn" id="prevBtn" title="Previous Slide">←</button>
+    <button class="btn" id="nextBtn" title="Next Slide">→</button>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const progressBar = document.getElementById('progress');
+    let currentSlide = 0;
+
+    function updateSlides() {
+      slides.forEach((slide, index) => {
+        if (index === currentSlide) {
+          slide.classList.add('active');
+        } else {
+          slide.classList.remove('active');
+        }
+      });
+      // Update progress bar
+      const progress = ((currentSlide) / (slides.length - 1)) * 100;
+      progressBar.style.width = `${progress}%`;
+    }
+
+    function nextSlide() {
+      if (currentSlide < slides.length - 1) {
+        currentSlide++;
+        updateSlides();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateSlides();
+      }
+    }
+
+    // Event Listeners for Buttons
+    document.getElementById('nextBtn').addEventListener('click', nextSlide);
+    document.getElementById('prevBtn').addEventListener('click', prevSlide);
+
+    // Event Listener for Keyboard
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft') {
+        prevSlide();
+      }
+    });
+
+    // Touch support (Swipe)
+    let touchStartX = 0;
+    let touchEndX = 0;
+    document.addEventListener('touchstart', e => {
+      touchStartX = e.changedTouches[0].screenX;
+    });
+    document.addEventListener('touchend', e => {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchStartX - touchEndX > 50) nextSlide();
+      if (touchEndX - touchStartX > 50) prevSlide();
+    });
+
+    // Initial call
+    updateSlides();
+  </script>
+</body>
+</html>
